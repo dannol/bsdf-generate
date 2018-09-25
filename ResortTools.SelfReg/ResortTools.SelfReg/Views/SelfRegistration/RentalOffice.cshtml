@@ -1,0 +1,21 @@
+﻿@model SelfRegistrationConfig
+
+<div id="rental-office-app" class="col-xs-12 full-height">
+    <div id="rental-office-content" class="row full-height">
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </div>
+</div>
+<script>
+    import progressmap from '../components/progress-map'
+    import navigation from '../components/navigation'
+</script>
+<script type="text/javascript">
+    //create a JS var based on the Pass Office configuration passed into the View
+    var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.PassOfficeConfig));
+</script>
+<script src="~/js/RentalOfficeApp.js">
+</script>
+
+

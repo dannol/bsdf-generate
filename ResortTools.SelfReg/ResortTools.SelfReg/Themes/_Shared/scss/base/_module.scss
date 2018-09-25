@@ -1,0 +1,8 @@
+﻿// base/_module
+// This file collects other styling for base
+// contains global styles, such as resets, typography, colors, etc.
+
+@import "functions"; // Functions required across all SCSS files
+@import "colors"; // Default colors. Can be overriden by theme
+@import "typography"; // Base site typography
+
