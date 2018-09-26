@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ResortTools.SelfReg.Models;
+using ResortTools.SelfReg.ViewModels;
 using ResortTools.SelfReg.Interfaces;
 using System.Collections.Generic;
 
@@ -39,7 +39,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpGet("firstname/{firstName}/lastname/{lastName}")]
         public ActionResult SearchByPersonalInfo(string firstName, string lastName)
         {
-            ContactModel model = new ContactModel();
+            ContactModelView model = new ContactModelView();
             model.FirstName = firstName;
             model.LastName = lastName;
 
@@ -58,7 +58,15 @@ namespace ResortTools.SelfReg.Controllers
         // Add a new contact
         // POST: api/contact
         [HttpPost]
-        public ActionResult Post([FromBody] ContactModel contact)
+        public ActionResult Add([FromBody] ContactModelView contact)
+        {
+            return new JsonResult(_contactService.AddContact(contact));
+        }
+
+        // Update a new contact
+        // POST: api/contact/update
+        [HttpPost("update")]
+        public ActionResult Update([FromBody] ContactModelView contact)
         {
             return new JsonResult(_contactService.AddContact(contact));
         }
@@ -66,7 +74,7 @@ namespace ResortTools.SelfReg.Controllers
         // Add a new group member to an account
         // POST: api/contact/123/addgroupmember
         [HttpPost("{accountId}/addgroupmember")]
-        public ActionResult Post([FromBody] ContactModel member, int accountId)
+        public ActionResult Post([FromBody] ContactModelView member, int accountId)
         {
             return new JsonResult(_contactService.AddGroupMember(member, accountId));
         }

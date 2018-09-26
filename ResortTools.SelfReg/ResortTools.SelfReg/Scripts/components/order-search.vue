@@ -6,9 +6,11 @@
 
         <div id="order-search-page-screen" class="full-screen full-height">
             <div class="outer-panel">
+                <a href="./" class="start-over-btn">Start Over</a>
+                <h3 class="page-title">Search By Order </h3>
                 <div class="inner-panel center-in-parent">
                     <div class="col-xs-12" v-if="results.length == 0">
-                        <h3>Search By Order </h3>
+
                         <label for="order-id">Input Order ID:</label>
                         <input v-model="orderId" name="order-id" type="text" />
                         <div v-on:click="search" class="btn btn-primary" :disabled="orderId == null">Search</div>
@@ -34,8 +36,6 @@
     import navigation from '../components/navigation'
     import progressmap from '../components/progress-map'
 
-
-
     export default {
         name: 'order-search',
         data: function () {
@@ -51,6 +51,9 @@
         },
         methods: {
             search: function () {
+                this.$store.dispatch('contact/searchByOrder', this.orderId)
+            },
+            loadContacts: function () {
                 this.$store.dispatch('contact/searchByOrder', this.orderId)
             }
 

@@ -5,8 +5,10 @@ import start from '../components/start'
 import ordersearch from '../components/order-search'
 import scancard from '../components/scan-card'
 import accountsearch from '../components/account-search'
-import group from '../components/group'
-//import addMember from '../components/add-member'
+import manageGroup from '../components/manage-group'
+import groupMemberList from '../components/group-member-list'
+import addGroupMember from '../components/add-group-member'
+import updateGroupMember from '../components/update-group-member'
 import selectMembers from '../components/select-members'
 import waiver from '../components/waiver'
 import complete from '../components/complete'
@@ -16,23 +18,41 @@ var routesFromConfig = [];
 const routes = [
     {
         path: '/ordersearch',
-        name: 'OrderSearch',
+        name: 'orderSearch',
         component: ordersearch
     },
     {
         path: '/accountsearch',
-        name: 'AccountSearch',
+        name: 'accountSearch',
         component: accountsearch
     },
     {
         path: '/scancard',
-        name: 'Scan Card',
+        name: 'scanCard',
         component: scancard
     },
     {
-        path: '/group',
-        name: 'Group',
-        component: group
+        path: '/manage-group',
+        name: 'manageGroup',
+        component: manageGroup,
+        children: [{
+            path: '',
+            name: 'groupMemberList',
+            component: groupMemberList,
+            props: true
+        },
+        {
+            path: 'add',
+            name: 'addGroupMember',
+            component: addGroupMember
+        },
+        {
+            path: 'update',
+            name: 'updateGroupMember',
+            component: updateGroupMember,
+            props: true
+        }
+        ]
     },
     {
         path: '/waivers',
@@ -46,17 +66,17 @@ const routes = [
     //},
     {
         path: '/selectMembers',
-        name: 'SelectMembers',
+        name: 'selectMembers',
         component: selectMembers
     },
     {
         path: '/complete',
-        name: 'Complete',
+        name: 'complete',
         component: complete
     },
     {
         path: '/',
-        name: "Start",
+        name: "start",
         component: start
     }
 ]

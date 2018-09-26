@@ -1,25 +1,14 @@
-﻿
-<template>
+﻿<template>
     <div>
-        <aside class="left-nav full-height">
+        <aside id="progress-map-container" class="left-nav full-height">
             <progressmap></progressmap>
         </aside>
-        <div class="manage-group full-height">
-            <div class="group-main-panel">
-                <div class="group-inner-panel center-in-parent">
-                    <div v-for="member in members">
-                        {{member.firstName}} {{member.lastName}}
-                    </div>
-                    <div v-if="!addingMember" class="center-in-parent">
-                        <div>
-                            <span class="btn btn-warning" v-on:click="completeStep">Looks Good</span>
-                        </div>
-                        <div>
-                            <span class="btn btn-warning" v-on:click="addMember">Add Member</span>
-                        </div>
-
-                    </div>
-                    <addmember v-if="addingMember"></addmember>
+        <div id="group-screen" class="full-screen full-height">
+            <div class="outer-panel">
+                <a href="./" class="start-over-btn">Start Over</a>
+                <h3 class="page-title">Manage Family</h3>
+                <div id="group-management-panel" class="inner-panel center-in-parent">
+                    <router-view></router-view>
                     <navigation></navigation>
                 </div>
             </div>
@@ -49,13 +38,16 @@
     import store from '../vuex/self-registration-store'
     import progressmap from '../components/progress-map'
     import navigation from '../components/navigation'
-    import addmember from '../components/add-member'
+    //import addmember from '../components/add-member'
+    //import updatemember from '../components/update-member'
 
     export default {
-        name: 'member-list',
+        name: 'manage-group',
         data: function () {
             return {
-                addingMember: false
+                addingMember: false,
+                updatingMember: false,
+                selectedMember: null
             }
         },
         computed: {
@@ -66,7 +58,7 @@
             })
         },
         mounted: function () {
-            this.$store.dispatch('group/searchByAccountId', 123)
+            //this.loadMembers()
         },
         methods: {
             completeStep: function () {
@@ -74,12 +66,19 @@
             },
             addMember: function () {
                 this.addingMember = true
+            },
+            updateMember: function (member) {
+                this.selectedMember = member
+                this.updatingMember = true
+
+            },
+            loadMembers: function () {
+                this.$store.dispatch('group/searchByAccountId', this.thisContact.accountId)
             }
         },
         components: {
             progressmap,
-            navigation,
-            addmember
+            navigation
         },
 
     }

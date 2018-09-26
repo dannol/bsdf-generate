@@ -16,7 +16,7 @@
 
             <div>
                 <a v-on:click="addMember" class=" btn btn-warning">Add</a>
-                <a v-on:click="cancel" class=" btn btn-warning">Cancel</a>
+                <router-link :to="{ name: 'manageGroup' }" tag="Span" class="btn btn-warning">Cancel</router-link>
             </div>
         </div>
     </div>
@@ -27,13 +27,13 @@
     import store from '../vuex/self-registration-store'
 
     export default {
-        name: 'add-member',
+        name: 'add-group-member',
         data: function () {
             return {
                 newMember: {
                     firstName: null,
                     lastName: null,
-                    contactPhotoUrl: '/images/headshot-silhouette.jpg'
+                    photoUrl: '/images/headshot-silhouette.jpg'
                 }
             }
         },
@@ -48,10 +48,7 @@
                 var member = this.newMember
                 var accountId = this.thisContact.accountId
                 this.$store.dispatch('group/addMember', {member, accountId} )
-                this.$parent.addingMember = false
-            },
-            cancel: function () {
-                this.$parent.addingMember = false
+                this.$router.push({ name: 'groupMemberList', params: {reloadMembers: false}})
             }
         }
     }

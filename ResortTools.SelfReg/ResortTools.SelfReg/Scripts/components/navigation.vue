@@ -2,7 +2,6 @@
     <div class="col-xs-12 navigation">
         <a :href="'./#' + previousStep.route" class="btn btn-primary" v-if="previousStep !== null && previousStep.stepNumber !== 0"> << {{previousStep.name}}</a>
         <a :href="'./#' + nextStep.route" class="btn btn-primary" :disabled="!currentStep.stepComplete" v-if="nextStep !== null && nextStep.stepNumber > 1">{{nextStep.name}} >></a>
-        <a href="./" class="btn btn-primary">Start Over</a>
     </div>
 </template>
 

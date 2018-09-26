@@ -34,7 +34,7 @@ const actions = {
         console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + accountId)
         var addMemberUrl = '/api/contact/' + accountId + '/addgroupmember'
         if (member) {
-            var newMember = { firstName: member.firstName, lastName: member.lastName, photoUrl: member.contactPhotoUrl, selected: false, waiverSigned: false }
+            var newMember = { firstName: member.firstName, lastName: member.lastName, photoUrl: member.photoUrl, selected: false, waiverSigned: false }
             var postData = {newMember, accountId};
             console.log('URL ' + addMemberUrl)
             return new Promise((resolve, reject) => {
@@ -48,6 +48,22 @@ const actions = {
             });
 
             
+        }
+    },
+    updateMember({ state, getters, commit, dispatch }, member) {
+        if (member) {
+            console.log('Updating ' + member.firstName + ' ' + member.lastName)
+            var updateMemberUrl = '/api/contact/update'
+            return new Promise((resolve, reject) => {
+                dispatch('api/post',
+                    { url: updateMemberUrl, data: member, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { root: true }
+                ).then(data => {
+                    resolve(data)
+                }).catch(err => alert(err));
+            });
+
+
         }
     },
     searchByAccountId({ state, getters, commit, dispatch }, accountId) {

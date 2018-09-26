@@ -8,7 +8,7 @@
             <div class="outer-panel">
                 <div class="inner-panel center-in-parent">
                     <div class="col-xs-12" v-if="results.length == 0">
-                        <h3>Scan your JCard at any time</h3>
+                        <h3>Scan your Card at any time</h3>
                         <img src="/images/cardsilhouette.png" />
                     </div>
                     <div class="col-xs-12">

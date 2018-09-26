@@ -93,13 +93,14 @@ const actions = {
         var dataType = 'application/json; charset=utf-8';
 
         var postData = {
-            FirstName: contact.firstName,
+            AccountId: 1,
             LastName: contact.lastName,
-            ContactPhotoUrl: 'sdfsd',
+            FirstName: contact.firstName,
             Hometown: 'abc',
-            OrderArrivalDate: 'abc',
-            JCardNumber: 'abc',
-            PhotoUrl: 'abc'
+            OrderArrivalDate: null,
+            CardNumber: 'abc',
+            PhotoUrl: 'abc',
+            DateOfBirth: null
         }
 
         return new Promise((resolve, reject) => {

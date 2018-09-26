@@ -32,9 +32,6 @@ body::after {
     z-index: -1;
 }
 
-.page-header {
-    padding: 15px;
-}
 
 .left-nav {
     width: 100px;
@@ -103,6 +100,23 @@ img.aside-logo {
         height: calc(100% - 100px);
         padding: 100px;
         text-align: center;
+
+        .start-over-btn {
+            width: 100px;
+            padding: 5px;
+            border: 1px solid lightgrey;
+            background-color:dimgrey;
+            color: white;
+            position: absolute;
+            top: 50px;
+            right: 50px;
+        }
+
+        .page-title {
+            color: crimson;
+            font-size: 30px;
+            padding-bottom: 15px;
+        }
 
         .inner-panel {
             width: 800px;

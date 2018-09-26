@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResortTools.SelfReg.Models;
+using ResortTools.SelfReg.ViewModels;
 using System.Collections.Generic;
 
 namespace ResortTools.SelfReg.Controllers
@@ -9,48 +10,48 @@ namespace ResortTools.SelfReg.Controllers
     public class GroupController : ControllerBase
     {
         // GET: api/contact/firstname/John/lastname/Smith
-        [HttpGet("accountid/{accountId}")]
-        public ActionResult SearchByAccountId(int accountId)
-        {
-            SearchResult<ContactModel> result = new SearchResult<ContactModel>();
+        //[HttpGet("accountid/{accountId}")]
+        //public ActionResult SearchByAccountId(int accountId)
+        //{
+        //    SearchResult<ContactModelView> result = new SearchResult<ContactModelView>();
 
-            List<ContactModel> contacts = new List<ContactModel>();
-            ContactModel Wife = new ContactModel();
-            Wife.FirstName = "Wife";
-            Wife.LastName = "Smith";
-            Wife.Hometown = "Colorado Springs, CO";
-            Wife.OrderArrivalDate = null;
-            Wife.JCardNumber = "xxxxxxxx-123";
-            Wife.PhotoUrl = "/images/Wife.jpg";
-            contacts.Add(Wife);
-            ContactModel Steve = new ContactModel();
-            Steve.FirstName = "Child1";
-            Steve.LastName = "Smith";
-            Steve.Hometown = "Boise, ID";
-            Steve.OrderArrivalDate = "April 4, 2019";
-            Steve.JCardNumber = null;
-            Steve.PhotoUrl = "/images/Steve.jpg";
-            contacts.Add(Steve);
-            ContactModel William = new ContactModel();
-            William.FirstName = "Child2";
-            William.LastName = "Smith";
-            William.Hometown = null;
-            William.OrderArrivalDate = null;
-            William.JCardNumber = null;
-            William.PhotoUrl = "/images/William.jpg";
-            contacts.Add(William);
+        //    List<ContactModelView> contacts = new List<ContactModelView>();
+        //    ContactModelView Wife = new ContactModelView();
+        //    Wife.FirstName = "Wife";
+        //    Wife.LastName = "Smith";
+        //    Wife.Hometown = "Colorado Springs, CO";
+        //    Wife.OrderArrivalDate = null;
+        //    Wife.CardNumber = "xxxxxxxx-123";
+        //    Wife.PhotoUrl = "/images/Wife.jpg";
+        //    contacts.Add(Wife);
+        //    ContactModelView Steve = new ContactModelView();
+        //    Steve.FirstName = "Child1";
+        //    Steve.LastName = "Smith";
+        //    Steve.Hometown = "Boise, ID";
+        //    Steve.OrderArrivalDate = "April 4, 2019";
+        //    Steve.CardNumber = null;
+        //    Steve.PhotoUrl = "/images/Steve.jpg";
+        //    contacts.Add(Steve);
+        //    ContactModelView William = new ContactModelView();
+        //    William.FirstName = "Child2";
+        //    William.LastName = "Smith";
+        //    William.Hometown = null;
+        //    William.OrderArrivalDate = null;
+        //    William.CardNumber = null;
+        //    William.PhotoUrl = "/images/William.jpg";
+        //    contacts.Add(William);
 
-            result.Results = contacts;
+        //    result.Results = contacts;
 
-            return new JsonResult(result);
+        //    return new JsonResult(result);
 
-        }
+        //}
 
         // POST: api/Group
         [HttpPost("addMember/firstname/{firstName}/lastname/{lastname}")]
         public void Post([FromBody] string firstName, string lastName)
         {
-            ContactModel newContact = new ContactModel();
+            ContactModelView newContact = new ContactModelView();
             newContact.FirstName = firstName;
             newContact.LastName = lastName;
         }

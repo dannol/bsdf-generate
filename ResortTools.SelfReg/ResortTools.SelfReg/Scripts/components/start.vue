@@ -17,7 +17,7 @@
                         <a href="./#/scancard">
                             <div id="scan-panel" class="start-panel">
                                 <h2>SCAN</h2>
-                                <h4>Jcard</h4>
+                                <h4>card</h4>
                             </div>
                         </a>
                         <a href="./#/accountsearch">

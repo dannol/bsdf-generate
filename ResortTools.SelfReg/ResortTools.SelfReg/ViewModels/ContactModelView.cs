@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace ResortTools.SelfReg.Models
+namespace ResortTools.SelfReg.ViewModels
 {
 
-    public class ContactModel
+    public class ContactModelView
     {
         public int AccountId { get; set; }
         public String LastName { get; set; }
         public String FirstName { get; set; }
-        public String ContactPhotoUrl { get; set; }
         public String Hometown { get; set; }
-        public String OrderArrivalDate { get; set; }
-        public String JCardNumber { get; set; }
+        public DateTime? OrderArrivalDate { get; set; }
+        public String CardNumber { get; set; }
         public String PhotoUrl { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
     }
     
