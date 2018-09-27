@@ -2,13 +2,13 @@
 
 const state = {
     results: [],
-    thisContact: null,
+    selectedContact: null,
     saveBillingAddressUrl: '/api/contact',
 }
 
 const getters = {
     results: state => state.results,
-    thisContact: state => state.thisContact
+    selectedContact: state => state.selectedContact
 }
 
 const mutations = {
@@ -18,29 +18,22 @@ const mutations = {
     },
 
     setContact(state, contact) {
-        state.thisContact = contact
+        state.selectedContact = contact
     },
-    addContact(state, newContact) {
+    updateSearchResult(state, updatedContact) {
+        var i 
+        for (i = 0; i < state.results.length; i++) {
+            if (state.results[i].accountId === updatedContact.accountId) {
+                state.results[i] = updatedContact
+            }
+        }
 
-        state.results = []
-        state.results.push({ firstName: newContact.firstName, lastName: newContact.lastName, selected: false })
-
-        //var contactApiUrl = '/api/contact/' + newContact.firstName
-        console.log('This is where I would have added a contact' + newContact.firstName + ' ' + newContact.lastName)
-
-        //dispatch('api/post',
-        //    { url: contactApiUrl },
-        //    { root: true }
-        //).then(data => {
-        //    commit('setSearchResults', data)
-        //})
     }
 }
 
 const actions = {
 
     searchByAccountId({ state, getters, commit, dispatch }, accountId) {
-
         var newContact = null;
         var contactApiUrl = '/api/contact/accountId/' + accountId
 
@@ -54,7 +47,7 @@ const actions = {
                 resolve(data)
             })
         })
-        
+
     },
     searchByOrder({ state, getters, commit, dispatch }, orderId) {
 
@@ -82,41 +75,45 @@ const actions = {
             commit('setSearchResults', data.results)
         })
     },
-    saveContact({
+    addContact({
         state,
         getters,
         commit,
         dispatch
     }, contact) {
-
-        var addContactUrl = '/api/contact'
-        var dataType = 'application/json; charset=utf-8';
-
-        var postData = {
-            AccountId: 1,
-            LastName: contact.lastName,
-            FirstName: contact.firstName,
-            Hometown: 'abc',
-            OrderArrivalDate: null,
-            CardNumber: 'abc',
-            PhotoUrl: 'abc',
-            DateOfBirth: null
+        var addContactUrl = '/api/contact/add'
+        var dataType = 'application/json; charset=utf-8'
+        if (contact) {
+            return new Promise((resolve, reject) => {
+                dispatch('api/post',
+                    { url: addContactUrl, data: contact, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { root: true }
+                ).then(data => {
+                    state.results = []
+                    state.results.push(data.updatedRecord)
+                    resolve(data)
+                }).catch(err => console.log('Error adding contact: ' + err));
+            });
         }
 
-        return new Promise((resolve, reject) => {
-            dispatch('api/post',
-                { url: addContactUrl, data: JSON.stringify(postData), config: { headers: { 'Content-Type': 'application/json' } } },
-                { root: true }
-            ).then(data => {
-                dispatch('searchByAccountId', data.recordId).then(contactData => {
-                    commit('addContact', contactData.results[0])
+    },
+    updateContact({ state, getters, commit, dispatch }, contact) {
+        if (contact) {
+            console.log('Updating Contact ' + contact.accountId)
+            var updateContactUrl = '/api/contact/update'
+            return new Promise((resolve, reject) => {
+                dispatch('api/post',
+                    { url: updateContactUrl, data: contact, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { root: true }
+                ).then(data => {
+                    //Once contact record is updated, update the search results                 
+                    commit('updateSearchResult', contact)
+                    //Let the calling function know proessing is complete
                     resolve(data)
-                })
-                
-            }).catch(err => console.log('Error adding contact: ' + err));
-        });
-
-    }
+                }).catch(err => alert(err));
+            });
+        }
+    },
 }
 
 export default {

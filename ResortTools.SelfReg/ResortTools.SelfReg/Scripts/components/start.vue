@@ -8,7 +8,7 @@
                 <div class="inner-panel center-in-parent">
                     <div class="start-page-title">GET STARTED</div>
                     <div id="start-panels">
-                        <a href="./#/ordersearch">
+                        <a href="./#/manage-contact/search-by-order">
                             <div id="type-panel" class="start-panel">
                                 <h2>TYPE</h2>
                                 <h4>order number</h4>
@@ -20,7 +20,7 @@
                                 <h4>card</h4>
                             </div>
                         </a>
-                        <a href="./#/accountsearch">
+                        <a href="./#/manage-contact/search-by-personal-info">
                             <div id="search-panel" class="start-panel">
                                 <h2>SEARCH</h2>
                                 <h4>name and birth date</h4>

@@ -9,15 +9,7 @@
                 <a href="./" class="start-over-btn">Start Over</a>
                 <h3 class="page-title">Search By Order </h3>
                 <div class="inner-panel center-in-parent">
-                    <div class="col-xs-12" v-if="results.length == 0">
-
-                        <label for="order-id">Input Order ID:</label>
-                        <input v-model="orderId" name="order-id" type="text" />
-                        <div v-on:click="search" class="btn btn-primary" :disabled="orderId == null">Search</div>
-                    </div>
-                    <div class="col-xs-12">
-                        <contactsearchresults v-if="results.length > 0"></contactsearchresults>
-                    </div>
+                   <router-view></router-view>
                     <navigation></navigation>
                 </div>
             </div>

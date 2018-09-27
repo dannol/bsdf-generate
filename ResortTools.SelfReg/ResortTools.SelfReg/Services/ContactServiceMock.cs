@@ -168,21 +168,13 @@ namespace ResortTools.SelfReg.Services
 
         public UpdateResult<ContactModelView> AddContact(ContactModelView Contact)
         {
+            //TODO: Fake data
+            Contact.AccountId = 99;
+
             UpdateResult<ContactModelView> result = new UpdateResult<ContactModelView>
             {
                 Status = "OK",
-                RecordId = 123
-            };
-
-            return result;
-        }
-
-        public UpdateResult<ContactModelView> AddGroupMember(ContactModelView Member, int AccountId)
-        {
-            UpdateResult<ContactModelView> result = new UpdateResult<ContactModelView>
-            {
-                Status = "OK",
-                RecordId = 123
+                UpdatedRecord = Contact
             };
 
             return result;
@@ -190,10 +182,11 @@ namespace ResortTools.SelfReg.Services
 
         public UpdateResult<ContactModelView> UpdateContact(ContactModelView Contact)
         {
+
             UpdateResult<ContactModelView> result = new UpdateResult<ContactModelView>
             {
                 Status = "OK",
-                RecordId = Contact.AccountId
+                UpdatedRecord = Contact
             };
 
             return result;

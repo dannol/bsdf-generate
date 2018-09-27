@@ -1,5 +1,6 @@
 ﻿<template>
     <div>
+        <!--Manage Group Step-->
         <aside id="progress-map-container" class="left-nav full-height">
             <progressmap></progressmap>
         </aside>
@@ -38,42 +39,24 @@
     import store from '../vuex/self-registration-store'
     import progressmap from '../components/progress-map'
     import navigation from '../components/navigation'
-    //import addmember from '../components/add-member'
-    //import updatemember from '../components/update-member'
 
     export default {
         name: 'manage-group',
         data: function () {
             return {
-                addingMember: false,
-                updatingMember: false,
                 selectedMember: null
             }
         },
         computed: {
             ...mapGetters({
-                thisContact: 'contact/thisContact',
+                thisContact: 'contact/selectedContact',
                 members: 'group/members',
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },
-        mounted: function () {
-            //this.loadMembers()
-        },
         methods: {
             completeStep: function () {
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
-            },
-            addMember: function () {
-                this.addingMember = true
-            },
-            updateMember: function (member) {
-                this.selectedMember = member
-                this.updatingMember = true
-
-            },
-            loadMembers: function () {
-                this.$store.dispatch('group/searchByAccountId', this.thisContact.accountId)
             }
         },
         components: {

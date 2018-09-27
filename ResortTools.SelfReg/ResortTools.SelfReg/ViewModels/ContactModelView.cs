@@ -5,7 +5,7 @@ namespace ResortTools.SelfReg.ViewModels
 
     public class ContactModelView
     {
-        public int AccountId { get; set; }
+        public int? AccountId { get; set; }
         public String LastName { get; set; }
         public String FirstName { get; set; }
         public String Hometown { get; set; }

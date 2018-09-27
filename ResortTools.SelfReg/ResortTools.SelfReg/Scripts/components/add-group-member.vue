@@ -39,7 +39,7 @@
         },
         computed: {
             ...mapGetters({
-                thisContact: 'contact/thisContact',
+                thisContact: 'contact/selectedContact',
                 members: 'group/memberList'
             })
         },

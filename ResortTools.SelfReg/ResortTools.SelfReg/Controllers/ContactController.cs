@@ -56,8 +56,8 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Add a new contact
-        // POST: api/contact
-        [HttpPost]
+        // POST: api/contact/add
+        [HttpPost("add")]
         public ActionResult Add([FromBody] ContactModelView contact)
         {
             return new JsonResult(_contactService.AddContact(contact));
@@ -68,7 +68,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("update")]
         public ActionResult Update([FromBody] ContactModelView contact)
         {
-            return new JsonResult(_contactService.AddContact(contact));
+            return new JsonResult(_contactService.UpdateContact(contact));
         }
 
         // Add a new group member to an account
@@ -76,7 +76,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("{accountId}/addgroupmember")]
         public ActionResult Post([FromBody] ContactModelView member, int accountId)
         {
-            return new JsonResult(_contactService.AddGroupMember(member, accountId));
+            return new JsonResult(_contactService.AddContact(member));
         }
 
         // PUT: api/Test/5

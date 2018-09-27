@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div class="col-xs-9">
-            <h4>Update {{thisContact.firstName}} {{thisContact.LastName}}</h4>
+            <h4>Update {{thisContact.firstName}} {{thisContact.lastName}}</h4>
             <div>
                 <img :src="thisContact.photoUrl" />
             </div>
@@ -16,7 +16,7 @@
 
             <div>
                 <a v-on:click="updateContact" class=" btn btn-warning">Update</a>
-                <a v-on:click="cancel" class=" btn btn-warning">Cancel</a>
+                <router-link :to="{ name: 'contactList'}" tag="a" class="btn btn-warning">Cancel</router-link>
             </div>
         </div>
     </div>
@@ -30,20 +30,22 @@
         name: 'update-contact',
         data: function () {
             return {
-
+               // Data Here
             }
-        },
-        computed: {
-            thisMember: function () { return this.$parent.selectedMember }
         },
         methods: {
             updateContact: function () {
-                this.$store.dispatch('contact/updateContact', this.thisContact)
-                this.$parent.updatingContact = false
-            },
-            cancel: function () {
-                this.$parent.loadContacts()
-                this.$parent.updatingContact = false
+                this.$store.dispatch('contact/updateContact', this.thisContact).then(data => {
+                    //Go back to the contact list once all processing is complete
+                    this.$router.push({ name: 'contactList', params: { reloadMembers: true } })
+                })
+                
+            }
+        },
+        props: {
+            thisContact: {
+                type: Object,
+                default: null
             }
         }
     }

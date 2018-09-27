@@ -1,13 +1,13 @@
 ﻿<template>
     <div>
-        <form id="select-contact"  v-if="!addingContact && !updatingContact">
+        <form id="select-contact">
             <fieldset class="col-xs-12">
                 <div>
-                    <h2>{{results.length}} Matches Found</h2>
+                    <h2>{{contacts.length}} Matches Found</h2>
                     Looks like you may have been here before.<br />
                     Select name below.
                 </div>
-                <div v-for="(contact, index) in results" class="row contact-search-result">
+                <div v-for="(contact, index) in contacts" class="row contact-search-result">
                     <div class="col-xs-1">
                         <input type="radio" name="search-result" v-on:click="selectContact(contact)" />
                     </div>
@@ -25,15 +25,15 @@
                         <div v-if="contact.CardNumber != null" class="search-result-card"><img src="/images/card-small-black.png"><div>{{contact.jCardNumber}}</div></div>
                         <div v-else class="search-result-order-date"><img src="/images/card-small-grey.png"><div>No Card</div></div>
                     </div>
-                    <div class="col-xs-2"><span class="btn btn-warning" v-on:click="updateContact(contact)">Update</span></div>
+                    <div class="col-xs-2">
+                        <a v-on:click="updateContact(contact)" class="btn btn-warning">Update</a>
+                    </div>
                 </div>
                 <div>
-                    <a class="btn btn-warning" v-on:click="addContact">I'm Not Listed</a>
+                    <router-link :to="{ name: 'addContact' }" tag="a" class="btn btn-warning">I'm not listed</router-link>
                 </div>
             </fieldset>
         </form>
-        <addcontact v-if="addingContact"></addcontact>
-        <updatecontact v-if="updatingContact"></updatecontact>
     </div>
 </template>
 
@@ -41,22 +41,18 @@
 
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store'
-    import addcontact from '../components/add-contact'
-    import updatecontact from '../components/update-contact'
 
 
     export default {
-        name: 'contact-search-results',
+        name: 'contact-list',
         data: function () {
             return {
-                addingContact: false,
-                updatingContact: false,
                 selectedContact: null
             }
         },
         computed: {
             ...mapGetters({
-                results: 'contact/results',
+                contacts: 'contact/results',
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },
@@ -64,24 +60,15 @@
             completeStep: function () {
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
             },
-            addContact: function () {
-                this.addingContact = true
-            },
             selectContact: function (contact) {
                 this.$store.commit('contact/setContact', contact)
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
             },
             updateContact: function (contact) {
-                this.selectedContact = contact
-                this.updatingContact = true
-            },
-            loadContacts: function () {
-                this.$parent.loadContacts()
+                //We need a copy of the contact object to send the update in case the update is cancelled
+                this.selectedContact = Object.assign({}, contact)
+                this.$router.push({ name: 'updateContact', params: { thisContact: this.selectedContact } })
             }
-        },
-        components: {
-            addcontact,
-            updatecontact
         }
     }
 </script>

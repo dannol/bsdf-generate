@@ -9,7 +9,7 @@
         <div class="center-in-parent">
             <div>
                 <span class="btn btn-warning" v-on:click="completeStep">Looks Good</span>
-                <router-link :to="{ name: 'addGroupMember' }" tag="Span" class="btn btn-warning">Add New Member</router-link>
+                <router-link :to="{ name: 'addGroupMember' }" tag="a" class="btn btn-warning">Add New Member</router-link>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
         },
         computed: {
             ...mapGetters({
-                thisContact: 'contact/thisContact',
+                thisContact: 'contact/selectedContact',
                 members: 'group/members',
                 currentStepNumber: 'progress/currentStepNumber'
             })

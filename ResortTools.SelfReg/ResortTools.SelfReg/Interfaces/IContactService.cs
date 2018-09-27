@@ -14,7 +14,6 @@ namespace ResortTools.SelfReg.Interfaces
         SearchResult<ContactModelView> GetByAccountId(int AccountId);
         SearchResult<ContactModelView> GetGroupByAccountId(int AccountId);
         UpdateResult<ContactModelView> AddContact(ContactModelView Contact);
-        UpdateResult<ContactModelView> AddGroupMember(ContactModelView Member, int AccountId);
         UpdateResult<ContactModelView> UpdateContact(ContactModelView Contact);
 
     }

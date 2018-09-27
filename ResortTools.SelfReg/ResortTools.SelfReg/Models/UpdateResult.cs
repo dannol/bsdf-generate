@@ -9,6 +9,7 @@ namespace ResortTools.SelfReg.Models
         public List<string> Messages { get; set; }
 
         public int RecordId { get; set; }
+        public T UpdatedRecord { get; set; }
 
         public UpdateResult()
         {

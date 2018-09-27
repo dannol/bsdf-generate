@@ -45,8 +45,6 @@ new Vue({
             //Find the Step from the app config based on the current path
             var index = this.navSteps.findIndex(step => step.route == to.path)
 
-            console.log('index is  ' + index)
-
             //The current route represents new step in the process
             if (index > -1) {
 

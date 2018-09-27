@@ -17,7 +17,6 @@
             <div>
                 <a v-on:click="updateMember" class=" btn btn-warning">Update</a>
                 <router-link :to="{ name: 'groupMemberList', params: {reloadMembers: true} }" tag="a" class="btn btn-warning">Cancel</router-link>
-
             </div>
         </div>
     </div>
@@ -31,7 +30,7 @@
         name: 'update-group-member',
         data: function () {
             return {
-
+                //Data Here
             }
         },
         methods: {
