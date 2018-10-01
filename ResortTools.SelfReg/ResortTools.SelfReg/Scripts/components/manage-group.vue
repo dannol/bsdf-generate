@@ -13,21 +13,7 @@
                     <navigation></navigation>
                 </div>
             </div>
-            <aside class="member-list">
-                <div class="contact-name">
-                    <div class="contact-first-name">
-                        {{thisContact.firstName}}
-                    </div>
-                    <div class="contact-last-name">
-                        {{thisContact.lastName}}
-                    </div>
-                </div>
-                <div v-for="member in members" class="group-member">
-                    <img :src="member.photoUrl" class="group-member-image">
-                    <div class="member-name">{{member.firstName}}</div>
-                </div>
-            </aside>
-
+            <memberbar></memberbar>
         </div>
     </div>
 
@@ -39,6 +25,7 @@
     import store from '../vuex/self-registration-store'
     import progressmap from '../components/progress-map'
     import navigation from '../components/navigation'
+    import memberbar from '../components/member-bar'
 
     export default {
         name: 'manage-group',
@@ -51,6 +38,7 @@
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
                 members: 'group/members',
+                selectedMembers: 'group/selectedMembers',
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },
@@ -61,7 +49,8 @@
         },
         components: {
             progressmap,
-            navigation
+            navigation,
+            memberbar
         },
 
     }

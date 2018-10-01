@@ -14,29 +14,18 @@ const getters = {
 const mutations = {
     setMembers(state, members) {
         state.members = members
-    },
-    signWaiver(state, member) {
-
-        //TODO: Match this in a different manner
-        var i
-        for (i = 0; i < state.members.length; i++) {
-            if (state.members[i].firstName == member.firstName && state.members[i].lastName == member.lastName) {
-                console.log('Signed waiver for ' + state.members[i].firstName + ' ' + state.members[i].lastName)
-                Vue.set(state.members[i],"waiverSigned",true)
-            }
-        }
     }
 }
 
 const actions = {
 
     addMember({ state, getters, commit, dispatch }, { member, accountId }) {
-        console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + accountId)
+        //console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + accountId)
         var addMemberUrl = '/api/contact/' + accountId + '/addgroupmember'
         if (member) {
-            var newMember = { firstName: member.firstName, lastName: member.lastName, photoUrl: member.photoUrl, selected: false, waiverSigned: false }
+            var newMember = { firstName: member.firstName, lastName: member.lastName, photoUrl: member.photoUrl, selected: false}
             var postData = {newMember, accountId};
-            console.log('URL ' + addMemberUrl)
+
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
                     { url: addMemberUrl, data: postData, config: { headers: { 'Content-Type': 'application/json' } } },
@@ -52,7 +41,7 @@ const actions = {
     },
     updateMember({ state, getters, commit, dispatch }, member) {
         if (member) {
-            console.log('Updating ' + member.firstName + ' ' + member.lastName)
+            //console.log('Updating ' + member.firstName + ' ' + member.lastName)
             var updateMemberUrl = '/api/contact/update'
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
@@ -69,8 +58,6 @@ const actions = {
     searchByAccountId({ state, getters, commit, dispatch }, accountId) {
 
         var contactApiUrl = '/api/contact/' + accountId + '/group'
-
-        console.log('URL ' + contactApiUrl)
 
         dispatch('api/get',
             { url: contactApiUrl },

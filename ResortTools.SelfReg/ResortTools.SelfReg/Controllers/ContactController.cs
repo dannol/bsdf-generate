@@ -34,6 +34,15 @@ namespace ResortTools.SelfReg.Controllers
 
         }
 
+
+        // Get a contact by their card Number
+        // GET: api/contact/cardNumber/123
+        [HttpGet("cardnumber/{cardnumber}")]
+        public ActionResult SearchByCardNumber(string cardNumber)
+        {
+            return new JsonResult(_contactService.GetByCardNumber(cardNumber));
+        }
+
         // Get contacts based on personal information
         // GET: api/contact/firstname/John/lastname/Smith
         [HttpGet("firstname/{firstName}/lastname/{lastName}")]

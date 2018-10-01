@@ -1,8 +1,9 @@
 ﻿<template>
     <div>
-        <h2>{{thisContact.firstName}} {{thisContact.lastName}} Family</h2>
+        <h2>{{selectedContact.firstName}} {{selectedContact.lastName}} Family</h2>
         <div v-for="member in members">
-            <div class="contact-search-result">
+            <div class="contact-search-result" v-bind:class="{'contact-selected': member.selected}">
+                <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
                 {{member.firstName}} {{member.lastName}}  <router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>
             </div>
         </div>
@@ -27,7 +28,7 @@
                 selectedMember: null
             }
         },
-        mounted: function() {
+        mounted: function () {
             console.log('Checking')
             if (this.reloadMembers) {
                 this.loadMembers()
@@ -35,10 +36,17 @@
         },
         computed: {
             ...mapGetters({
-                thisContact: 'contact/selectedContact',
+                selectedContact: 'contact/selectedContact',
                 members: 'group/members',
+                selectedMembers: 'group/selectedMembers',
                 currentStepNumber: 'progress/currentStepNumber'
-            })
+            }),
+            participants: function () {
+                return {
+                    contact: this.selectedContact,
+                    groupMembers: this.selectedMembers
+                }
+            },
         },
         methods: {
             completeStep: function () {
@@ -50,7 +58,10 @@
 
             },
             loadMembers: function () {
-                this.$store.dispatch('group/searchByAccountId', this.thisContact.accountId)
+                this.$store.dispatch('group/searchByAccountId', this.selectedContact.accountId)
+            },
+            selectMember: function (member) {
+                this.$store.commit('progress/completeStep', this.currentStepNumber)
             }
         },
         props: {

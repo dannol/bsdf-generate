@@ -2,11 +2,11 @@
 import VueRouter from 'vue-router'
 
 import start from '../components/start'
-import scancard from '../components/scan-card'
 
 //Search Components
 import searchByOrder from '../components/search-by-order'
 import searchByPersonalInfo from '../components/search-by-personal-info'
+import scanCard from '../components/scan-card'
 
 //Contact management Components
 import manageContact from '../components/manage-contact'
@@ -21,17 +21,21 @@ import addGroupMember from '../components/add-group-member'
 import updateGroupMember from '../components/update-group-member'
 import selectMembers from '../components/select-members'
 
+//Waiver Management Components
+import manageWaivers from '../components/manage-waivers'
+import waivers from '../components/waivers'
 
-import waiver from '../components/waiver'
+
 import complete from '../components/complete'
 
 var routesFromConfig = [];
 
 const routes = [
     {
-        path: '/scancard',
-        name: 'scanCard',
-        component: scancard
+        //Start Page Route
+        path: '/',
+        name: "start",
+        component: start
     },
     {
         //Contact Management Routes
@@ -48,6 +52,12 @@ const routes = [
             path: 'search-by-order',
             name: 'searchByOrder',
             component: searchByOrder,
+            props: true
+        },
+        {
+            path: 'scan-card',
+            name: 'scanCard',
+            component: scanCard,
             props: true
         },
         {
@@ -95,9 +105,16 @@ const routes = [
         ]
     },
     {
-        path: '/waivers',
-        name: 'Waivers',
-        component: waiver
+        //Waiver management Routes
+        path: '/manage-waivers',
+        name: 'manageWaivers',
+        component: manageWaivers,
+        children: [{
+            path: '',
+            name: 'waivers',
+            component: waivers,
+            props: true
+        }]
     },
     {
         path: '/selectMembers',
@@ -109,11 +126,7 @@ const routes = [
         name: 'complete',
         component: complete
     },
-    {
-        path: '/',
-        name: "start",
-        component: start
-    }
+
 ]
 
 export default new VueRouter({

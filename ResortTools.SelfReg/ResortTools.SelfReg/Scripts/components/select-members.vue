@@ -44,6 +44,7 @@
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
                 members: 'group/members',
+                selectedMembers: 'group/selectedMembers',
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },

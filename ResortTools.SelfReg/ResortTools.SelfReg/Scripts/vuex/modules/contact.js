@@ -21,7 +21,7 @@ const mutations = {
         state.selectedContact = contact
     },
     updateSearchResult(state, updatedContact) {
-        var i 
+        var i
         for (i = 0; i < state.results.length; i++) {
             if (state.results[i].accountId === updatedContact.accountId) {
                 state.results[i] = updatedContact
@@ -37,8 +37,6 @@ const actions = {
         var newContact = null;
         var contactApiUrl = '/api/contact/accountId/' + accountId
 
-        console.log('URL ' + contactApiUrl)
-
         return new Promise((resolve, reject) => {
             dispatch('api/get',
                 { url: contactApiUrl },
@@ -49,11 +47,20 @@ const actions = {
         })
 
     },
+    searchByCardNumber({ state, getters, commit, dispatch }, cardNumber) {
+        var newContact = null;
+        var contactApiUrl = '/api/contact/cardNumber/' + cardNumber
+
+        dispatch('api/get',
+            { url: contactApiUrl },
+            { root: true }
+        ).then(data => {
+            commit('setSearchResults', data.results)
+        })
+    },
     searchByOrder({ state, getters, commit, dispatch }, orderId) {
 
         var contactApiUrl = '/api/contact/orderid/' + orderId
-
-        console.log('URL ' + contactApiUrl)
 
         dispatch('api/get',
             { url: contactApiUrl },
@@ -65,8 +72,6 @@ const actions = {
     searchByPersonalInfo({ state, getters, commit, dispatch }, searchData) {
 
         var contactApiUrl = '/api/contact/firstname/' + searchData.firstName + '/lastname/' + searchData.lastName
-
-        console.log('URL ' + contactApiUrl)
 
         dispatch('api/get',
             { url: contactApiUrl },
@@ -99,7 +104,7 @@ const actions = {
     },
     updateContact({ state, getters, commit, dispatch }, contact) {
         if (contact) {
-            console.log('Updating Contact ' + contact.accountId)
+            //console.log('Updating Contact ' + contact.accountId)
             var updateContactUrl = '/api/contact/update'
             return new Promise((resolve, reject) => {
                 dispatch('api/post',

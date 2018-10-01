@@ -1,25 +1,19 @@
 ﻿<template>
     <div>
+        <!-- Manage Waivers Step-->
         <aside id="progress-map-container" class="left-nav full-height">
             <progressmap></progressmap>
         </aside>
         <div id="group-screen" class="full-screen full-height">
             <div class="outer-panel">
-                <div class="inner-panel center-in-parent">
-                    <h2>Waivers</h2>
-                    <div v-for="selectedMember in selectedMembers">
-                        <div class="col-xs-1">
-                            <input type="checkbox" disabled v-model="selectedMember.waiverSigned" />
-                        </div>
-                        <div class="col-xs-11">
-                            <div>Waiver for {{selectedMember.firstName}} {{selectedMember.lastName}}</div>
-                            <div>I hereby agree that ksj sfjh sdjf sfdkjs dfkjsd fkjsn dfkjsndf iuskdjvjksdfn kjsd vkjsn dv jsdkjvsxk jd sdkjn </div>
-                            <div v-on:click="signWaiver(selectedMember)" class="btn btn-primary">Sign</div>
-                        </div>
-                    </div>
+                <a href="./" class="start-over-btn">Start Over</a>
+                <h3 class="page-title">Sign Waivers</h3>
+                <div id="waiver-management-panel" class="inner-panel center-in-parent">
+                    <router-view></router-view>
                     <navigation></navigation>
                 </div>
             </div>
+            <memberbar></memberbar>
         </div>
     </div>
 </template>
@@ -30,11 +24,13 @@
     import store from '../vuex/self-registration-store';
     import progressmap from '../components/progress-map'
     import navigation from '../components/navigation'
+    import memberbar from '../components/member-bar'
 
     export default {
-        name: 'waiver',
+        name: 'manage-waivers',
         computed: {
             ...mapGetters({
+                thisContact: 'contact/selectedContact',
                 currentStepNumber: 'progress/currentStepNumber',
                 selectedMembers: 'group/selectedMembers'
             })
@@ -47,7 +43,8 @@
         },
         components: {
             progressmap,
-            navigation
+            navigation,
+            memberbar
         }
     }
 

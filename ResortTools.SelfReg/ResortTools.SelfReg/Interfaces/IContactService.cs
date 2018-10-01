@@ -12,6 +12,7 @@ namespace ResortTools.SelfReg.Interfaces
         SearchResult<ContactModelView> GetByOrderId(string OrderId);
         SearchResult<ContactModelView> GetByPersinalInfo(ContactModelView Contact);
         SearchResult<ContactModelView> GetByAccountId(int AccountId);
+        SearchResult<ContactModelView> GetByCardNumber(string CardNumber);
         SearchResult<ContactModelView> GetGroupByAccountId(int AccountId);
         UpdateResult<ContactModelView> AddContact(ContactModelView Contact);
         UpdateResult<ContactModelView> UpdateContact(ContactModelView Contact);

@@ -6,13 +6,19 @@ import Vue from 'vue/dist/vue.js';
 const state = {
     currentStepNumber: 0,
     processSteps: selfRegistrationConfig.steps,
-    currentStep: null
+    currentStep: null,
+    previousStep: null,
+    nextStep: null,
+    stepChanged: false
 }
 
 const getters = {
     currentStepNumber: state => state.currentStepNumber,
     processSteps: state => state.processSteps,
-    currentStep: state => state.currentStep
+    currentStep: state => state.currentStep,
+    previousStep: state => state.previousStep,
+    nextStep: state => state.nextStep,
+    stepChanged: state => state.stepChanged
 }
 
 const mutations = {
@@ -32,7 +38,21 @@ const mutations = {
         if (step != null) {
             state.currentStep = step
         }
-
+    },
+    setPreviousStep(state, step) {
+        if (step != null) {
+            state.previousStep = step
+        }
+    },
+    setNextStep(state, step) {
+        if (step != null) {
+            state.nextStep = step
+        }
+    },
+    setStepChanged(state, changed) {
+        if (changed != null) {
+            state.stepChanged = changed
+        }
     },
     completeStep(state, stepNumber) {
         if (stepNumber != null) {

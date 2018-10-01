@@ -33,7 +33,7 @@
                 newMember: {
                     firstName: null,
                     lastName: null,
-                    photoUrl: '/images/headshot-silhouette.jpg'
+                    photoUrl: null
                 }
             }
         },

@@ -161,6 +161,12 @@ img.aside-logo {
                 border: 1px white solid;
                 height: 70px;
                 width: 70px;
+                background-color: black;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 70px;
+                font-size: 40px;
+                text-transform: uppercase;
             }
 
             .member-name {
@@ -224,6 +230,10 @@ img.aside-logo {
     border: 1px solid black;
     margin: 10px;
     padding: 5px;
+
+    &.contact-selected {
+        background-color: lightgray;
+    }
 }
 
 .navigation {

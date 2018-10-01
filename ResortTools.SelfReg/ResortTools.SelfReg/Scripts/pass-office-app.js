@@ -51,6 +51,17 @@ new Vue({
                 var thisProcessStep = this.navSteps[index];
 
                 this.$store.commit('progress/setCurrentStepNumber', thisProcessStep.stepNumber)
+                //this.$store.commit('progress/setCurrentStep', thisProcessStep)
+
+                //if (index > 1) {
+                //    this.$store.commit('progress/setPreviousStep', this.navSteps[index -1])
+                //}
+
+                //if (index < this.navSteps.length - 1) {
+                //    this.$store.commit('progress/setNextStep', this.navSteps[index + 1])
+                //}
+
+                this.$store.commit('progress/setStepChanged', true)
 
             }
 

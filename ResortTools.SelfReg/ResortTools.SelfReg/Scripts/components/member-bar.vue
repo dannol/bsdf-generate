@@ -10,8 +10,9 @@
                     {{thisContact.lastName}}
                 </div>
             </div>
-            <div v-for="member in members" class="group-member">
-                <img :src="member.photoUrl" class="group-member-image">
+            <div v-for="member in selectedMembers" class="group-member">
+                <img v-if="member.photoUrl != null" :src="member.photoUrl" class="group-member-image">
+                <div v-else class="group-member-image" >{{getInitials(member)}}</div>
                 <div class="member-name">{{member.firstName}}</div>
             </div>
         </aside>
@@ -29,8 +30,14 @@
         computed: {
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
-                members: 'group/members'
+                members: 'group/members',
+                selectedMembers: 'group/selectedMembers'
             })
+        },
+        methods: {
+            getInitials: function (member) {
+                return member.firstName.charAt(0) + member.lastName.charAt(0) 
+            }
         }
     }
 

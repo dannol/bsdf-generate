@@ -24,7 +24,7 @@
 
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store'
-    import contactsearchresults from '../components/contact-search-results'
+    //import contactsearchresults from '../components/contact-search-results'
     import navigation from '../components/navigation'
     import progressmap from '../components/progress-map'
 
@@ -51,7 +51,7 @@
 
         },
         components: {
-            contactsearchresults,
+            //contactsearchresults,
             navigation,
             progressmap
         }

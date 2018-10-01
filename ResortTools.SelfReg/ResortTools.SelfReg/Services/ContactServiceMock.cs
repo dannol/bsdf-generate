@@ -18,8 +18,8 @@ namespace ResortTools.SelfReg.Services
             ContactModelView Bob = new ContactModelView
             {
                 AccountId = AccountId,
-                FirstName = "New",
-                LastName = "Weeks",
+                FirstName = "Bob",
+                LastName = "Account",
                 Hometown = "Colorado Springs, CO",
                 OrderArrivalDate = null,
                 CardNumber = "xxxxxxxx-123",
@@ -27,6 +27,28 @@ namespace ResortTools.SelfReg.Services
             };
             contacts.Add(Bob);
 
+
+            result.Results = contacts;
+
+            return result;
+        }
+
+        public SearchResult<ContactModelView> GetByCardNumber(string CardNumber)
+        {
+            SearchResult<ContactModelView> result = new SearchResult<ContactModelView>();
+
+            List<ContactModelView> contacts = new List<ContactModelView>();
+            ContactModelView Bob = new ContactModelView
+            {
+                AccountId = 9999,
+                FirstName = "Bob",
+                LastName = "Card",
+                Hometown = "Colorado Springs, CO",
+                OrderArrivalDate = null,
+                CardNumber = CardNumber,
+                DateOfBirth = DateTime.Parse("01/01/1986")
+            };
+            contacts.Add(Bob);
 
             result.Results = contacts;
 
@@ -42,7 +64,7 @@ namespace ResortTools.SelfReg.Services
             {
                 AccountId = 1,
                 FirstName = "Bob",
-                LastName = "Weeks",
+                LastName = "Order",
                 Hometown = "Colorado Springs, CO",
                 OrderArrivalDate = null,
                 CardNumber = "xxxxxxxx-123",
@@ -53,7 +75,7 @@ namespace ResortTools.SelfReg.Services
             {
                 AccountId = 2,
                 FirstName = "Steve",
-                LastName = "Weeks",
+                LastName = "Order",
                 Hometown = "Boise, ID",
                 OrderArrivalDate = DateTime.Parse("04/04/2019"),
                 CardNumber = null,
@@ -64,7 +86,7 @@ namespace ResortTools.SelfReg.Services
             {
                 AccountId = 3,
                 FirstName = "William",
-                LastName = "Weeks",
+                LastName = "Order",
                 Hometown = null,
                 OrderArrivalDate = null,
                 CardNumber = null,
@@ -90,7 +112,7 @@ namespace ResortTools.SelfReg.Services
                 OrderArrivalDate = null,
                 CardNumber = "xxxxxxxx-123",
                 PhotoUrl = "/images/Bob.jpg",
-                DateOfBirth = DateTime.Parse("01/01/1980")
+                DateOfBirth = Contact.DateOfBirth
             };
             result.Results.Add(Bob);
 
@@ -130,7 +152,7 @@ namespace ResortTools.SelfReg.Services
             {
                 AccountId = 10,
                 FirstName = "Wife",
-                LastName = "Smith",
+                LastName = "GroupMember",
                 Hometown = "Colorado Springs, CO",
                 OrderArrivalDate = null,
                 CardNumber = "xxxxxxxx-123",
@@ -142,7 +164,7 @@ namespace ResortTools.SelfReg.Services
             {
                 AccountId = 11,
                 FirstName = "Child1",
-                LastName = "Smith",
+                LastName = "GroupMember",
                 Hometown = "Boise, ID",
                 OrderArrivalDate = DateTime.Parse("04/04/2019"),
                 CardNumber = null,
@@ -154,7 +176,7 @@ namespace ResortTools.SelfReg.Services
             {
                 AccountId = 12,
                 FirstName = "Child2",
-                LastName = "Smith",
+                LastName = "GroupMember",
                 Hometown = null,
                 OrderArrivalDate = null,
                 CardNumber = null,
