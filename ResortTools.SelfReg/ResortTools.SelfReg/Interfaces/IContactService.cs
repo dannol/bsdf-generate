@@ -9,13 +9,13 @@ namespace ResortTools.SelfReg.Interfaces
 {
     public interface IContactService
     {
-        SearchResult<ContactModelView> GetByOrderId(string OrderId);
-        SearchResult<ContactModelView> GetByPersinalInfo(ContactModelView Contact);
-        SearchResult<ContactModelView> GetByAccountId(int AccountId);
-        SearchResult<ContactModelView> GetByCardNumber(string CardNumber);
-        SearchResult<ContactModelView> GetGroupByAccountId(int AccountId);
-        UpdateResult<ContactModelView> AddContact(ContactModelView Contact);
-        UpdateResult<ContactModelView> UpdateContact(ContactModelView Contact);
+        SearchResult<Contact> GetByOrderId(string OrderId);
+        SearchResult<Contact> GetByPersinalInfo(Contact Contact);
+        SearchResult<Contact> GetByAccountId(int AccountId);
+        SearchResult<Contact> GetByCardNumber(string CardNumber);
+        SearchResult<Contact> GetGroupByAccountId(int AccountId);
+        UpdateResult<Contact> AddContact(Contact Contact);
+        UpdateResult<Contact> UpdateContact(Contact Contact);
 
     }
 }

@@ -71,7 +71,7 @@ const actions = {
     },
     searchByPersonalInfo({ state, getters, commit, dispatch }, searchData) {
 
-        var contactApiUrl = '/api/contact/firstname/' + searchData.firstName + '/lastname/' + searchData.lastName
+        var contactApiUrl = '/api/contact/firstname/' + searchData.firstName + '/lastname/' + searchData.lastName + '/dob/' + searchData.dateOfBirth
 
         dispatch('api/get',
             { url: contactApiUrl },

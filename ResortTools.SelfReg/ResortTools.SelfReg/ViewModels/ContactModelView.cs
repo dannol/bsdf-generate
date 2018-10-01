@@ -3,7 +3,7 @@
 namespace ResortTools.SelfReg.ViewModels
 {
 
-    public class ContactModelView
+    public class Contact
     {
         private DateTime? _dateOfBirth;
         private int? _age;
@@ -11,6 +11,8 @@ namespace ResortTools.SelfReg.ViewModels
         public int? AccountId { get; set; }
         public String LastName { get; set; }
         public String FirstName { get; set; }
+        public String Email { get; set; }
+        public String Phone { get; set; }
         public String Hometown { get; set; }
         public DateTime? OrderArrivalDate { get; set; }
         public String CardNumber { get; set; }

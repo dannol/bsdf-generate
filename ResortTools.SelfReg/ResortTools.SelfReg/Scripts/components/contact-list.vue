@@ -9,7 +9,7 @@
                 </div>
                 <div v-for="(contact, index) in contacts" class="row contact-search-result">
                     <div class="col-xs-1">
-                        <input type="radio" name="search-result" v-on:click="selectContact(contact)" />
+                        <input type="radio" name="search-result" v-on:click="selectContact(contact)"/>
                     </div>
                     <div class="col-xs-4">
                         <h4 class="search-result-name">{{contact.firstName}} {{contact.lastName}}</h4>
@@ -22,7 +22,7 @@
                         <div v-else class="search-result-order-date">No Upcoming Orders</div>
                     </div>
                     <div class="col-xs-2">
-                        <div v-if="contact.CardNumber != null" class="search-result-card"><img src="/images/card-small-black.png"><div>{{contact.jCardNumber}}</div></div>
+                        <div v-if="contact.cardNumber != null" class="search-result-card"><img src="/images/card-small-black.png"><div>{{contact.cardNumber}}</div></div>
                         <div v-else class="search-result-order-date"><img src="/images/card-small-grey.png"><div>No Card</div></div>
                     </div>
                     <div class="col-xs-2">
@@ -39,6 +39,7 @@
 
 <script>
 
+    import Vue from 'vue/dist/vue.js';
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store'
 

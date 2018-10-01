@@ -1,8 +1,9 @@
 ﻿<template>
     <div>
-        <label for="order-id">Input Order ID:</label>
+        <h3>Enter your Order # or Customer ID:</h3>
         <input v-model="orderId" name="order-id" type="text" />
         <div v-on:click="search" class="btn btn-primary" :disabled="orderId == null">Search</div>
+        <div>Where can I find my Order # or Customer ID?</div>
     </div>
 </template>
 

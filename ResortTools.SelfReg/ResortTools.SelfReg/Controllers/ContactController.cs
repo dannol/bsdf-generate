@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResortTools.SelfReg.ViewModels;
 using ResortTools.SelfReg.Interfaces;
-using System.Collections.Generic;
+using System;
 
 namespace ResortTools.SelfReg.Controllers
 {
@@ -44,13 +44,17 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Get contacts based on personal information
-        // GET: api/contact/firstname/John/lastname/Smith
-        [HttpGet("firstname/{firstName}/lastname/{lastName}")]
-        public ActionResult SearchByPersonalInfo(string firstName, string lastName)
+        // GET: api/contact/firstname/John/lastname/Smith/dob/2010-12-21
+        [HttpGet("firstname/{firstName}/lastname/{lastName}/dob/{dateOfBirth}")]
+        public ActionResult SearchByPersonalInfo(string firstName, string lastName, string dateOfBirth)
         {
-            ContactModelView model = new ContactModelView();
+            //TODO: Create a date helper
+            var dobArray = dateOfBirth.Split('-'); 
+
+            Contact model = new Contact();
             model.FirstName = firstName;
             model.LastName = lastName;
+            model.DateOfBirth = DateTime.Parse(dateOfBirth);
 
             return new JsonResult(_contactService.GetByPersinalInfo(model));
 
@@ -67,7 +71,7 @@ namespace ResortTools.SelfReg.Controllers
         // Add a new contact
         // POST: api/contact/add
         [HttpPost("add")]
-        public ActionResult Add([FromBody] ContactModelView contact)
+        public ActionResult Add([FromBody] Contact contact)
         {
             return new JsonResult(_contactService.AddContact(contact));
         }
@@ -75,7 +79,7 @@ namespace ResortTools.SelfReg.Controllers
         // Update a new contact
         // POST: api/contact/update
         [HttpPost("update")]
-        public ActionResult Update([FromBody] ContactModelView contact)
+        public ActionResult Update([FromBody] Contact contact)
         {
             return new JsonResult(_contactService.UpdateContact(contact));
         }
@@ -83,7 +87,7 @@ namespace ResortTools.SelfReg.Controllers
         // Add a new group member to an account
         // POST: api/contact/123/addgroupmember
         [HttpPost("{accountId}/addgroupmember")]
-        public ActionResult Post([FromBody] ContactModelView member, int accountId)
+        public ActionResult Post([FromBody] Contact member, int accountId)
         {
             return new JsonResult(_contactService.AddContact(member));
         }

@@ -12,12 +12,21 @@ body {
     margin: 20px;
 }
 
+input[type='text'] {
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    padding: 8px;
+    margin: 10px;
+}
+
 .full-height {
     height: 100vh;
 }
 
 .center-in-parent {
     margin: 0 auto;
+    display: inline-block;
 }
 
 body::after {

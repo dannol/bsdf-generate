@@ -51,7 +51,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("addMember/firstname/{firstName}/lastname/{lastname}")]
         public void Post([FromBody] string firstName, string lastName)
         {
-            ContactModelView newContact = new ContactModelView();
+            Contact newContact = new Contact();
             newContact.FirstName = firstName;
             newContact.LastName = lastName;
         }

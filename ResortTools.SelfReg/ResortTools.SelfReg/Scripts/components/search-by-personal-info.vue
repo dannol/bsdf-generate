@@ -1,14 +1,17 @@
 ﻿<template>
     <div>
-        <h3>Search for Account </h3>
+        <h3>Enter your Name and Date of Birth:</h3>
+        <div>Tip: If you're entering for a child enter parent or guardian name first.</div>
         <div>
-            <input v-model="searchData.firstName" name="last-name" type="text" placeholder="First Name"/>
+            <input v-model="searchData.firstName" name="last-name" type="text" placeholder="First Name" />
         </div>
         <div>
-            <input v-model="searchData.lastName" name="first-name" type="text" placeholder="LastName"/>
+            <input v-model="searchData.lastName" name="first-name" type="text" placeholder="LastName" />
         </div>
         <div>
-            
+            <div class="center-in-parent">
+                <date-dropdown default="1995-01-10" min="1950" max="2019" v-model="selectedDate" />
+            </div>
         </div>
         <div v-on:click="search" class="btn btn-primary">Search</div>
     </div>
@@ -19,23 +22,33 @@
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store'
 
+    //https://www.npmjs.com/package/vue-date-dropdown
+    import DateDropdown from 'vue-date-dropdown'
+
     export default {
-        name: 'search-by-order',
+        name: 'search-by-personal-info',
         data: function () {
             return {
-                searchData: {
-                    firstName: null,
-                    lastName: null,
-                    dobMonth: null,
-                    dobDay: null,
-                    dobYear: null
-                }
+                selectedDate: '',
+                firstName: null,
+                lastName: null
             }
+
         },
         computed: {
             ...mapGetters({
                 currentStepNumber: 'progress/currentStepNumber',
-            })
+            }),
+            searchData: function () {
+                //create a date object from the selected date value (mm.dd.yyyy)
+                var dobArray = this.selectedDate.split('.')
+
+                return {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0]
+                }
+            }
         },
         methods: {
             search: function () {
@@ -44,7 +57,7 @@
             }
         },
         components: {
-            //Child Components Here
+            DateDropdown
         }
     }
 </script>

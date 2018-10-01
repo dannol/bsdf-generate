@@ -7,7 +7,7 @@
         <div id="order-search-page-screen" class="full-screen full-height">
             <div class="outer-panel">
                 <a href="./" class="start-over-btn">Start Over</a>
-                <h3 class="page-title">Search By Order </h3>
+                <h3 class="page-title">Find Customer</h3>
                 <div class="inner-panel center-in-parent">
                    <router-view></router-view>
                     <navigation></navigation>
@@ -29,7 +29,7 @@
     import progressmap from '../components/progress-map'
 
     export default {
-        name: 'order-search',
+        name: 'manage-contact',
         data: function () {
             return {
                 orderId: null
