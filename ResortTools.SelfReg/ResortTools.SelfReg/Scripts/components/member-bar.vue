@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div v-for="member in selectedMembers" class="group-member">
-                <img v-if="member.photoUrl != null" :src="member.photoUrl" class="group-member-image">
+                <img v-if="member.photoUrl != null && member.photoUrl.length" :src="member.photoUrl" class="group-member-image">
                 <div v-else class="group-member-image" >{{getInitials(member)}}</div>
                 <div class="member-name">{{member.firstName}}</div>
             </div>

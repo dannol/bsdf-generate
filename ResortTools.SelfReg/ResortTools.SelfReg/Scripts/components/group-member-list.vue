@@ -1,16 +1,21 @@
 ﻿<template>
     <div>
         <h2>{{selectedContact.firstName}} {{selectedContact.lastName}} Family</h2>
-        <div v-for="member in members">
-            <div class="contact-search-result" v-bind:class="{'contact-selected': member.selected}">
+        <a v-for="member in members" class="row contact-search-result" v-bind:class="{'contact-selected': member.selected}" v-on:click="selectMember(member)">
+            <div class="col-xs-1">
                 <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
+            </div>
+            <div>
                 {{member.firstName}} {{member.lastName}}  <router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>
             </div>
-        </div>
+        </a>
+        <h4>Need to add additional family members></h4>
+        <div class="tip">Note: All adults (18+) must be present to sign their waiver.</div>
         <div class="center-in-parent">
             <div>
-                <span class="btn btn-warning" v-on:click="completeStep">Looks Good</span>
-                <router-link :to="{ name: 'addGroupMember' }" tag="a" class="btn btn-warning">Add New Member</router-link>
+                <router-link :to="{ name: 'addGroupMember' }" tag="a" class="btn btn-warning">Yes</router-link>
+                <div class="btn btn-warning" v-on:click="completeStep">No</div>
+
             </div>
         </div>
     </div>
@@ -61,6 +66,7 @@
                 this.$store.dispatch('group/searchByAccountId', this.selectedContact.accountId)
             },
             selectMember: function (member) {
+                this.$store.commit('group/selectMember', member)
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
             }
         },

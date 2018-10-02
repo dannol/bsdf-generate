@@ -8,6 +8,7 @@ namespace ResortTools.SelfReg.ViewModels
         private DateTime? _dateOfBirth;
         private int? _age;
 
+        public int ParentAccountId { get; set; }
         public int? AccountId { get; set; }
         public String LastName { get; set; }
         public String FirstName { get; set; }

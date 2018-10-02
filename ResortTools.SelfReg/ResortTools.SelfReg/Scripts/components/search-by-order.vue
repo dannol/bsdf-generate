@@ -1,7 +1,7 @@
 ﻿<template>
-    <div>
+    <div class="inner-panel-content">
         <h3>Enter your Order # or Customer ID:</h3>
-        <input v-model="orderId" name="order-id" type="text" />
+        <input v-model="orderId" class="wide" type="text" />
         <div v-on:click="search" class="btn btn-primary" :disabled="orderId == null">Search</div>
         <div>Where can I find my Order # or Customer ID?</div>
     </div>

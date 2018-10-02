@@ -1,30 +1,40 @@
 ﻿import Vue from 'vue/dist/vue.js';
 
 const state = {
-    results: [],
-    selectedContact: null,
+    contacts: [],
+    //selectedContact: null,
     saveBillingAddressUrl: '/api/contact',
 }
 
 const getters = {
-    results: state => state.results,
-    selectedContact: state => state.selectedContact
+    contacts: state => state.contacts,
+    selectedContact: state => state.contacts.find(contact => {
+        return (contact.selected)
+    })
 }
 
 const mutations = {
 
-    setSearchResults(state, results) {
-        state.results = results
+    setSearchResults(state, contacts) {
+        state.contacts = contacts
     },
-
-    setContact(state, contact) {
-        state.selectedContact = contact
+    selectContact(state, contact) {
+        //set all selections
+        var i
+        for (i = 0; i < state.contacts.length; i++) {
+            if (state.contacts[i].accountId == contact.accountId) {
+                Vue.set(state.contacts[i], 'selected', true)
+            }
+            else {
+                Vue.set(state.contacts[i], 'selected', false)
+            }
+        }
     },
     updateSearchResult(state, updatedContact) {
         var i
-        for (i = 0; i < state.results.length; i++) {
-            if (state.results[i].accountId === updatedContact.accountId) {
-                state.results[i] = updatedContact
+        for (i = 0; i < state.contacts.length; i++) {
+            if (state.contacts[i].accountId === updatedContact.accountId) {
+                state.contacts[i] = updatedContact
             }
         }
 
@@ -80,12 +90,7 @@ const actions = {
             commit('setSearchResults', data.results)
         })
     },
-    addContact({
-        state,
-        getters,
-        commit,
-        dispatch
-    }, contact) {
+    addContact({state, getters, commit, dispatch}, contact) {
         var addContactUrl = '/api/contact/add'
         var dataType = 'application/json; charset=utf-8'
         if (contact) {
@@ -94,8 +99,8 @@ const actions = {
                     { url: addContactUrl, data: contact, config: { headers: { 'Content-Type': 'application/json' } } },
                     { root: true }
                 ).then(data => {
-                    state.results = []
-                    state.results.push(data.updatedRecord)
+                    state.contacts = []
+                    state.contacts.push(data.updatedRecord)
                     resolve(data)
                 }).catch(err => console.log('Error adding contact: ' + err));
             });
@@ -118,7 +123,7 @@ const actions = {
                 }).catch(err => alert(err));
             });
         }
-    },
+    }
 }
 
 export default {

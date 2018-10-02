@@ -87,7 +87,7 @@ namespace ResortTools.SelfReg.Controllers
         // Add a new group member to an account
         // POST: api/contact/123/addgroupmember
         [HttpPost("{accountId}/addgroupmember")]
-        public ActionResult Post([FromBody] Contact member, int accountId)
+        public ActionResult Post([FromBody] Contact member)
         {
             return new JsonResult(_contactService.AddContact(member));
         }

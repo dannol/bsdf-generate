@@ -7,9 +7,9 @@
                     Looks like you may have been here before.<br />
                     Select name below.
                 </div>
-                <div v-for="(contact, index) in contacts" class="row contact-search-result">
+                <a v-for="(contact, index) in contacts" class="row contact-search-result" v-bind:class="{'contact-selected': contact.selected}" v-on:click="selectContact(contact)">
                     <div class="col-xs-1">
-                        <input type="radio" name="search-result" v-on:click="selectContact(contact)"/>
+                        <input type="checkbox" name="search-result" v-model="contact.selected" disabled/>
                     </div>
                     <div class="col-xs-4">
                         <h4 class="search-result-name">{{contact.firstName}} {{contact.lastName}}</h4>
@@ -28,7 +28,7 @@
                     <div class="col-xs-2">
                         <a v-on:click="updateContact(contact)" class="btn btn-warning">Update</a>
                     </div>
-                </div>
+                </a>
                 <div>
                     <router-link :to="{ name: 'addContact' }" tag="a" class="btn btn-warning">I'm not listed</router-link>
                 </div>
@@ -53,7 +53,7 @@
         },
         computed: {
             ...mapGetters({
-                contacts: 'contact/results',
+                contacts: 'contact/contacts',
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },
@@ -62,7 +62,7 @@
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
             },
             selectContact: function (contact) {
-                this.$store.commit('contact/setContact', contact)
+                this.$store.commit('contact/selectContact', contact)
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
             },
             updateContact: function (contact) {

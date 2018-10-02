@@ -1,12 +1,12 @@
 ﻿<template>
-    <div>
+    <div class="inner-panel-content">
         <h3>Enter your Name and Date of Birth:</h3>
         <div>Tip: If you're entering for a child enter parent or guardian name first.</div>
         <div>
-            <input v-model="searchData.firstName" name="last-name" type="text" placeholder="First Name" />
+            <input v-model="searchData.firstName" name="last-name" type="text" placeholder="First Name" class="wide" />
         </div>
         <div>
-            <input v-model="searchData.lastName" name="first-name" type="text" placeholder="LastName" />
+            <input v-model="searchData.lastName" name="first-name" type="text" placeholder="LastName" class="wide" />
         </div>
         <div>
             <div class="center-in-parent">

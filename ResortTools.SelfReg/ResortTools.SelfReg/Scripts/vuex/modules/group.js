@@ -14,26 +14,39 @@ const getters = {
 const mutations = {
     setMembers(state, members) {
         state.members = members
+    },
+    selectMember(state, member) {
+        //set all selections
+        var i
+        for (i = 0; i < state.members.length; i++) {
+            if (state.members[i].accountId == member.accountId) {
+                if (state.members[i].selected) {
+                    Vue.set(state.members[i], 'selected', false)
+                }
+                else {
+                    Vue.set(state.members[i], 'selected', true)
+                }
+            }
+        }
     }
 }
 
 const actions = {
 
-    addMember({ state, getters, commit, dispatch }, { member, accountId }) {
+    addMember({ state, getters, commit, dispatch }, member) {
         //console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + accountId)
-        var addMemberUrl = '/api/contact/' + accountId + '/addgroupmember'
         if (member) {
-            var newMember = { firstName: member.firstName, lastName: member.lastName, photoUrl: member.photoUrl, selected: false}
-            var postData = {newMember, accountId};
-
+            var addMemberUrl = '/api/contact/' + member.parentAccountId + '/addgroupmember'
+            var dataType = 'application/json; charset=utf-8'
+ 
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
-                    { url: addMemberUrl, data: postData, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { url: addMemberUrl, data: member, config: { headers: { 'Content-Type': 'application/json' } } },
                     { root: true }
                 ).then(data => {
                     resolve(data); 
-                    state.members.push(newMember)
-                }).catch(err => alert(err));
+                    state.members.push(data.updatedRecord)
+                }).catch(err => console.log('Error Adding Contact: ' + err));
             });
 
             
