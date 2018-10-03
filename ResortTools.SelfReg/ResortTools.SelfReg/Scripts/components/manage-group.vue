@@ -42,11 +42,6 @@
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },
-        methods: {
-            completeStep: function () {
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
-            }
-        },
         components: {
             progressmap,
             navigation,

@@ -1,4 +1,7 @@
-﻿@model SelfRegistrationConfig
+﻿@{
+    ViewData["Title"] = "rental Office";
+}
+@model SelfRegistrationConfig
 
 <div id="rental-office-app" class="col-xs-12 full-height">
     <div id="rental-office-content" class="row full-height">
@@ -7,15 +10,11 @@
         </keep-alive>
     </div>
 </div>
-<script>
-    import progressmap from '../components/progress-map'
-    import navigation from '../components/navigation'
-</script>
 <script type="text/javascript">
-    //create a JS var based on the Pass Office configuration passed into the View
-    var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.PassOfficeConfig));
+    //create a JS var based on the rental Office configuration rentaled into the View
+    var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.RentalOfficeConfig));
 </script>
-<script src="~/js/RentalOfficeApp.js">
-</script>
+<script src="~/js/RentalOfficeApp.js"></script>
+
 
 

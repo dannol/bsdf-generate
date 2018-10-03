@@ -2,9 +2,6 @@
     <div>
         <h2>{{selectedContact.firstName}} {{selectedContact.lastName}} Family</h2>
         <div v-for="member in members" class="row contact-search-result">
-            <!--<div class="col-xs-1">
-                <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
-            </div>-->
             <div>
                 {{member.firstName}} {{member.lastName}}  <router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>
             </div>
@@ -46,9 +43,6 @@
             })
         },
         methods: {
-            completeStep: function () {
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
-            },
             updateMember: function (member) {
                 this.selectedMember = member
                 this.$router.push({ name: 'updateGroupMember' })

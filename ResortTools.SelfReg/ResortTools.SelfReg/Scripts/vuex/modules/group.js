@@ -54,6 +54,14 @@ const actions = {
     },
     updateMember({ state, getters, commit, dispatch }, member) {
         if (member) {
+
+            if (member.dateOfBirth) {
+                var birthday = new Date(member.dateOfBirth)
+                var ageDifMs = Date.now() - birthday.getTime();
+                var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                member.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            }
+
             //console.log('Updating ' + member.firstName + ' ' + member.lastName)
             var updateMemberUrl = '/api/contact/update'
             return new Promise((resolve, reject) => {

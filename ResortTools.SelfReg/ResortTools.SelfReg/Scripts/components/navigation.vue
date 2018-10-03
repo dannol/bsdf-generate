@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="col-xs-12 navigation">
-        <a :href="'./#' + previousStep.route" class="btn btn-primary" v-if="previousStep !== null && previousStep.stepNumber !== 0"> << {{previousStep.name}}</a>
-        <a :href="'./#' + nextStep.route" class="btn btn-primary" :disabled="!currentStep.stepComplete" v-if="nextStep !== null && nextStep.stepNumber > 1">{{nextStep.name}} >></a>
+        <a :href="'./#' + previousStep.route" class="btn btn-primary" v-if="showPreviousButton"> << {{previousStep.name}}</a>
+        <a :href="'./#' + nextStep.route" class="btn btn-primary" :disabled="!currentStep.stepComplete" v-if="showNextButton">{{nextStep.name}} >></a>
     </div>
 </template>
 
@@ -46,10 +46,23 @@
                 currentStep: 'progress/currentStep'
             }),
             isStepComplete: function () {
-
-
-
                 return null
+            },
+            showPreviousButton: function () {
+                if (this.previousStep != null && this.previousStep.stepNumber != 0) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            },
+            showNextButton: function () {
+                if (this.nextStep !== null && this.nextStep.stepNumber > 1 && !this.currentStep.nextStepOnComplete) {
+                    return true
+                }
+                else {
+                    return false
+                }
             }
         }
     }

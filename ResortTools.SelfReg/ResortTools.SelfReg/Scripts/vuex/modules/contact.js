@@ -90,7 +90,7 @@ const actions = {
             commit('setSearchResults', data.results)
         })
     },
-    addContact({state, getters, commit, dispatch}, contact) {
+    addContact({ state, getters, commit, dispatch }, contact) {
         var addContactUrl = '/api/contact/add'
         var dataType = 'application/json; charset=utf-8'
         if (contact) {
@@ -109,6 +109,13 @@ const actions = {
     },
     updateContact({ state, getters, commit, dispatch }, contact) {
         if (contact) {
+            if (contact.dateOfBirth) {
+                var birthday = new Date(contact.dateOfBirth)
+                var ageDifMs = Date.now() - birthday.getTime();
+                var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                contact.age = Math.abs(ageDate.getUTCFullYear() - 1970)
+            }
+
             //console.log('Updating Contact ' + contact.accountId)
             var updateContactUrl = '/api/contact/update'
             return new Promise((resolve, reject) => {

@@ -21,7 +21,7 @@
             </div>
             <div>
                 <a v-on:click="addMember" class=" btn btn-warning">Add</a>
-                <router-link :to="{ name: 'manageGroup' }" tag="Span" class="btn btn-warning">Cancel</router-link>
+                <router-link :to="{ name: 'groupMemberList' }" tag="Span" class="btn btn-warning">Cancel</router-link>
             </div>
         </div>
     </div>

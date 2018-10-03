@@ -35,12 +35,6 @@
                 selectedMembers: 'group/selectedMembers'
             })
         },
-        methods: {
-            signWaiver: function (selectedMember) {
-                this.$store.commit('group/signWaiver', selectedMember)
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
-            }
-        },
         components: {
             progressmap,
             navigation,

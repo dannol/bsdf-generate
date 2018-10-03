@@ -87,7 +87,7 @@ const routes = [
         component: manageGroup,
         children: [
             {
-                path: '',
+                path: 'list',
                 name: 'groupMemberList',
                 component: groupMemberList,
                 props: true

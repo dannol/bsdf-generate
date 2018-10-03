@@ -21,7 +21,8 @@
         },
         computed: {
             ...mapGetters({
-                //currentStepNumber: 'progress/currentStepNumber',
+                contacts: 'contact/contacts',
+                currentStepNumber: 'progress/currentStepNumber',
             })
         },
         methods: {

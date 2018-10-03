@@ -54,16 +54,18 @@
         computed: {
             ...mapGetters({
                 contacts: 'contact/contacts',
+                currentStep: 'progress/currentStep',
                 currentStepNumber: 'progress/currentStepNumber'
             })
         },
         methods: {
-            completeStep: function () {
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
-            },
             selectContact: function (contact) {
                 this.$store.commit('contact/selectContact', contact)
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
+                //If this step is configured to automatically go to the next step, go there.
+                if (this.currentStep.nextStepOnComplete) {
+                    this.$router.push({ name: this.nextStep.routeName })
+                }
             },
             updateContact: function (contact) {
                 //We need a copy of the contact object to send the update in case the update is cancelled

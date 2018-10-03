@@ -1,19 +1,17 @@
 ﻿<template>
     <div>
-        <aside id="progress-map-container" class="left-nav full-height">
-            <progressmap></progressmap>
-        </aside>
         <div id="group-screen" class="full-screen full-height">
             <div class="outer-panel">
+                <a href="./" class="start-over-btn">Start Over</a>
+                <h2 class="page-title">Complete</h2>
+                <h3 class="page-title">Please continue to cashier.</h3>
                 <div class="inner-panel center-in-parent">
-                    <h2>COMLPLETE </h2>
                     <div>
-                        <a href="./" class="btn btn-primary">Print Waivers</a>
+                        <h3>All set!  Please continue to cashier.</h3>
+                        <div>
+                            <router-link :to="{ name: 'start' }" tag="a" class="btn btn-warning">Start Over</router-link>
+                        </div>
                     </div>
-                    <div>
-                        <a href="./" class="btn btn-primary">I'm Done</a>
-                    </div>
-                    <navigation></navigation>
                 </div>
             </div>
         </div>
@@ -29,7 +27,7 @@
     export default {
         name: 'complete',
         mounted: function () {
-            this.$store.commit('progress/completeStep', this.currentStepNumber)
+            //this.$store.commit('progress/completeStep', this.currentStepNumber)
         },
         computed: {
             ...mapGetters({

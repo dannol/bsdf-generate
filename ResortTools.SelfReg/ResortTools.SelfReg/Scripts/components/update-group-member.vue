@@ -6,10 +6,10 @@
                 <img :src="thisMember.photoUrl" />
             </div>
             <div>
-                <input v-model="thisMember.firstName" name="first-name" type="text" placeholder="First Name" />
+                <input v-model="thisMember.firstName" name="first-name" type="text" placeholder="First Name" disabled/>
             </div>
             <div>
-                <input v-model="thisMember.lastName" name="last-name" type="text" placeholder="Last Name" />
+                <input v-model="thisMember.lastName" name="last-name" type="text" placeholder="Last Name" disabled />
             </div>
             <div>
                 <input v-model="thisMember.email" name="email" type="text" placeholder="Email (optional)" class="wide" />

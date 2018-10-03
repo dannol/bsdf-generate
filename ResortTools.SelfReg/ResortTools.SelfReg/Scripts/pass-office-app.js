@@ -48,18 +48,18 @@ new Vue({
             //The current route represents new step in the process
             if (index > -1) {
 
-                var thisProcessStep = this.navSteps[index];
+                var thisProcessStep = this.navSteps[index]
 
                 this.$store.commit('progress/setCurrentStepNumber', thisProcessStep.stepNumber)
-                //this.$store.commit('progress/setCurrentStep', thisProcessStep)
+                this.$store.commit('progress/setCurrentStep', thisProcessStep)
 
-                //if (index > 1) {
-                //    this.$store.commit('progress/setPreviousStep', this.navSteps[index -1])
-                //}
+                if (index < this.navSteps.length -1) {
+                    this.$store.commit('progress/setNextStep', this.navSteps[index + 1])
+                }
 
-                //if (index < this.navSteps.length - 1) {
-                //    this.$store.commit('progress/setNextStep', this.navSteps[index + 1])
-                //}
+                if (index > 0) {
+                    this.$store.commit('progress/setPreviousStep', this.navSteps[index - 1])
+                }
 
                 this.$store.commit('progress/setStepChanged', true)
 

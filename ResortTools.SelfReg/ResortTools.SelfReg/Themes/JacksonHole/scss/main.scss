@@ -52,6 +52,8 @@ img.aside-logo {
     width: 100px;
 }
 
+
+
 #progress-map-container {
 
     .progress-map {
@@ -240,6 +242,20 @@ img.aside-logo {
 }
 
 //Contact Management Styles
+
+
+//Waiver Specific Styles
+.legal-text {
+    margin: 20px;
+    text-align: left;
+}
+
+.waiver-container {
+    border: 1px solid black;
+    margin: 15px 50px;
+    overflow-y:auto;
+    max-height: 300px;
+}
 
 input.wide {
     width: 400px;

@@ -1,24 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Ski School";
+    ViewData["Title"] = "rental Office";
 }
+@model SelfRegistrationConfig
 
-<div id="ski-school-app" class="col-xs-12">
-    <div class="row">
-        <header id="ski-school-header" class="location-header col-xs-12">
-            <img src="~/images/header.jpg" />
-            <div class="location-header-content">
-                <h2>@ViewData["Title"]</h2>
-            </div>
-        </header>
-    </div>
-    <div id="ski-school-content" class="row">
+<div id="ski-school-app" class="col-xs-12 full-height">
+    <div id="ski-school-content" class="row full-height">
         <keep-alive>
             <router-view></router-view>
         </keep-alive>
     </div>
 </div>
 <script type="text/javascript">
-    //create a JS var based on the Ski School configuration passed into the View
+    //create a JS var based on the rental Office configuration rentaled into the View
     var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.SkiSchoolConfig));
 </script>
 <script src="~/js/SkiSchoolApp.js"></script>

@@ -27,9 +27,9 @@ namespace ResortTools.SelfReg.ViewModels
                 if (_dateOfBirth != null)
                 {
                     DateTime today = DateTime.Today;
-                    _age = today.Year - _dateOfBirth.Value.Year;
+                    Age = today.Year - _dateOfBirth.Value.Year;
                     // Go back to the year the person was born in case of a leap year
-                    if (_dateOfBirth > today.AddYears(-_age.Value)) _age--;
+                    if (_dateOfBirth > today.AddYears(-Age.Value)) Age--;
                 }
             }
         }

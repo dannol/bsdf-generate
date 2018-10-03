@@ -10,16 +10,21 @@ namespace ResortTools.SelfReg
     public class Step
     {
         public String Name { get; set; }
-        public Boolean DisplayProgress { get; set; }
-        public int StepNumber { get; set; }
-        public Boolean StepComplete { get; set; }
+        public String RouteName { get; set; }
         public String Route { get; set; }
+        public int StepNumber { get; set; }
+        public Boolean DisplayProgress { get; set; }
+        public Boolean NextStepOnComplete { get; set; }
+
+        public Boolean StepComplete { get; set; }
+
     }
 
     //Parent class for all location configurations
     public class LocationConfig
     {
         public string LocationName { get; set; }
+        public Boolean PrintOnComplete { get; set; }
 
         //Registration steps
         public Step[] Steps { get; set; }

@@ -27,17 +27,19 @@ const mutations = {
 const actions = {
 
     buildWaivers({ state, getters, commit, dispatch }, participants) {
-        debugger
+
         console.log('Building Waivers for ' + participants.groupMembers.length + ' group members')
 
         var participantWaivers = []
+        var minors = []
         var minorNames = ''
 
-        //Get all minors' names
+        //Get all minors
         var i
         for (i = 0; i < participants.groupMembers.length; i++) {
             if (participants.groupMembers[i].age <= 14) {
-                minorNames += " " + participants.groupMembers[i].firstName
+                //minorNames += " " + participants.groupMembers[i].firstName
+                minors.push(participants.groupMembers[i])
             }
         }
 
@@ -46,7 +48,8 @@ const actions = {
             signer: participants.contact,
             text: ' signing for ' + minorNames,
             waiverSigned: false,
-            isActive: true
+            isActive: true,
+            minors: minors
         })
 
         //add all non-minors to waivers
@@ -57,7 +60,8 @@ const actions = {
                     signer: participants.groupMembers[i],
                     text: ' signing for themself',
                     waiverSigned: false,
-                    isActive: false
+                    isActive: false,
+                    minors: null
                 })
             }
         }

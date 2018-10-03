@@ -44,7 +44,8 @@
                 selectedContact: 'contact/selectedContact',
                 members: 'group/members',
                 selectedMembers: 'group/selectedMembers',
-                currentStepNumber: 'progress/currentStepNumber'
+                currentStepNumber: 'progress/currentStepNumber',
+                currentStep: 'progress/currentStep'
             }),
             participants: function () {
                 return {
@@ -54,15 +55,16 @@
             },
         },
         methods: {
-            completeStep: function () {
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
-            },
             loadMembers: function () {
                 this.$store.dispatch('group/searchByAccountId', this.selectedContact.accountId)
             },
             selectMember: function (member) {
                 this.$store.commit('group/selectMember', member)
                 this.$store.commit('progress/completeStep', this.currentStepNumber)
+                //If this step is configured to automatically go to the next step, go there.
+                if (this.currentStep.nextStepOnComplete) {
+                    this.$router.push({ name: this.nextStep.routeName })
+                }
             }
         },
         props: {
