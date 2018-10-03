@@ -9,7 +9,8 @@ const state = {
     currentStep: null,
     previousStep: null,
     nextStep: null,
-    stepChanged: false
+    stepChanged: false,
+    printOnComplete: selfRegistrationConfig.printOnComplete
 }
 
 const getters = {
@@ -18,7 +19,8 @@ const getters = {
     currentStep: state => state.currentStep,
     previousStep: state => state.previousStep,
     nextStep: state => state.nextStep,
-    stepChanged: state => state.stepChanged
+    stepChanged: state => state.stepChanged,
+    printOnComplete: state => state.printOnComplete
 }
 
 const mutations = {

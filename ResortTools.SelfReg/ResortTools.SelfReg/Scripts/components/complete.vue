@@ -4,6 +4,7 @@
             <div class="outer-panel">
                 <a href="./" class="start-over-btn">Start Over</a>
                 <h2 class="page-title">Complete</h2>
+                <h3 class="page-title" v-if="printOnComplete">Please take paperwork from printer</h3>
                 <h3 class="page-title">Please continue to cashier.</h3>
                 <div class="inner-panel center-in-parent">
                     <div>
@@ -32,7 +33,8 @@
         computed: {
             ...mapGetters({
                 results: 'contact/results',
-                currentStepNumber: 'progress/currentStepNumber'
+                currentStepNumber: 'progress/currentStepNumber',
+                printOnComplete: 'progress/printOnComplete'
             })
         }
     }

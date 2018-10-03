@@ -31,6 +31,7 @@
             }
         },
         mounted: function () {
+            debugger
             if (this.reloadMembers) {
                 this.loadMembers()
             }
