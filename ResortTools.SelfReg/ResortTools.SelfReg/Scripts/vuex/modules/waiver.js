@@ -27,7 +27,7 @@ const mutations = {
 const actions = {
 
     buildWaivers({ state, getters, commit, dispatch }, participants) {
-
+        debugger
         console.log('Building Waivers for ' + participants.groupMembers.length + ' group members')
 
         var participantWaivers = []

@@ -19,7 +19,7 @@ import manageGroup from '../components/manage-group'
 import groupMemberList from '../components/group-member-list'
 import addGroupMember from '../components/add-group-member'
 import updateGroupMember from '../components/update-group-member'
-import selectMembers from '../components/select-members'
+import selectGroupMembers from '../components/select-group-members'
 
 //Waiver Management Components
 import manageWaivers from '../components/manage-waivers'
@@ -85,23 +85,30 @@ const routes = [
         path: '/manage-group',
         name: 'manageGroup',
         component: manageGroup,
-        children: [{
-            path: '',
-            name: 'groupMemberList',
-            component: groupMemberList,
-            props: true
-        },
-        {
-            path: 'add',
-            name: 'addGroupMember',
-            component: addGroupMember
-        },
-        {
-            path: 'update',
-            name: 'updateGroupMember',
-            component: updateGroupMember,
-            props: true
-        }
+        children: [
+            {
+                path: '',
+                name: 'groupMemberList',
+                component: groupMemberList,
+                props: true
+            },
+            {
+                path: 'select-group-members',
+                name: 'selectGroupMembers',
+                component: selectGroupMembers,
+                props: true
+            },
+            {
+                path: 'add',
+                name: 'addGroupMember',
+                component: addGroupMember
+            },
+            {
+                path: 'update',
+                name: 'updateGroupMember',
+                component: updateGroupMember,
+                props: true
+            }
         ]
     },
     {
@@ -115,11 +122,6 @@ const routes = [
             component: waivers,
             props: true
         }]
-    },
-    {
-        path: '/selectMembers',
-        name: 'selectMembers',
-        component: selectMembers
     },
     {
         path: '/complete',

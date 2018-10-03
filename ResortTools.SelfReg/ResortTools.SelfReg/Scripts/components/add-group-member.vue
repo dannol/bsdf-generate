@@ -6,12 +6,10 @@
                 Tip: Adults (18+) must be present to sign their season-pass waiver.
             </div>
             <div>
-                <label for="first-name">First Name:</label>
-                <input v-model="firstName" name="first-name" type="text" />
+                <input v-model="firstName" name="first-name" type="text" placeholder="First Name" />
             </div>
             <div>
-                <label for="last-name">Last Name:</label>
-                <input v-model="lastName" name="last-name" type="text" />
+                <input v-model="lastName" name="last-name" type="text" placeholder="Last Name" />
             </div>
             <div>
                 <input v-model="email" name="email" type="text" placeholder="Email (optional)" class="wide" />
@@ -49,6 +47,7 @@
         computed: {
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
+                selectedMembers: 'group/selectedMembers',
                 members: 'group/memberList'
             }),
             newMember: function () {
