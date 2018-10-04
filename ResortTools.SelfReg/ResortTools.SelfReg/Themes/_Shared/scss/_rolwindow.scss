@@ -1,0 +1,169 @@
+﻿
+@import "colors";
+@import "typography";
+@import "Themes/_Shared/scss/shared";
+
+
+.rol__wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999999;
+
+    .rol__window {
+        position: absolute;
+        overflow: hidden;
+        padding-bottom: 5px;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        background: white;
+        width: 740px;
+        max-width: 100%;
+        height: 500px;
+        max-height: 100%;
+        border-radius: 10px;
+        border: 1px solid #222;
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+        .rol__header {
+            @include fonts('primary','bold');
+            text-align: center;
+            height: 50px;
+            background: white;
+            position: relative;
+            z-index: 999;
+            border-bottom: 1px solid #ccc;
+            line-height: 50px;
+
+            .rol__close {
+                position: absolute;
+                right: 30px;
+                top: 0;
+                line-height: inherit;
+                cursor: pointer;
+
+                &:before {
+                    font-family: "jh-icons" !important;
+                    font-size: 0.85rem;
+                    position: absolute;
+                    line-height: inherit;
+                }
+            }
+        }
+
+        .rol__document {
+            padding-top: 65px;
+            font-family: 'Helvetica', serif;
+            font-size: 0.8em;
+            padding: 20px 40px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            padding-bottom: 20vh;
+            max-width: 100%;
+            margin: 0 auto;
+            -webkit-overflow-scrolling: touch;
+
+            * {
+                max-width: 100%;
+            }
+
+            ul {
+                list-style-type: disc;
+            }
+
+            ul, ol {
+                margin-left: 1rem;
+                padding-left: 0;
+
+                > li {
+                    margin-bottom: .5rem;
+                }
+            }
+
+            p {
+                font-family: inherit;
+                color: inherit;
+                opacity: 1;
+            }
+        }
+
+        .rol__progress {
+            position: absolute;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: map-deep-get($colors,'primary');
+            z-index: 999;
+        }
+
+        .rol__signmessage {
+            @include fonts('tertiary','bold');
+            text-transform: uppercase;
+            font-size: 0.75em;
+            opacity: 0.7;
+            background: rgba(0,0,0,0.1);
+            padding: 10px 15px;
+        }
+
+        .rol__footer {
+            @include fonts('secondary');
+            position: absolute;
+            padding: 0;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #F7F7FA;
+            border-top: 1px solid #ccc;
+
+            &.on-top {
+                z-index: 9999999;
+            }
+
+            p {
+                padding: 5px;
+                text-align: center;
+                font-size: 1em;
+                font-family: georgia;
+                line-height: 1.625em;
+                opacity: 0.7;
+            }
+
+            .sign-form {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 15px;
+
+                .agree-checkbox {
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        margin-left: 10px;
+                        margin-bottom: 0px;
+                    }
+                }
+
+                input[type="checkbox"] {
+                    border-radius: 5px;
+                    height: 25px;
+                    width: 25px;
+                }
+
+                > label {
+                    margin: 0 15px 0 5px;
+                }
+            }
+        }
+    }
+}
