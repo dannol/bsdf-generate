@@ -2,6 +2,7 @@
 import VueRouter from 'vue-router'
 
 import start from '../components/start'
+import confirmRestart from '../components/confirm-restart'
 
 //Search Components
 import searchByOrder from '../components/search-by-order'
@@ -36,6 +37,12 @@ const routes = [
         path: '/',
         name: "start",
         component: start
+    },
+    {
+        //Confirm Restart Route
+        path: '/confirm-restart',
+        name: "confirmRestart",
+        component: confirmRestart
     },
     {
         //Contact Management Routes
