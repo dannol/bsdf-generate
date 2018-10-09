@@ -15,7 +15,7 @@ namespace ResortTools.SelfReg
         public int StepNumber { get; set; }
         public Boolean DisplayProgress { get; set; }
         public Boolean NextStepOnComplete { get; set; }
-
+        public Boolean AllowReturnToStep { get; set; }
         public Boolean StepComplete { get; set; }
 
     }
@@ -51,6 +51,7 @@ namespace ResortTools.SelfReg
     //Overall Configuration for the client
     public class SelfRegistrationConfig
     {
+        public string TerminalId { get; set; }
         public PassOfficeConfig PassOfficeConfig { get; set; }
         public RentalOfficeConfig RentalOfficeConfig { get; set; }
         public SkiSchoolConfig SkiSchoolConfig { get; set; }

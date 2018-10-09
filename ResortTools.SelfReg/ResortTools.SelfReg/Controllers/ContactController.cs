@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ResortTools.SelfReg.Models;
 using ResortTools.SelfReg.ViewModels;
 using ResortTools.SelfReg.Interfaces;
 using System;

@@ -13,6 +13,8 @@
 <script type="text/javascript">
     //create a JS var based on the rental Office configuration rentaled into the View
     var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.RentalOfficeConfig));
+    var terminalId = @Html.Raw(Json.Serialize(Model.TerminalId));
+    console.log('TERMINAL ID: ' + terminalId)
 </script>
 <script src="~/js/RentalOfficeApp.js"></script>
 

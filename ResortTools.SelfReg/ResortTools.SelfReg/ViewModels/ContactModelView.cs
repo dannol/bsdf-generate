@@ -1,42 +1,34 @@
-﻿using System;
+﻿using ResortTools.SelfReg.Models;
+using System;
+
 
 namespace ResortTools.SelfReg.ViewModels
 {
 
-    public class Contact
+    public class ContactViewModel : Contact
     {
-        private DateTime? _dateOfBirth;
         private int? _age;
-
-        public int ParentAccountId { get; set; }
-        public int? AccountId { get; set; }
-        public String LastName { get; set; }
-        public String FirstName { get; set; }
-        public String Email { get; set; }
-        public String Phone { get; set; }
         public String Hometown { get; set; }
-        public DateTime? OrderArrivalDate { get; set; }
-        public String CardNumber { get; set; }
-        public String PhotoUrl { get; set; }
-        public DateTime? DateOfBirth
-        {
-            get { return _dateOfBirth; }
-            set
-            {
-                _dateOfBirth = value;
-                if (_dateOfBirth != null)
-                {
-                    DateTime today = DateTime.Today;
-                    Age = today.Year - _dateOfBirth.Value.Year;
-                    // Go back to the year the person was born in case of a leap year
-                    if (_dateOfBirth > today.AddYears(-Age.Value)) Age--;
-                }
-            }
-        }
+
         public int? Age
         {
-            get { return _age; }
-            set { _age = value; }
+            get {
+                if (DateOfBirth != null)
+                {
+                    DateTime today = DateTime.Today;
+                    _age = today.Year - DateOfBirth.Value.Year;
+                    // Go back to the year the person was born in case of a leap year
+                    if (DateOfBirth > today.AddYears(-_age.Value)) _age--;
+                }
+
+                return _age;
+
+            }
+            set
+            {
+                _age = value;
+            }
+
         }
 
     }

@@ -10,12 +10,12 @@ namespace ResortTools.SelfReg.Services
 {
     public class ContactServiceMock : IContactService
     {
-        public SearchResult<Contact> GetByAccountId(int AccountId)
+        public SearchResult<ContactViewModel> GetByAccountId(int AccountId)
         {
-            SearchResult<Contact> result = new SearchResult<Contact>();
+            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
-            List<Contact> contacts = new List<Contact>();
-            Contact Bob = new Contact
+            List<ContactViewModel> contacts = new List<ContactViewModel>();
+            ContactViewModel Bob = new ContactViewModel
             {
                 AccountId = AccountId,
                 FirstName = "Bob",
@@ -33,12 +33,12 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<Contact> GetByCardNumber(string CardNumber)
+        public SearchResult<ContactViewModel> GetByCardNumber(string CardNumber)
         {
-            SearchResult<Contact> result = new SearchResult<Contact>();
+            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
-            List<Contact> contacts = new List<Contact>();
-            Contact Bob = new Contact
+            List<ContactViewModel> contacts = new List<ContactViewModel>();
+            ContactViewModel Bob = new ContactViewModel
             {
                 AccountId = 9999,
                 FirstName = "Bob",
@@ -55,12 +55,12 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<Contact> GetByOrderId(string OrderId)
+        public SearchResult<ContactViewModel> GetByOrderId(string OrderId)
         {
-            SearchResult<Contact> result = new SearchResult<Contact>();
+            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
-            List<Contact> contacts = new List<Contact>();
-            Contact Bob = new Contact
+            List<ContactViewModel> contacts = new List<ContactViewModel>();
+            ContactViewModel Bob = new ContactViewModel
             {
                 AccountId = 1,
                 FirstName = "Bob",
@@ -71,7 +71,7 @@ namespace ResortTools.SelfReg.Services
                 DateOfBirth = DateTime.Parse("01/01/1982")
             };
             contacts.Add(Bob);
-            Contact Steve = new Contact
+            ContactViewModel Steve = new ContactViewModel
             {
                 AccountId = 2,
                 FirstName = "Steve",
@@ -82,7 +82,7 @@ namespace ResortTools.SelfReg.Services
                 DateOfBirth = DateTime.Parse("01/01/1970")
             };
             contacts.Add(Steve);
-            Contact William = new Contact
+            ContactViewModel William = new ContactViewModel
             {
                 AccountId = 3,
                 FirstName = "William",
@@ -99,12 +99,12 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<Contact> GetByPersinalInfo(Contact Contact)
+        public SearchResult<ContactViewModel> GetByPersinalInfo(Contact Contact)
         {
-            SearchResult<Contact> result = new SearchResult<Contact>();
+            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
-            List<Contact> contacts = new List<Contact>();
-            Contact Bob = new Contact
+            List<ContactViewModel> contacts = new List<ContactViewModel>();
+            ContactViewModel Bob = new ContactViewModel
             {
                 AccountId = 10,
                 FirstName = Contact.FirstName,
@@ -117,7 +117,7 @@ namespace ResortTools.SelfReg.Services
             };
             result.Results.Add(Bob);
 
-            Contact Steve = new Contact
+            ContactViewModel Steve = new ContactViewModel
             {
                 AccountId = 20,
                 FirstName = Contact.FirstName,
@@ -130,7 +130,7 @@ namespace ResortTools.SelfReg.Services
             };
             result.Results.Add(Steve);
 
-            Contact William = new Contact
+            ContactViewModel William = new ContactViewModel
             {
                 AccountId = 30,
                 FirstName = Contact.FirstName,
@@ -146,12 +146,12 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<Contact> GetGroupByAccountId(int AccountId)
+        public SearchResult<ContactViewModel> GetGroupByAccountId(int AccountId)
         {
-            SearchResult<Contact> result = new SearchResult<Contact>();
+            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
-            List<Contact> contacts = new List<Contact>();
-            Contact Wife = new Contact
+            List<ContactViewModel> contacts = new List<ContactViewModel>();
+            ContactViewModel Wife = new ContactViewModel
             {
                 AccountId = 10,
                 FirstName = "Wife",
@@ -163,7 +163,7 @@ namespace ResortTools.SelfReg.Services
                 DateOfBirth = DateTime.Parse("01/01/1980")
             };
             result.Results.Add(Wife);
-            Contact Steve = new Contact
+            ContactViewModel Steve = new ContactViewModel
             {
                 AccountId = 11,
                 FirstName = "Child1",
@@ -175,7 +175,7 @@ namespace ResortTools.SelfReg.Services
                 DateOfBirth = DateTime.Parse("01/01/2010")
             };
             result.Results.Add(Steve);
-            Contact William = new Contact
+            ContactViewModel William = new ContactViewModel
             {
                 AccountId = 12,
                 FirstName = "Child2",
@@ -191,27 +191,41 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public UpdateResult<Contact> AddContact(Contact Contact)
+        public UpdateResult<ContactViewModel> AddContact(Contact Contact)
         {
             //TODO: Fake data
-            Contact.AccountId = 99;
+            ContactViewModel UpdatedContact = new ContactViewModel();
+            UpdatedContact.AccountId = 99;
+            UpdatedContact.DateOfBirth = Contact.DateOfBirth;
+            UpdatedContact.Email = Contact.Email;
+            UpdatedContact.FirstName = Contact.FirstName;
+            UpdatedContact.LastName = Contact.LastName;
+            UpdatedContact.PhotoUrl = Contact.PhotoUrl;
 
-            UpdateResult<Contact> result = new UpdateResult<Contact>
+            UpdateResult<ContactViewModel> result = new UpdateResult<ContactViewModel>
             {
                 Status = "OK",
-                UpdatedRecord = Contact
+                UpdatedRecord = UpdatedContact
             };
 
             return result;
         }
 
-        public UpdateResult<Contact> UpdateContact(Contact Contact)
+        public UpdateResult<ContactViewModel> UpdateContact(Contact Contact)
         {
+            //TODO: Fake data
+            ContactViewModel UpdatedContact = new ContactViewModel();
+            UpdatedContact.AccountId = 99;
+            UpdatedContact.DateOfBirth = Contact.DateOfBirth;
+            UpdatedContact.Email = Contact.Email;
+            UpdatedContact.FirstName = Contact.FirstName;
+            UpdatedContact.LastName = Contact.LastName;
+            UpdatedContact.PhotoUrl = Contact.PhotoUrl;
 
-            UpdateResult<Contact> result = new UpdateResult<Contact>
+            UpdateResult<ContactViewModel> result = new UpdateResult<ContactViewModel>
             {
                 Status = "OK",
-                UpdatedRecord = Contact
+                UpdatedRecord = UpdatedContact
             };
 
             return result;

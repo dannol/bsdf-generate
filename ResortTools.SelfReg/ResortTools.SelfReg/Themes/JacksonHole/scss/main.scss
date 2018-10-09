@@ -13,6 +13,10 @@ body {
     margin: 20px;
 }
 
+[disabled='disabled'] {
+    pointer-events: none;
+}
+
 input[type='text'] {
     display: inline-block;
     border: 1px solid #e0e0e0;
@@ -190,6 +194,11 @@ img.aside-logo {
                 text-align: center;
                 font: 10px white;
             }
+        }
+
+        .terminal-id {
+            float: right;
+            color: white;
         }
     }
 }

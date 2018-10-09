@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="col-xs-12 navigation">
-        <a :href="'./#' + previousStep.route" class="btn btn-primary" v-if="showPreviousButton"> << {{previousStep.name}}</a>
+        <a v-on:click="goToPreviousStep(previousStep)"  class="btn btn-primary" v-if="showPreviousButton"> << {{previousStep.name}}</a>
         <a :href="'./#' + nextStep.route" class="btn btn-primary" :disabled="!currentStep.stepComplete" v-if="showNextButton">{{nextStep.name}} >></a>
     </div>
 </template>
@@ -49,7 +49,7 @@
                 return null
             },
             showPreviousButton: function () {
-                if (this.previousStep != null && this.previousStep.stepNumber != 0) {
+                if (this.previousStep != null && this.previousStep.allowReturnToStep) {
                     return true
                 }
                 else {
@@ -63,6 +63,13 @@
                 else {
                     return false
                 }
+            }
+        },
+        methods: {
+            goToPreviousStep: function (previousStep) {
+                //If going to the previous step, set it to incomplete
+                previousStep.stepComplete = false;
+                this.$router.push(previousStep.route)
             }
         }
     }

@@ -26,10 +26,16 @@ namespace ResortTools.SelfReg.Controllers
             return View(SelfRegistrationConfig);
         }
 
-
-        public IActionResult PassOffice()
+        public IActionResult PassOffice(string id)
         {
             ViewData["Message"] = "Self Registration Tool";
+
+            if (string.IsNullOrEmpty(id))
+            {
+                id = "DEFAULT";
+            }
+
+            SelfRegistrationConfig.TerminalId = id;
 
             return View(SelfRegistrationConfig);
         }

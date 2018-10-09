@@ -83,10 +83,14 @@
                     var i
                     for (i = 0; i < waiver.minors.length; i++) {
                         if (i == waiver.minors.length - 1) {
-                            text += ' and ' + waiver.minors[i].firstName
+
+                            if (waiver.minors.length > 1) {
+                                text += 'and' 
+                            }
+                            text += ' ' + waiver.minors[i].firstName
                         }
                         else {
-                            text += waiver.minors[i].firstName + ' ,'
+                            text += waiver.minors[i].firstName + ', '
                         }
                     }
                     text += '. '

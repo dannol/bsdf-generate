@@ -15,6 +15,7 @@
                 <div v-else class="group-member-image" >{{getInitials(member)}}</div>
                 <div class="member-name">{{member.firstName}}</div>
             </div>
+            <div class="terminal-id">Terminal: {{terminalId}}</div>
         </aside>
     </div>
 
@@ -31,7 +32,8 @@
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
                 members: 'group/members',
-                selectedMembers: 'group/selectedMembers'
+                selectedMembers: 'group/selectedMembers',
+                terminalId: 'progress/terminalId'
             })
         },
         methods: {

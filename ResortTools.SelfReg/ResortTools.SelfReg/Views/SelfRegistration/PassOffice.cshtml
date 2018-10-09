@@ -13,5 +13,7 @@
 <script type="text/javascript">
     //create a JS var based on the Pass Office configuration passed into the View
     var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.PassOfficeConfig));
+    var terminalId = @Html.Raw(Json.Serialize(Model.TerminalId));
+    console.log('TERMINAL ID: ' + terminalId)
 </script>
 <script src="~/js/PassOfficeApp.js"></script>
