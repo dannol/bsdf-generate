@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ResortTools.SelfReg.Models;
-using ResortTools.SelfReg.ViewModels;
 using ResortTools.SelfReg.Interfaces;
 using System;
 
@@ -10,6 +9,7 @@ namespace ResortTools.SelfReg.Controllers
     [ApiController]
     public class ContactController : ControllerBase
     {
+
         private readonly IContactService _contactService;
         public ContactController(IContactService contactService)
         {
@@ -18,55 +18,59 @@ namespace ResortTools.SelfReg.Controllers
 
         // Get contacts based on an an account number
         // GET: api/contact/orderid/123
-        [HttpGet("orderid/{orderId}")]
-        public ActionResult SearchByOrderId(string orderId)
+        [HttpGet("orderid/{orderId}/terminalid/{terminalId}")]
+        public ActionResult SearchByOrderId(string orderId, string terminalId)
         {
-            return new JsonResult(_contactService.GetByOrderId(orderId));
+            int terminalClientCode = int.Parse(terminalId);
+            return new JsonResult(_contactService.GetByOrderId(orderId, terminalClientCode));
 
         }
 
         // Get a contact by their account ID
         // GET: api/contact/accountId/123
-        [HttpGet("accountid/{accountId}")]
-        public ActionResult SearchByAccountId(int accountId)
-        {
+        //[HttpGet("accountid/{accountId}")]
+        //public ActionResult SearchByAccountId(string accountId)
+        //{
 
-            return new JsonResult(_contactService.GetByAccountId(accountId));
+        //    return new JsonResult(_contactService.GetByAccountId(accountId));
 
-        }
+        //}
 
 
         // Get a contact by their card Number
         // GET: api/contact/cardNumber/123
-        [HttpGet("cardnumber/{cardnumber}")]
-        public ActionResult SearchByCardNumber(string cardNumber)
+        [HttpGet("cardnumber/{cardnumber}/terminalId/{terminalId}")]
+        public ActionResult SearchByCardNumber(string cardNumber, string terminalId)
         {
-            return new JsonResult(_contactService.GetByCardNumber(cardNumber));
+            int terminalClientCode = int.Parse(terminalId);
+
+            return new JsonResult(_contactService.GetByCardNumber(cardNumber, terminalClientCode));
         }
 
         // Get contacts based on personal information
-        // GET: api/contact/firstname/John/lastname/Smith/dob/2010-12-21
-        [HttpGet("firstname/{firstName}/lastname/{lastName}/dob/{dateOfBirth}")]
-        public ActionResult SearchByPersonalInfo(string firstName, string lastName, string dateOfBirth)
+        // GET: api/contact/firstname/John/lastname/Smith/dob/2010-12-21/terminalid/12345
+        [HttpGet("firstname/{firstName}/lastname/{lastName}/dob/{dateOfBirth}/terminalid/{terminalId}")]
+        public ActionResult SearchByPersonalInfo(string firstName, string lastName, string dateOfBirth, string terminalId)
         {
             //TODO: Create a date helper
-            var dobArray = dateOfBirth.Split('-'); 
+            var dobArray = dateOfBirth.Split('-');
+            int terminalClientCode = int.Parse(terminalId);
 
             Contact model = new Contact();
             model.FirstName = firstName;
             model.LastName = lastName;
             model.DateOfBirth = DateTime.Parse(dateOfBirth);
 
-            return new JsonResult(_contactService.GetByPersinalInfo(model));
+            return new JsonResult(_contactService.GetByPersonalInfo(model, terminalClientCode));
 
         }
 
         // Get all contacts associate to a given account ID
         // GET: api/accountid/123
-        [HttpGet("{accountId}/group")]
-        public ActionResult GetGroupByAccountId(int accountId)
+        [HttpGet("{accountId}/group/terminalid/{terminalId}")]
+        public ActionResult GetGroupByAccountId(int accountId, int terminalId)
         {
-            return new JsonResult(_contactService.GetGroupByAccountId(accountId));
+            return new JsonResult(_contactService.GetGroupByAccountId(accountId, terminalId));
         }
 
         // Add a new contact

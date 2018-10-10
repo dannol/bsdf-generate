@@ -43,23 +43,24 @@ const mutations = {
 
 const actions = {
 
-    searchByAccountId({ state, getters, commit, dispatch }, accountId) {
-        var newContact = null;
-        var contactApiUrl = '/api/contact/accountId/' + accountId
+    //searchByAccountId({ state, getters, commit, dispatch }, accountId) {
+    //    var newContact = null;
+    //    var contactApiUrl = '/api/contact/accountId/' + accountId
 
-        return new Promise((resolve, reject) => {
-            dispatch('api/get',
-                { url: contactApiUrl },
-                { root: true }
-            ).then(data => {
-                resolve(data)
-            })
-        })
+    //    return new Promise((resolve, reject) => {
+    //        dispatch('api/get',
+    //            { url: contactApiUrl },
+    //            { root: true }
+    //        ).then(data => {
+    //            resolve(data)
+    //        })
+    //    })
 
-    },
-    searchByCardNumber({ state, getters, commit, dispatch }, cardNumber) {
+    //},
+    searchByCardNumber({ state, getters, commit, dispatch }, searchData) {
         var newContact = null;
-        var contactApiUrl = '/api/contact/cardNumber/' + cardNumber
+        debugger
+        var contactApiUrl = '/api/contact/cardNumber/' + searchData.cardNumber + '/terminalId/' + searchData.terminalId
 
         dispatch('api/get',
             { url: contactApiUrl },
@@ -68,9 +69,9 @@ const actions = {
             commit('setSearchResults', data.results)
         })
     },
-    searchByOrder({ state, getters, commit, dispatch }, orderId) {
+    searchByOrder({ state, getters, commit, dispatch }, searchData) {
 
-        var contactApiUrl = '/api/contact/orderid/' + orderId
+        var contactApiUrl = '/api/contact/orderid/' + searchData.orderId + '/terminalid/' + searchData.terminalId
 
         dispatch('api/get',
             { url: contactApiUrl },
@@ -80,8 +81,8 @@ const actions = {
         })
     },
     searchByPersonalInfo({ state, getters, commit, dispatch }, searchData) {
-
-        var contactApiUrl = '/api/contact/firstname/' + searchData.firstName + '/lastname/' + searchData.lastName + '/dob/' + searchData.dateOfBirth
+        debugger
+        var contactApiUrl = '/api/contact/firstname/' + searchData.firstName + '/lastname/' + searchData.lastName + '/dob/' + searchData.dateOfBirth + '/terminalid/' + searchData.terminalId
 
         dispatch('api/get',
             { url: contactApiUrl },

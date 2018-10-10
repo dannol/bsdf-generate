@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
@@ -17,6 +18,11 @@
 
   <ItemGroup>
     <Folder Include="Scripts\mixins\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ResortIntegration-Ikon_repository\UnityAPI\UnityAPI.ClientLibrary\UnityAPI.ClientLibrary.csproj" />
+    <ProjectReference Include="..\..\..\ResortIntegration-Ikon_repository\UnityAPI\UnityAPI.Models\UnityAPI.Models.csproj" />
   </ItemGroup>
 
 </Project>

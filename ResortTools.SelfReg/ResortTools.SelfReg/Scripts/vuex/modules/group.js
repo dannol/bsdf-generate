@@ -76,9 +76,9 @@ const actions = {
 
         }
     },
-    searchByAccountId({ state, getters, commit, dispatch }, accountId) {
+    searchByAccountId({ state, getters, commit, dispatch }, searchData) {
 
-        var contactApiUrl = '/api/contact/' + accountId + '/group'
+        var contactApiUrl = '/api/contact/' + searchData.accountId + '/group/terminalid/' + searchData.terminalId
 
         dispatch('api/get',
             { url: contactApiUrl },

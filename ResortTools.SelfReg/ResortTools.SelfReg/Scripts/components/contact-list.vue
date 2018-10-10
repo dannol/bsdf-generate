@@ -4,8 +4,10 @@
             <fieldset class="col-xs-12">
                 <div>
                     <h2>{{contacts.length}} Matches Found</h2>
-                    Looks like you may have been here before.<br />
-                    Select name below.
+                    <span v-if="contacts.length > 0">
+                        Looks like you may have been here before.<br />
+                        Select name below.
+                    </span>
                 </div>
                 <a v-for="(contact, index) in contacts" class="row contact-search-result" v-bind:class="{'contact-selected': contact.selected}" v-on:click="selectContact(contact)">
                     <div class="col-xs-1">

@@ -1,23 +1,33 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ResortTools.SelfReg.Interfaces;
 using ResortTools.SelfReg.Models;
 using ResortTools.SelfReg.ViewModels;
+using UnityAPI.ClientLibrary.Interfaces;
+using UnityModels = UnityAPI.Models;
+using UnityAPI.Models.Requests;
 
 namespace ResortTools.SelfReg.Services
 {
     public class ContactServiceMock : IContactService
     {
-        public SearchResult<ContactViewModel> GetByAccountId(int AccountId)
+        private readonly IContactProvider _contactProvider;
+
+        public ContactServiceMock (IContactProvider contactProvider)
         {
+            _contactProvider = contactProvider;
+        }
+
+        public SearchResult<ContactViewModel> GetByAccountId(string AccountId)
+        {
+
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
             List<ContactViewModel> contacts = new List<ContactViewModel>();
             ContactViewModel Bob = new ContactViewModel
             {
-                AccountId = AccountId,
+                //AccountId = AccountId,
                 FirstName = "Bob",
                 LastName = "Account",
                 Hometown = "Colorado Springs, CO",
@@ -33,14 +43,14 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<ContactViewModel> GetByCardNumber(string CardNumber)
+        public SearchResult<ContactViewModel> GetByCardNumber(string CardNumber, int TerminalId)
         {
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
             List<ContactViewModel> contacts = new List<ContactViewModel>();
             ContactViewModel Bob = new ContactViewModel
             {
-                AccountId = 9999,
+                //AccountId = 9999,
                 FirstName = "Bob",
                 LastName = "Card",
                 Hometown = "Colorado Springs, CO",
@@ -55,14 +65,22 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<ContactViewModel> GetByOrderId(string OrderId)
+        public SearchResult<ContactViewModel> GetByOrderId(string OrderId, int TerminalId)
         {
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
+
+
+            ContactSearchRequest contactSearchRequest = new ContactSearchRequest();
+
+            contactSearchRequest.TerminalClientCode = TerminalId;
+            contactSearchRequest.SearchString = OrderId;
+
+            var results = _contactProvider.SearchContacts(contactSearchRequest);
 
             List<ContactViewModel> contacts = new List<ContactViewModel>();
             ContactViewModel Bob = new ContactViewModel
             {
-                AccountId = 1,
+                //AccountId = 1,
                 FirstName = "Bob",
                 LastName = "Order",
                 Hometown = "Colorado Springs, CO",
@@ -73,7 +91,7 @@ namespace ResortTools.SelfReg.Services
             contacts.Add(Bob);
             ContactViewModel Steve = new ContactViewModel
             {
-                AccountId = 2,
+                //AccountId = 2,
                 FirstName = "Steve",
                 LastName = "Order",
                 Hometown = "Boise, ID",
@@ -84,7 +102,7 @@ namespace ResortTools.SelfReg.Services
             contacts.Add(Steve);
             ContactViewModel William = new ContactViewModel
             {
-                AccountId = 3,
+                //AccountId = 3,
                 FirstName = "William",
                 LastName = "Order",
                 Hometown = null,
@@ -99,14 +117,27 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<ContactViewModel> GetByPersinalInfo(Contact Contact)
+        public SearchResult<ContactViewModel> GetByPersonalInfo(Contact Contact, int TerminalId)
         {
-            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
+
+            ContactSearchRequest contactSearchRequest = new ContactSearchRequest();
+            contactSearchRequest.FirstName = Contact.FirstName;
+            contactSearchRequest.LastName = Contact.LastName;
+            contactSearchRequest.BirthDate = Contact.DateOfBirth;
+            contactSearchRequest.TerminalClientCode = TerminalId;
+            contactSearchRequest.SearchString = "";
+
+            var results =  _contactProvider.SearchContacts(contactSearchRequest);
+
+            results.Wait();
+
+            SearchResult < ContactViewModel> result = new SearchResult<ContactViewModel>();
 
             List<ContactViewModel> contacts = new List<ContactViewModel>();
+
             ContactViewModel Bob = new ContactViewModel
             {
-                AccountId = 10,
+                AccountId = "10",
                 FirstName = Contact.FirstName,
                 LastName = Contact.LastName,
                 Hometown = "Colorado Springs, CO",
@@ -119,7 +150,7 @@ namespace ResortTools.SelfReg.Services
 
             ContactViewModel Steve = new ContactViewModel
             {
-                AccountId = 20,
+                AccountId = "20",
                 FirstName = Contact.FirstName,
                 LastName = Contact.LastName,
                 Hometown = "Boise, ID",
@@ -132,7 +163,7 @@ namespace ResortTools.SelfReg.Services
 
             ContactViewModel William = new ContactViewModel
             {
-                AccountId = 30,
+                AccountId = "30",
                 FirstName = Contact.FirstName,
                 LastName = Contact.LastName + "son",
                 Hometown = null,
@@ -146,14 +177,14 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<ContactViewModel> GetGroupByAccountId(int AccountId)
+        public SearchResult<ContactViewModel> GetGroupByAccountId(int AccountId, int TerminalId)
         {
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
             List<ContactViewModel> contacts = new List<ContactViewModel>();
             ContactViewModel Wife = new ContactViewModel
             {
-                AccountId = 10,
+                //AccountId = 10,
                 FirstName = "Wife",
                 LastName = "GroupMember",
                 Hometown = "Colorado Springs, CO",
@@ -165,7 +196,7 @@ namespace ResortTools.SelfReg.Services
             result.Results.Add(Wife);
             ContactViewModel Steve = new ContactViewModel
             {
-                AccountId = 11,
+                //AccountId = 11,
                 FirstName = "Child1",
                 LastName = "GroupMember",
                 Hometown = "Boise, ID",
@@ -177,7 +208,7 @@ namespace ResortTools.SelfReg.Services
             result.Results.Add(Steve);
             ContactViewModel William = new ContactViewModel
             {
-                AccountId = 12,
+                //AccountId = 12,
                 FirstName = "Child2",
                 LastName = "GroupMember",
                 Hometown = null,
@@ -195,7 +226,7 @@ namespace ResortTools.SelfReg.Services
         {
             //TODO: Fake data
             ContactViewModel UpdatedContact = new ContactViewModel();
-            UpdatedContact.AccountId = 99;
+            //UpdatedContact.AccountId = 99;
             UpdatedContact.DateOfBirth = Contact.DateOfBirth;
             UpdatedContact.Email = Contact.Email;
             UpdatedContact.FirstName = Contact.FirstName;
@@ -215,7 +246,7 @@ namespace ResortTools.SelfReg.Services
         {
             //TODO: Fake data
             ContactViewModel UpdatedContact = new ContactViewModel();
-            UpdatedContact.AccountId = 99;
+            //UpdatedContact.AccountId = 99;
             UpdatedContact.DateOfBirth = Contact.DateOfBirth;
             UpdatedContact.Email = Contact.Email;
             UpdatedContact.FirstName = Contact.FirstName;

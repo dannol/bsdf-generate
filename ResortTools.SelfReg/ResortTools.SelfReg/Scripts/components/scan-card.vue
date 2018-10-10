@@ -15,17 +15,26 @@
         name: 'scan-card',
         data: function () {
             return {
-                cardNumber: null
+                //TODO: This is fake data unil we get the card scan to work
+                cardNumber: '987675'
             }
         },
         computed: {
             ...mapGetters({
-                currentStepNumber: 'progress/currentStepNumber'
-            })
+                currentStepNumber: 'progress/currentStepNumber',
+                terminalId: 'progress/terminalId'
+            }),
+            searchData: function () {
+
+                return {
+                    cardNumber: this.cardNumber,
+                    terminalId: this.terminalId
+                }
+            }
         },
         methods: {
             search: function () {
-                this.$store.dispatch('contact/searchByCardNumber', this.cardNumber)
+                this.$store.dispatch('contact/searchByCardNumber', this.searchData)
                 this.$router.push('contact-list')
             }
         },

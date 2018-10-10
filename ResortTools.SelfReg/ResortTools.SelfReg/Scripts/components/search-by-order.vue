@@ -23,11 +23,19 @@
             ...mapGetters({
                 contacts: 'contact/contacts',
                 currentStepNumber: 'progress/currentStepNumber',
-            })
+                terminalId: 'progress/terminalId'
+            }),
+            searchData: function () {
+
+                return {
+                    orderId: this.orderId,
+                    terminalId: this.terminalId
+                }
+            }
         },
         methods: {
             search: function () {
-                this.$store.dispatch('contact/searchByOrder', this.orderId)
+                this.$store.dispatch('contact/searchByOrder', this.searchData)
                 this.$router.push('contact-list')
             }
         },

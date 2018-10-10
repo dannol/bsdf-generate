@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ResortTools.SelfReg.Interfaces;
 using ResortTools.SelfReg.Services;
+using UnityAPI.ClientLibrary;
 
 namespace ResortTools.SelfReg
 {
@@ -44,7 +45,11 @@ namespace ResortTools.SelfReg
             Configuration.Bind("SelfRegistrationConfig", SelfRegistrationConfig);
             services.AddSingleton(SelfRegistrationConfig);
 
-            services.AddTransient<IContactService, ContactServiceMock>();
+            services.AddTransient<IContactService, ContactService>();
+
+            services.Configure<UnityClientSettings>(Configuration.GetSection("UnityClient"));
+            services.AddUnityClientLibrary();
+
 
             // Bind options using a sub-section of the appsettings.json file.
             //services.Configure<RegistrationConfig>(Configuration.GetSection("RegistrationConfig"));

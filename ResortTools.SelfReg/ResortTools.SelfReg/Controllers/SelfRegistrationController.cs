@@ -32,7 +32,7 @@ namespace ResortTools.SelfReg.Controllers
 
             if (string.IsNullOrEmpty(id))
             {
-                id = "DEFAULT";
+                id = "00000";
             }
 
             SelfRegistrationConfig.TerminalId = id;

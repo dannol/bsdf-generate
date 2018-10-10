@@ -39,8 +39,15 @@
             ...mapGetters({
                 selectedContact: 'contact/selectedContact',
                 members: 'group/members',
-                currentStepNumber: 'progress/currentStepNumber'
-            })
+                currentStepNumber: 'progress/currentStepNumber',
+                terminalId: 'progress/terminalId'
+            }),
+            searchData: function () {
+                return {
+                    accountId: this.selectedContact.accountId,
+                    terminalId: this.terminalId
+                }
+            }
         },
         methods: {
             updateMember: function (member) {
@@ -49,7 +56,7 @@
 
             },
             loadMembers: function () {
-                this.$store.dispatch('group/searchByAccountId', this.selectedContact.accountId)
+                this.$store.dispatch('group/searchByAccountId', this.searchData)
             }
         },
         props: {
