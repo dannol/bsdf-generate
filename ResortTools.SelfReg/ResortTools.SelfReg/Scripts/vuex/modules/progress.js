@@ -6,6 +6,7 @@ import Vue from 'vue/dist/vue.js';
 const state = {
     processSteps: selfRegistrationConfig.steps,
     terminalId: terminalId,
+    locationAuthCode: selfRegistrationConfig.authCode,
     currentStep: null,
     previousStep: null,
     nextStep: null,
@@ -16,6 +17,7 @@ const state = {
 const getters = {
     processSteps: state => state.processSteps,
     terminalId: state => state.terminalId,
+    locationAuthCode: state => state.locationAuthCode,
     currentStep: state => state.currentStep,
     previousStep: state => state.previousStep,
     nextStep: state => state.nextStep,

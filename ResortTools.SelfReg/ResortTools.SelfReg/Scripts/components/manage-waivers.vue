@@ -28,10 +28,14 @@
 
     export default {
         name: 'manage-waivers',
+        data: function () {
+            return {
+                //Data goes here
+            }
+        },
         computed: {
             ...mapGetters({
-                thisContact: 'contact/selectedContact',
-                selectedMembers: 'group/selectedMembers'
+               //Getters here
             })
         },
         components: {

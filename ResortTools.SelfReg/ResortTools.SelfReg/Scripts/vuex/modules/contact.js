@@ -43,20 +43,6 @@ const mutations = {
 
 const actions = {
 
-    //searchByAccountId({ state, getters, commit, dispatch }, accountId) {
-    //    var newContact = null;
-    //    var contactApiUrl = '/api/contact/accountId/' + accountId
-
-    //    return new Promise((resolve, reject) => {
-    //        dispatch('api/get',
-    //            { url: contactApiUrl },
-    //            { root: true }
-    //        ).then(data => {
-    //            resolve(data)
-    //        })
-    //    })
-
-    //},
     searchByCardNumber({ state, getters, commit, dispatch }, searchData) {
         var newContact = null;
         var contactApiUrl = '/api/contact/cardNumber/' + searchData.cardNumber + '/terminalId/' + searchData.terminalId

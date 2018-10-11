@@ -9,7 +9,6 @@ namespace ResortTools.SelfReg.ViewModels
     {
         private int? _age;
         public String Hometown { get; set; }
-        public Boolean ShowGuestList { get; set; }
 
         public int? Age
         {

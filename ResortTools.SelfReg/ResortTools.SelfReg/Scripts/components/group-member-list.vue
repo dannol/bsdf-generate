@@ -31,11 +31,8 @@
             }
         },
         mounted: function () {
-            //If the selected contact is set to display group memebrs, load them
-            if (this.selectedContact.ShowGuestList) {
-                if (this.reloadMembers) {
-                    this.loadMembers()
-                }
+            if (this.reloadMembers) {
+                this.loadMembers()
             }
         },
         computed: {

@@ -26,7 +26,7 @@ namespace ResortTools.SelfReg
         public string LocationName { get; set; }
         public Boolean PrintOnComplete { get; set; }
         public string DefaultTerminalId { get; set; }
-
+        public string AuthCode { get; set; }
         //Registration steps
         public Step[] Steps { get; set; }
     }
