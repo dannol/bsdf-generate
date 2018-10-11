@@ -24,27 +24,22 @@
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store'
     import progressmap from '../components/progress-map'
-    import navigation from '../components/navigation'
     import memberbar from '../components/member-bar'
 
     export default {
         name: 'manage-group',
         data: function () {
             return {
-                selectedMember: null
+                //Data elements here
             }
         },
         computed: {
             ...mapGetters({
-                thisContact: 'contact/selectedContact',
-                members: 'group/members',
-                selectedMembers: 'group/selectedMembers',
-                currentStepNumber: 'progress/currentStepNumber'
+                //Map Getters here
             })
         },
         components: {
             progressmap,
-            navigation,
             memberbar
         },
 

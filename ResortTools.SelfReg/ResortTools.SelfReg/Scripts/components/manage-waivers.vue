@@ -6,7 +6,7 @@
         </aside>
         <div id="group-screen" class="full-screen full-height">
             <div class="outer-panel">
-                <a href="./" class="start-over-btn">Start Over</a>
+                <a href="./#/confirm-restart" class="start-over-btn">Start Over</a>
                 <h3 class="page-title">Sign Waivers</h3>
                 <div id="waiver-management-panel" class="inner-panel center-in-parent">
                     <router-view></router-view>
@@ -31,7 +31,6 @@
         computed: {
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
-                currentStepNumber: 'progress/currentStepNumber',
                 selectedMembers: 'group/selectedMembers'
             })
         },

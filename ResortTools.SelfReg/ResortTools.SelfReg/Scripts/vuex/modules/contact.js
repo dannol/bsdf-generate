@@ -59,7 +59,6 @@ const actions = {
     //},
     searchByCardNumber({ state, getters, commit, dispatch }, searchData) {
         var newContact = null;
-        debugger
         var contactApiUrl = '/api/contact/cardNumber/' + searchData.cardNumber + '/terminalId/' + searchData.terminalId
 
         dispatch('api/get',
@@ -81,7 +80,6 @@ const actions = {
         })
     },
     searchByPersonalInfo({ state, getters, commit, dispatch }, searchData) {
-        debugger
         var contactApiUrl = '/api/contact/firstname/' + searchData.firstName + '/lastname/' + searchData.lastName + '/dob/' + searchData.dateOfBirth + '/terminalid/' + searchData.terminalId
 
         dispatch('api/get',

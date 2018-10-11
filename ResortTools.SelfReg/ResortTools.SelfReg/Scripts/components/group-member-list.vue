@@ -39,7 +39,6 @@
             ...mapGetters({
                 selectedContact: 'contact/selectedContact',
                 members: 'group/members',
-                currentStepNumber: 'progress/currentStepNumber',
                 terminalId: 'progress/terminalId'
             }),
             searchData: function () {

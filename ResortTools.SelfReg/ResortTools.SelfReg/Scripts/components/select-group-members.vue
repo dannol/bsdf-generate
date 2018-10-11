@@ -44,7 +44,6 @@
                 selectedContact: 'contact/selectedContact',
                 members: 'group/members',
                 selectedMembers: 'group/selectedMembers',
-                currentStepNumber: 'progress/currentStepNumber',
                 currentStep: 'progress/currentStep'
             }),
             participants: function () {
@@ -60,7 +59,7 @@
             },
             selectMember: function (member) {
                 this.$store.commit('group/selectMember', member)
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
+                this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
                 //If this step is configured to automatically go to the next step, go there.
                 if (this.currentStep.nextStepOnComplete) {
                     this.$router.push({ name: this.nextStep.routeName })

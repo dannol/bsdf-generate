@@ -27,7 +27,6 @@
         name: 'waivers',
         computed: {
             ...mapGetters({
-                currentStepNumber: 'progress/currentStepNumber',
                 currentStep: 'progress/currentStep',
                 nextStep: 'progress/nextStep',
                 selectedMembers: 'group/selectedMembers',
@@ -66,7 +65,7 @@
             signWaiver: function (index) {
                 this.$store.commit('waiver/signWaiver', index)
                 if (this.allWaiversSigned) {
-                    this.$store.commit('progress/completeStep', this.currentStepNumber)
+                    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
                     //If this step is configured to automatically go to the next step, go there.
                     if (this.currentStep.nextStepOnComplete) {
                         this.$router.push({ name: this.nextStep.routeName })

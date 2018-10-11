@@ -56,14 +56,13 @@
         computed: {
             ...mapGetters({
                 contacts: 'contact/contacts',
-                currentStep: 'progress/currentStep',
-                currentStepNumber: 'progress/currentStepNumber'
+                currentStep: 'progress/currentStep'
             })
         },
         methods: {
             selectContact: function (contact) {
                 this.$store.commit('contact/selectContact', contact)
-                this.$store.commit('progress/completeStep', this.currentStepNumber)
+                this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
                 //If this step is configured to automatically go to the next step, go there.
                 if (this.currentStep.nextStepOnComplete) {
                     this.$router.push({ name: this.nextStep.routeName })

@@ -22,7 +22,6 @@
         computed: {
             ...mapGetters({
                 contacts: 'contact/contacts',
-                currentStepNumber: 'progress/currentStepNumber',
                 terminalId: 'progress/terminalId'
             }),
             searchData: function () {

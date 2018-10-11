@@ -28,12 +28,13 @@
     export default {
         name: 'complete',
         mounted: function () {
-            //this.$store.commit('progress/completeStep', this.currentStepNumber)
+            //We don't really need to complete the "Complete" step,but in case it's neede for consistency
+            //this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
         },
         computed: {
             ...mapGetters({
                 results: 'contact/results',
-                currentStepNumber: 'progress/currentStepNumber',
+                currentStep: 'progress/currentStep',
                 printOnComplete: 'progress/printOnComplete'
             })
         }

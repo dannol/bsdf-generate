@@ -6,7 +6,7 @@
         </aside>
         <div id="group-screen" class="full-screen full-height">
             <div class="outer-panel">
-                <a href="./" class="start-over-btn">Start Over</a>
+                <a href="./#/confirm-restart" class="start-over-btn">Start Over</a>
                 <h3 class="page-title">Manage Family</h3>
                 <div id="group-management-panel" class="inner-panel center-in-parent">
                     <router-view></router-view>
@@ -38,8 +38,7 @@
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
                 members: 'group/members',
-                selectedMembers: 'group/selectedMembers',
-                currentStepNumber: 'progress/currentStepNumber'
+                selectedMembers: 'group/selectedMembers'
             })
         },
         components: {

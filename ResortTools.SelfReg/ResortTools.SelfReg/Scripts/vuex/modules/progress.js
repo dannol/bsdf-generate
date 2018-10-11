@@ -4,7 +4,6 @@
 import Vue from 'vue/dist/vue.js';
 
 const state = {
-    currentStepNumber: 0,
     processSteps: selfRegistrationConfig.steps,
     terminalId: terminalId,
     currentStep: null,
@@ -15,7 +14,6 @@ const state = {
 }
 
 const getters = {
-    currentStepNumber: state => state.currentStepNumber,
     processSteps: state => state.processSteps,
     terminalId: state => state.terminalId,
     currentStep: state => state.currentStep,
@@ -28,7 +26,6 @@ const getters = {
 const mutations = {
     setCurrentStepNumber(state, stepNumber) {
         if (stepNumber != null) {
-            state.currentStepNumber = stepNumber
             var i;
             for (i = 0; i < state.processSteps.length; i++) {
                 if (state.processSteps[i].stepNumber == stepNumber) {

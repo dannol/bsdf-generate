@@ -24,7 +24,7 @@
                 //Determines if a certain step is active as defined in the store
                 isActive: function (stepNumber) {
 
-                    if (stepNumber == this.currentStepNumber) {
+                    if (stepNumber == this.currentStep.stepNumber) {
                         return true
                     }
                     else {
@@ -45,7 +45,6 @@
                 })
             },
             ...mapGetters({
-                currentStepNumber: 'progress/currentStepNumber',
                 currentStep: 'progress/currentStep'
             }),
             displaySteps: function() {

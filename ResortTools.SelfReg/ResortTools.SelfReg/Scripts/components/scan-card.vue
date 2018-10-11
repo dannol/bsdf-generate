@@ -21,7 +21,6 @@
         },
         computed: {
             ...mapGetters({
-                currentStepNumber: 'progress/currentStepNumber',
                 terminalId: 'progress/terminalId'
             }),
             searchData: function () {

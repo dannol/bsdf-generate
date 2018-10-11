@@ -24,7 +24,7 @@
 
                 var i;
                 for (i = 0; i < this.processSteps.length; i++) {
-                    if (this.processSteps[i].stepNumber == this.currentStepNumber - 1) {
+                    if (this.processSteps[i].stepNumber == this.currentStep.stepNumber - 1) {
                         return this.processSteps[i]
                     }
                 }
@@ -34,7 +34,7 @@
             nextStep: function () {
                 var i;
                 for (i = 0; i < this.processSteps.length; i++) {
-                    if (this.processSteps[i].stepNumber == this.currentStepNumber + 1) {
+                    if (this.processSteps[i].stepNumber == this.currentStep.stepNumber + 1) {
                         return this.processSteps[i]
                     }
                 }
@@ -42,7 +42,6 @@
                 return null
             },
             ...mapGetters({
-                currentStepNumber: 'progress/currentStepNumber',
                 currentStep: 'progress/currentStep'
             }),
             isStepComplete: function () {

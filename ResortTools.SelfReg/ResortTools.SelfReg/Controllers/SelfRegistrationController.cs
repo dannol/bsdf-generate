@@ -19,20 +19,16 @@ namespace ResortTools.SelfReg.Controllers
             return View();
         }
 
-        public IActionResult RentalOffice()
-        {
-            ViewData["Message"] = "Self Registration Tool";
-
-            return View(SelfRegistrationConfig);
-        }
-
+        // Pass Office
+        // The id parm will automatically get the first node in the URL which should be the Terminal ID
+        // SelfRegistration/PassOffice/12345
         public IActionResult PassOffice(string id)
         {
             ViewData["Message"] = "Self Registration Tool";
 
             if (string.IsNullOrEmpty(id))
             {
-                id = "00000";
+                id = SelfRegistrationConfig.PassOfficeConfig.DefaultTerminalId;
             }
 
             SelfRegistrationConfig.TerminalId = id;
@@ -40,10 +36,33 @@ namespace ResortTools.SelfReg.Controllers
             return View(SelfRegistrationConfig);
         }
 
-        public IActionResult SkiSchool()
+        // Rental Office
+        // The id parm will automatically get the first node in the URL which should be the Terminal ID
+        // SelfRegistration/RentalOffice/12345
+        public IActionResult RentalOffice(string id)
         {
             ViewData["Message"] = "Self Registration Tool";
 
+            if (string.IsNullOrEmpty(id))
+            {
+                id = SelfRegistrationConfig.RentalOfficeConfig.DefaultTerminalId;
+            }
+
+            SelfRegistrationConfig.TerminalId = id;
+            return View(SelfRegistrationConfig);
+        }
+
+        // Ski School
+        // The id parm will automatically get the first node in the URL which should be the Terminal ID
+        // SelfRegistration/SkiSchool/12345
+        public IActionResult SkiSchool(string id)
+        {
+            ViewData["Message"] = "Self Registration Tool";
+
+            if (string.IsNullOrEmpty(id))
+            {
+                id = SelfRegistrationConfig.SkiSchoolConfig.DefaultTerminalId;
+            }
             return View(SelfRegistrationConfig);
         }
 
