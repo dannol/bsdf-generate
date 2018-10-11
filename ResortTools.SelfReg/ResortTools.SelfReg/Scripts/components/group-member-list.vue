@@ -31,15 +31,20 @@
             }
         },
         mounted: function () {
-            if (this.reloadMembers) {
-                this.loadMembers()
+            //If the selected contact is set to display group memebrs, load them
+            if (this.selectedContact.ShowGuestList) {
+                if (this.reloadMembers) {
+                    this.loadMembers()
+                }
             }
         },
         computed: {
             ...mapGetters({
                 selectedContact: 'contact/selectedContact',
                 members: 'group/members',
-                terminalId: 'progress/terminalId'
+                terminalId: 'progress/terminalId',
+                currentStep: 'progress/currentStep',
+                nextStep: 'progress/nextStep',
             }),
             searchData: function () {
                 return {

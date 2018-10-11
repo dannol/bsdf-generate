@@ -16,7 +16,7 @@ namespace ResortTools.SelfReg.Controllers
             _contactService = contactService;
         }
 
-        // Get contacts based on an an account number
+        // Get contacts based on an an account number or order ID
         // GET: api/contact/orderid/123
         [HttpGet("orderid/{orderId}/terminalid/{terminalId}")]
         public ActionResult SearchByOrderId(string orderId, string terminalId)
@@ -25,17 +25,6 @@ namespace ResortTools.SelfReg.Controllers
             return new JsonResult(_contactService.GetByOrderId(orderId, terminalClientCode));
 
         }
-
-        // Get a contact by their account ID
-        // GET: api/contact/accountId/123
-        //[HttpGet("accountid/{accountId}")]
-        //public ActionResult SearchByAccountId(string accountId)
-        //{
-
-        //    return new JsonResult(_contactService.GetByAccountId(accountId));
-
-        //}
-
 
         // Get a contact by their card Number
         // GET: api/contact/cardNumber/123
