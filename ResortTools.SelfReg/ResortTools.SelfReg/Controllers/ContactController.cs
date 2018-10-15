@@ -55,11 +55,11 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Get all contacts associate to a given account ID
-        // GET: api/accountid/123
-        [HttpGet("{accountId}/group/terminalid/{terminalId}")]
-        public ActionResult GetGroupByAccountId(int accountId, int terminalId)
+        // GET: api/contactid/123
+        [HttpGet("{contactId}/group/terminalid/{terminalId}")]
+        public ActionResult GetGroupByContactId(int contactId, int terminalId)
         {
-            return new JsonResult(_contactService.GetGroupByAccountId(accountId, terminalId));
+            return new JsonResult(_contactService.GetGroupByContactId(contactId, terminalId));
         }
 
         // Add a new contact
@@ -80,9 +80,10 @@ namespace ResortTools.SelfReg.Controllers
 
         // Add a new group member to an account
         // POST: api/contact/123/addgroupmember
-        [HttpPost("{accountId}/addgroupmember")]
-        public ActionResult Post([FromBody] Contact member)
+        [HttpPost("{contactId}/addgroupmember")]
+        public ActionResult Post([FromBody] Contact member, string contactId)
         {
+            member.ParentContactId = contactId;
             return new JsonResult(_contactService.AddContact(member));
         }
 

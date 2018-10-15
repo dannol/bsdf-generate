@@ -22,7 +22,7 @@ const mutations = {
         //set all selections
         var i
         for (i = 0; i < state.contacts.length; i++) {
-            if (state.contacts[i].accountId == contact.accountId) {
+            if (state.contacts[i].contactId == contact.contactId) {
                 Vue.set(state.contacts[i], 'selected', true)
             }
             else {
@@ -33,7 +33,7 @@ const mutations = {
     updateSearchResult(state, updatedContact) {
         var i
         for (i = 0; i < state.contacts.length; i++) {
-            if (state.contacts[i].accountId === updatedContact.accountId) {
+            if (state.contacts[i].contactId === updatedContact.contactId) {
                 state.contacts[i] = updatedContact
             }
         }
@@ -101,7 +101,7 @@ const actions = {
                 contact.age = Math.abs(ageDate.getUTCFullYear() - 1970)
             }
 
-            //console.log('Updating Contact ' + contact.accountId)
+            //console.log('Updating Contact ' + contact.contactId)
             var updateContactUrl = '/api/contact/update'
             return new Promise((resolve, reject) => {
                 dispatch('api/post',

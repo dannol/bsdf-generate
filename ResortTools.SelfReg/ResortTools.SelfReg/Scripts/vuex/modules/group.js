@@ -19,7 +19,7 @@ const mutations = {
         //set all selections
         var i
         for (i = 0; i < state.members.length; i++) {
-            if (state.members[i].accountId == member.accountId) {
+            if (state.members[i].contactId == member.contactId) {
                 if (state.members[i].selected) {
                     Vue.set(state.members[i], 'selected', false)
                 }
@@ -34,9 +34,9 @@ const mutations = {
 const actions = {
 
     addMember({ state, getters, commit, dispatch }, member) {
-        //console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + accountId)
+        //console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + contactId)
         if (member) {
-            var addMemberUrl = '/api/contact/' + member.parentAccountId + '/addgroupmember'
+            var addMemberUrl = '/api/contact/' + member.parentContactId + '/addgroupmember'
             var dataType = 'application/json; charset=utf-8'
  
             return new Promise((resolve, reject) => {
@@ -76,9 +76,9 @@ const actions = {
 
         }
     },
-    searchByAccountId({ state, getters, commit, dispatch }, searchData) {
+    searchByContactId({ state, getters, commit, dispatch }, searchData) {
 
-        var contactApiUrl = '/api/contact/' + searchData.accountId + '/group/terminalid/' + searchData.terminalId
+        var contactApiUrl = '/api/contact/' + searchData.contactId + '/group/terminalid/' + searchData.terminalId
 
         dispatch('api/get',
             { url: contactApiUrl },

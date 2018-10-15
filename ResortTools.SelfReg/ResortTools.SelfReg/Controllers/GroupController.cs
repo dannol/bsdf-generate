@@ -10,8 +10,8 @@ namespace ResortTools.SelfReg.Controllers
     public class GroupController : ControllerBase
     {
         // GET: api/contact/firstname/John/lastname/Smith
-        //[HttpGet("accountid/{accountId}")]
-        //public ActionResult SearchByAccountId(int accountId)
+        //[HttpGet("contactId/{contactId}")]
+        //public ActionResult SearchByContactId(int contactId)
         //{
         //    SearchResult<ContactModelView> result = new SearchResult<ContactModelView>();
 

@@ -22,7 +22,7 @@
         </div>
         <div>
             <input v-model="address1" name="address-street" type="text" placeholder="Street Address" class="wide" />
-            <input v-model="apartment" name="address-apt" type="text" placeholder="Apartment" class="thin" />
+            <input v-model="address2" name="address-apt" type="text" placeholder="Apartment" class="thin" />
         </div>
         <div>
             <input v-model="city" name="address-city" type="text" placeholder="City" class="wide" />
@@ -49,13 +49,13 @@
         data: function () {
             return {
                 selectedDate: '',
-                accountId: null,
+                contactId: null,
                 firstName: null,
                 lastName: null,
                 email: null,
                 phone: null,
                 address1: null,
-                apartment: null,
+                address2: null,
                 city: null,
                 state: null,
                 postalCode: null
@@ -70,13 +70,17 @@
                 var dobArray = this.selectedDate.split('.')
 
                 return {
-                    parentAccountId: 0,
-                    accountId: this.accountId,
+                    parentContactId: 0,
+                    contactId: this.contactId,
                     firstName: this.firstName,
                     lastName: this.lastName,
                     email: this.email,
                     phone: this.phone,
-                    hometown: this.city + ', ' + this.state,
+                    address1: this.address1,
+                    address2: this.address2,
+                    city: this.city,
+                    state: this.state,
+                    postalCode: this.postalCode,
                     dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0],
                     cardNumber: this.cardNumber,
                     photoUrl: this.photoUrl,
@@ -87,8 +91,12 @@
         methods: {
             addContact: function () {
                 this.$store.dispatch('contact/addContact', this.newContact).then(data => {
+                    debugger
                     if (data.status == 'OK') {
                         this.$router.push('contact-list')
+                    }
+                    else {
+                        console.log('add-contact.vue - Error adding contact: Status=' + data.status)
                     }
                 }).catch(err => console.log('add-contact.vue - Error adding contact: ' + err));
             }

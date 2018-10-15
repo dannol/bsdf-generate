@@ -14,13 +14,15 @@ namespace ResortTools.SelfReg.Services
     public class ContactService : IContactService
     {
         private readonly IContactProvider _contactProvider;
+        private readonly ICustomerProvider _customerProvider;
 
-        public ContactService(IContactProvider contactProvider)
+        public ContactService(IContactProvider contactProvider, ICustomerProvider customerProvider)
         {
             _contactProvider = contactProvider;
+            _customerProvider = customerProvider;
         }
 
-        //public SearchResult<ContactViewModel> GetByAccountId(string AccountId)
+        //public SearchResult<ContactViewModel> GetByContactId(string ContactId)
         //{
 
         //    SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
@@ -28,7 +30,7 @@ namespace ResortTools.SelfReg.Services
         //    List<ContactViewModel> contacts = new List<ContactViewModel>();
         //    ContactViewModel Bob = new ContactViewModel
         //    {
-        //        //AccountId = AccountId,
+        //        //ContactId = ContactId,
         //        FirstName = "Bob",
         //        LastName = "Account",
         //        Hometown = "Colorado Springs, CO",
@@ -46,9 +48,11 @@ namespace ResortTools.SelfReg.Services
 
         public SearchResult<ContactViewModel> GetByCardNumber(string CardNumber, int TerminalId)
         {
-            ContactSearchRequest contactSearchRequest = new ContactSearchRequest();
-            contactSearchRequest.SearchString = CardNumber;
-            contactSearchRequest.TerminalClientCode = TerminalId;
+            ContactSearchRequest contactSearchRequest = new ContactSearchRequest
+            {
+                SearchString = CardNumber,
+                TerminalClientCode = TerminalId
+            };
 
             var result = _contactProvider.SearchContacts(contactSearchRequest);
 
@@ -63,8 +67,8 @@ namespace ResortTools.SelfReg.Services
 
                 ContactViewModel cvm = new ContactViewModel
                 {
-                    AccountId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
-                    ParentAccountId = csi.PrimaryContactId.Ids[0].InfoRecId,
+                    ContactId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
+                    ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
                     FirstName = csi.FirstName,
                     LastName = csi.LastName,
                     DateOfBirth = csi.BirthDate,
@@ -83,9 +87,11 @@ namespace ResortTools.SelfReg.Services
         public SearchResult<ContactViewModel> GetByOrderId(string OrderId, int TerminalId)
         {
 
-            ContactSearchRequest contactSearchRequest = new ContactSearchRequest();
-            contactSearchRequest.SearchString = OrderId;
-            contactSearchRequest.TerminalClientCode = TerminalId;
+            ContactSearchRequest contactSearchRequest = new ContactSearchRequest
+            {
+                SearchString = OrderId,
+                TerminalClientCode = TerminalId
+            };
 
             var result = _contactProvider.SearchContacts(contactSearchRequest);
 
@@ -97,8 +103,8 @@ namespace ResortTools.SelfReg.Services
             {
                 ContactViewModel cvm = new ContactViewModel
                 {
-                    AccountId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
-                    ParentAccountId = csi.PrimaryContactId.Ids[0].InfoRecId,
+                    ContactId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
+                    ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
                     FirstName = csi.FirstName,
                     LastName = csi.LastName,
                     DateOfBirth = csi.BirthDate,
@@ -117,12 +123,14 @@ namespace ResortTools.SelfReg.Services
         public SearchResult<ContactViewModel> GetByPersonalInfo(Contact Contact, int TerminalId)
         {
 
-            ContactSearchRequest contactSearchRequest = new ContactSearchRequest();
-            contactSearchRequest.FirstName = Contact.FirstName;
-            contactSearchRequest.LastName = Contact.LastName;
-            contactSearchRequest.BirthDate = Contact.DateOfBirth;
-            contactSearchRequest.TerminalClientCode = TerminalId;
-            contactSearchRequest.SearchString = "";
+            ContactSearchRequest contactSearchRequest = new ContactSearchRequest
+            {
+                FirstName = Contact.FirstName,
+                LastName = Contact.LastName,
+                BirthDate = Contact.DateOfBirth,
+                TerminalClientCode = TerminalId,
+                SearchString = ""
+            };
 
             var result = _contactProvider.SearchContacts(contactSearchRequest);
 
@@ -131,7 +139,7 @@ namespace ResortTools.SelfReg.Services
             return LoadSearchResults(result.Result.SearchResults);
         }
 
-        public SearchResult<ContactViewModel> GetGroupByAccountId(int AccountId, int TerminalId)
+        public SearchResult<ContactViewModel> GetGroupByContactId(int ContactId, int TerminalId)
         {
 
             //TODO: Replace the code in this method actual Unity API call
@@ -140,7 +148,7 @@ namespace ResortTools.SelfReg.Services
             List<ContactViewModel> contacts = new List<ContactViewModel>();
             ContactViewModel Wife = new ContactViewModel
             {
-                AccountId = "10",
+                ContactId = "10",
                 FirstName = "Wife",
                 LastName = "GroupMember",
                 Hometown = "Colorado Springs, CO",
@@ -152,7 +160,7 @@ namespace ResortTools.SelfReg.Services
             result.Results.Add(Wife);
             ContactViewModel Steve = new ContactViewModel
             {
-                AccountId = "11",
+                ContactId = "11",
                 FirstName = "Child1",
                 LastName = "GroupMember",
                 Hometown = "Boise, ID",
@@ -164,7 +172,7 @@ namespace ResortTools.SelfReg.Services
             result.Results.Add(Steve);
             ContactViewModel William = new ContactViewModel
             {
-                AccountId = "12",
+                ContactId = "12",
                 FirstName = "Child2",
                 LastName = "GroupMember",
                 Hometown = null,
@@ -180,39 +188,100 @@ namespace ResortTools.SelfReg.Services
 
         public UpdateResult<ContactViewModel> AddContact(Contact Contact)
         {
-            //TODO: Fake data
-            ContactViewModel UpdatedContact = new ContactViewModel();
-            //UpdatedContact.AccountId = 99;
-            UpdatedContact.DateOfBirth = Contact.DateOfBirth;
-            UpdatedContact.Email = Contact.Email;
-            UpdatedContact.FirstName = Contact.FirstName;
-            UpdatedContact.LastName = Contact.LastName;
-            UpdatedContact.PhotoUrl = Contact.PhotoUrl;
-
-            UpdateResult<ContactViewModel> result = new UpdateResult<ContactViewModel>
+            CreateContactRequest createContactRequest = new CreateContactRequest
             {
-                Status = "OK",
-                UpdatedRecord = UpdatedContact
+                Contact = new UnityModels.Contact
+                {  
+                    FirstName = Contact.FirstName,
+                    LastName = Contact.LastName,
+                    DateOfBirth = Contact.DateOfBirth.ToString(),
+                    Email = Contact.Email,
+                    Phone = Contact.Phone,
+                    StreetAddress = Contact.Address1,
+                    StreetAddress2 = Contact.Address2,
+                    City = Contact.City,
+                    StateProvince = Contact.State,
+                    ZipPostalCode = Contact.PostalCode                  
+                }
             };
 
-            return result;
+            var addResult = _customerProvider.CreateContact(createContactRequest);
+
+            addResult.Wait();
+
+            ContactViewModel cvm = new ContactViewModel();
+            string resultStatus = "";
+          
+            if (addResult.Status == System.Threading.Tasks.TaskStatus.RanToCompletion)
+            {
+                cvm.ContactId = addResult.Result.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master);
+                cvm.DateOfBirth = Contact.DateOfBirth;
+                cvm.Email = Contact.Email;
+                cvm.FirstName = Contact.FirstName;
+                cvm.LastName = Contact.LastName;
+                cvm.PhotoUrl = "";
+                resultStatus = "OK";
+            }
+            else
+            {
+                resultStatus = addResult.Status.ToString();
+            }
+            
+            UpdateResult<ContactViewModel> results = new UpdateResult<ContactViewModel>
+            {
+                Status = resultStatus,
+                UpdatedRecord = cvm
+            };
+
+            return results;
         }
 
         public UpdateResult<ContactViewModel> UpdateContact(Contact Contact)
         {
-            //TODO: Fake data
-            ContactViewModel UpdatedContact = new ContactViewModel();
-            //UpdatedContact.AccountId = 99;
-            UpdatedContact.DateOfBirth = Contact.DateOfBirth;
-            UpdatedContact.Email = Contact.Email;
-            UpdatedContact.FirstName = Contact.FirstName;
-            UpdatedContact.LastName = Contact.LastName;
-            UpdatedContact.PhotoUrl = Contact.PhotoUrl;
+            //Create an identifier object based on the ID of the contact
+            UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, Contact.ContactId);
+
+            //Create a Unity API Contact for updating
+            UnityModels.Contact contact = new UnityModels.Contact
+            {
+                ContactId = contactId,
+                Email = Contact.Email,
+                Phone = Contact.Phone,
+                DateOfBirth = Contact.DateOfBirth.ToString(),
+                StreetAddress = Contact.Address1,
+                StreetAddress2 = Contact.Address2,
+                City = Contact.City,
+                StateProvince = Contact.State,
+                ZipPostalCode = Contact.PostalCode
+            };
+
+
+            var updateResult =  _customerProvider.SaveContact(contact);
+            updateResult.Wait();
+
+            ContactViewModel cvm = new ContactViewModel();
+            string resultStatus = "";
+
+            if (updateResult.Status == System.Threading.Tasks.TaskStatus.RanToCompletion)
+            {
+                cvm.ContactId = Contact.ContactId;
+                cvm.DateOfBirth = Contact.DateOfBirth;
+                cvm.Email = Contact.Email;
+                cvm.FirstName = Contact.FirstName;
+                cvm.LastName = Contact.LastName;
+                cvm.PhotoUrl = Contact.PhotoUrl;
+                resultStatus = "OK";
+
+            }
+            else
+            {
+                resultStatus = updateResult.Status.ToString();
+            }
 
             UpdateResult<ContactViewModel> result = new UpdateResult<ContactViewModel>
             {
-                Status = "OK",
-                UpdatedRecord = UpdatedContact
+                Status = resultStatus,
+                UpdatedRecord = cvm
             };
 
             return result;
@@ -227,6 +296,12 @@ namespace ResortTools.SelfReg.Services
 
             foreach (ContactSearchItem csi in unityContacts)
             {
+                //TODO: We should be able to get all of the contact data in one call
+                //We need to get additional information for each contact from the customer service
+                var customerSearchResult = _customerProvider.GetCustomer(csi.ContactId, "");
+
+                customerSearchResult.Wait();
+
                 string maskedCardNumber = csi.MediaIdentification.ChipId.ToString();
 
                 if (!String.IsNullOrEmpty(maskedCardNumber))
@@ -237,13 +312,19 @@ namespace ResortTools.SelfReg.Services
 
                 ContactViewModel cvm = new ContactViewModel
                 {
-                    AccountId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
-                    ParentAccountId = csi.PrimaryContactId.Ids[0].InfoRecId,
+                    ContactId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
+                    ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
                     FirstName = csi.FirstName,
                     LastName = csi.LastName,
-                    DateOfBirth = csi.BirthDate,
+                    DateOfBirth = DateTime.Parse(customerSearchResult.Result.Contacts[0].DateOfBirth),
                     OrderArrivalDate = csi.OrderArrivalDate,
-                    Email = csi.EmailAddress,
+                    Email = customerSearchResult.Result.Contacts[0].Email,
+                    Phone = customerSearchResult.Result.Contacts[0].Phone,
+                    Address1 = customerSearchResult.Result.Contacts[0].StreetAddress,
+                    Address2 = customerSearchResult.Result.Contacts[0].StreetAddress2,
+                    City = customerSearchResult.Result.Contacts[0].City,
+                    State = customerSearchResult.Result.Contacts[0].StateProvince,
+                    PostalCode = customerSearchResult.Result.Contacts[0].ZipPostalCode,
                     CardNumber = maskedCardNumber
                 };
 

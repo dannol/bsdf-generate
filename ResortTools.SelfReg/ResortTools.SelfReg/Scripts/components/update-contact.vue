@@ -13,7 +13,7 @@
             </div>
             <div>
                 <div class="center-in-parent">
-                    <date-dropdown default="1995-01-10" min="1950" max="2019" v-model="selectedDate" />
+                    <date-dropdown :default="updateDob" min="1950" max="2019" v-model="selectedDate" />
                 </div>
             </div>
             <div>
@@ -50,7 +50,14 @@
         name: 'update-contact',
         data: function () {
             return {
-                selectedDate: ''
+                selectedDate: this.thisContact.dateOfBirth
+            }
+        },
+        computed: {
+            updateDob: {
+                get: function () {
+                    return this.formatDate(this.thisContact.dateOfBirth)
+                }
             }
         },
         methods: {
@@ -63,6 +70,17 @@
                     this.$router.push({ name: 'contactList', params: { reloadMembers: true } })
                 })
                 
+            },
+            formatDate: function (date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [month, day, year].join('.');
             }
         },
         props: {

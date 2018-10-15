@@ -45,7 +45,7 @@
             }),
             searchData: function () {
                 return {
-                    accountId: this.selectedContact.accountId,
+                    contactId: this.selectedContact.contactId,
                     terminalId: this.terminalId
                 }
             }
@@ -57,7 +57,7 @@
 
             },
             loadMembers: function () {
-                this.$store.dispatch('group/searchByAccountId', this.searchData)
+                this.$store.dispatch('group/searchByContactId', this.searchData)
             }
         },
         props: {

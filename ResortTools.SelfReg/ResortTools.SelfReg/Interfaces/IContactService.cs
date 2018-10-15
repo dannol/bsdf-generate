@@ -8,7 +8,7 @@ namespace ResortTools.SelfReg.Interfaces
         SearchResult<ContactViewModel> GetByOrderId(string OrderId, int TerminalClientCode);
         SearchResult<ContactViewModel> GetByPersonalInfo(Contact Contact, int TerminalId);
          SearchResult<ContactViewModel> GetByCardNumber(string CardNumber, int TerminalId);
-        SearchResult<ContactViewModel> GetGroupByAccountId(int AccountId, int TerminalId);
+        SearchResult<ContactViewModel> GetGroupByContactId(int ContactId, int TerminalId);
         UpdateResult<ContactViewModel> AddContact(Contact Contact);
         UpdateResult<ContactViewModel> UpdateContact(Contact Contact);
 

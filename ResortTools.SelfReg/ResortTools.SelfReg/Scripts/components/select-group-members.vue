@@ -55,7 +55,7 @@
         },
         methods: {
             loadMembers: function () {
-                this.$store.dispatch('group/searchByAccountId', this.selectedContact.accountId)
+                this.$store.dispatch('group/searchByContactId', this.selectedContact.contactId)
             },
             selectMember: function (member) {
                 this.$store.commit('group/selectMember', member)

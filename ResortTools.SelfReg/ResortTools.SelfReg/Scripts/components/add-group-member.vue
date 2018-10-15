@@ -55,8 +55,8 @@
                 var dobArray = this.selectedDate.split('.')
 
                 return {
-                    parentAccountId: this.thisContact.accountId,
-                    accountId: this.accountId,
+                    parentContactId: this.thisContact.contactId,
+                    contactId: this.contactId,
                     firstName: this.firstName,
                     lastName: this.lastName,
                     email: '',
@@ -71,7 +71,7 @@
         },
         methods: {
             addMember: function () {
-                var accountId = this.thisContact.accountId
+                var contactId = this.thisContact.contactId
                 this.$store.dispatch('group/addMember', this.newMember ).then(data => {
                     if (data.status == 'OK') {
                         this.$router.push({ name: 'groupMemberList', params: { reloadMembers: false } })
