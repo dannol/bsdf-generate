@@ -22,30 +22,6 @@ namespace ResortTools.SelfReg.Services
             _customerProvider = customerProvider;
         }
 
-        //public SearchResult<ContactViewModel> GetByContactId(string ContactId)
-        //{
-
-        //    SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
-
-        //    List<ContactViewModel> contacts = new List<ContactViewModel>();
-        //    ContactViewModel Bob = new ContactViewModel
-        //    {
-        //        //ContactId = ContactId,
-        //        FirstName = "Bob",
-        //        LastName = "Account",
-        //        Hometown = "Colorado Springs, CO",
-        //        OrderArrivalDate = null,
-        //        CardNumber = "xxxxxxxx-123",
-        //        DateOfBirth = DateTime.Parse("01/01/1982")
-        //    };
-        //    contacts.Add(Bob);
-
-
-        //    result.Results = contacts;
-
-        //    return result;
-        //}
-
         public SearchResult<ContactViewModel> GetByCardNumber(string CardNumber, int TerminalId)
         {
             ContactSearchRequest contactSearchRequest = new ContactSearchRequest
@@ -139,49 +115,37 @@ namespace ResortTools.SelfReg.Services
             return LoadSearchResults(result.Result.SearchResults);
         }
 
+        // * GetGroupByContactID
+        // * This function retrieves all group members for a given contact ID
         public SearchResult<ContactViewModel> GetGroupByContactId(int ContactId, int TerminalId)
         {
 
-            //TODO: Replace the code in this method actual Unity API call
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
-            List<ContactViewModel> contacts = new List<ContactViewModel>();
-            ContactViewModel Wife = new ContactViewModel
+            //Create an identifier object based on the ID of the contact
+            UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, ContactId.ToString());
+
+            var customerSearchResult = _customerProvider.GetCustomer(contactId, "");
+
+            customerSearchResult.Wait();
+
+            foreach (UnityModels.Contact contact in customerSearchResult.Result.Contacts)
             {
-                ContactId = "10",
-                FirstName = "Wife",
-                LastName = "GroupMember",
-                Hometown = "Colorado Springs, CO",
-                OrderArrivalDate = null,
-                CardNumber = "xxxxxxxx-123",
-                PhotoUrl = "/images/Wife.jpg",
-                DateOfBirth = DateTime.Parse("01/01/1980")
-            };
-            result.Results.Add(Wife);
-            ContactViewModel Steve = new ContactViewModel
-            {
-                ContactId = "11",
-                FirstName = "Child1",
-                LastName = "GroupMember",
-                Hometown = "Boise, ID",
-                OrderArrivalDate = DateTime.Parse("04/04/2019"),
-                CardNumber = null,
-                PhotoUrl = "/images/Steve.jpg",
-                DateOfBirth = DateTime.Parse("01/01/2010")
-            };
-            result.Results.Add(Steve);
-            ContactViewModel William = new ContactViewModel
-            {
-                ContactId = "12",
-                FirstName = "Child2",
-                LastName = "GroupMember",
-                Hometown = null,
-                OrderArrivalDate = null,
-                CardNumber = null,
-                PhotoUrl = "/images/William.jpg",
-                DateOfBirth = DateTime.Parse("01/01/2012")
-            };
-            result.Results.Add(William);
+                string hometown = String.IsNullOrEmpty(contact.City) ? "" : contact.City + ", ";
+                hometown += String.IsNullOrEmpty(contact.StateProvince) ? "" : contact.StateProvince;
+                ContactViewModel cvm = new ContactViewModel
+                {
+                    ContactId = contact.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
+                    FirstName = contact.FirstName,
+                    LastName = contact.LastName,
+                    Hometown = hometown,
+                    PhotoUrl = String.IsNullOrEmpty(contact.PhotoUrl) ? "" : contact.PhotoUrl,
+                    //Default DOB to today if not present
+                    DateOfBirth = DateTime.Parse(String.IsNullOrEmpty(contact.DateOfBirth) ? DateTime.Today.ToShortDateString() : contact.DateOfBirth)
+                };
+
+                result.Results.Add(cvm);
+            }
 
             return result;
         }
@@ -191,7 +155,9 @@ namespace ResortTools.SelfReg.Services
             CreateContactRequest createContactRequest = new CreateContactRequest
             {
                 Contact = new UnityModels.Contact
-                {  
+                {
+                    Active = true,
+                    IsCustomerPrimary = true,
                     FirstName = Contact.FirstName,
                     LastName = Contact.LastName,
                     DateOfBirth = Contact.DateOfBirth.ToString(),
@@ -236,6 +202,56 @@ namespace ResortTools.SelfReg.Services
             return results;
         }
 
+        public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember)
+        {
+            //Create an identifier object based on the Parent ID of the contact
+            UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, GroupMember.ParentContactId);
+
+            UnityModels.Contact newGroupMember = new UnityModels.Contact { 
+                    Active = true,
+                    IsCustomerPrimary = false,
+                    FirstName = GroupMember.FirstName,
+                    LastName = GroupMember.LastName,
+                    DateOfBirth = GroupMember.DateOfBirth.ToString(),
+                    Email = GroupMember.Email,
+                    Phone = GroupMember.Phone,
+                    StreetAddress = GroupMember.Address1,
+                    StreetAddress2 = GroupMember.Address2,
+                    City = GroupMember.City,
+                    StateProvince = GroupMember.State,
+                    ZipPostalCode = GroupMember.PostalCode
+            };
+
+            var addResult = _customerProvider.AddDependentContact(contactId, newGroupMember);
+
+            addResult.Wait();
+
+            ContactViewModel cvm = new ContactViewModel();
+            string resultStatus = "";
+
+            if (addResult.Status == System.Threading.Tasks.TaskStatus.RanToCompletion)
+            {
+                cvm.ContactId = addResult.Result.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master);
+                cvm.DateOfBirth = DateTime.Parse(addResult.Result.DateOfBirth);
+                cvm.Email = addResult.Result.Email;
+                cvm.FirstName = addResult.Result.FirstName;
+                cvm.LastName = addResult.Result.LastName;
+                cvm.PhotoUrl = "";
+                resultStatus = "OK";
+            }
+            else
+            {
+                resultStatus = addResult.Status.ToString();
+            }
+
+            UpdateResult<ContactViewModel> results = new UpdateResult<ContactViewModel>
+            {
+                Status = resultStatus,
+                UpdatedRecord = cvm
+            };
+
+            return results;
+        }
         public UpdateResult<ContactViewModel> UpdateContact(Contact Contact)
         {
             //Create an identifier object based on the ID of the contact
@@ -244,14 +260,18 @@ namespace ResortTools.SelfReg.Services
             //Create a Unity API Contact for updating
             UnityModels.Contact contact = new UnityModels.Contact
             {
+                Active = true,
+                IsCustomerPrimary = true,
                 ContactId = contactId,
+                FirstName = Contact.FirstName,
+                LastName = Contact.LastName,
                 Email = Contact.Email,
                 Phone = Contact.Phone,
                 DateOfBirth = Contact.DateOfBirth.ToString(),
                 StreetAddress = Contact.Address1,
                 StreetAddress2 = Contact.Address2,
                 City = Contact.City,
-                StateProvince = Contact.State,
+                StateProvinceId = Contact.State,
                 ZipPostalCode = Contact.PostalCode
             };
 

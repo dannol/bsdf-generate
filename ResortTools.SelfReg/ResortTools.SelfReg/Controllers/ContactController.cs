@@ -84,7 +84,7 @@ namespace ResortTools.SelfReg.Controllers
         public ActionResult Post([FromBody] Contact member, string contactId)
         {
             member.ParentContactId = contactId;
-            return new JsonResult(_contactService.AddContact(member));
+            return new JsonResult(_contactService.AddGroupMember(member));
         }
 
         // PUT: api/Test/5

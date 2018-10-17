@@ -14,7 +14,7 @@ namespace ResortTools.SelfReg.Services
     {
         private readonly IContactProvider _contactProvider;
 
-        public ContactServiceMock (IContactProvider contactProvider)
+        public ContactServiceMock(IContactProvider contactProvider)
         {
             _contactProvider = contactProvider;
         }
@@ -127,11 +127,11 @@ namespace ResortTools.SelfReg.Services
             contactSearchRequest.TerminalClientCode = TerminalId;
             contactSearchRequest.SearchString = "";
 
-            var results =  _contactProvider.SearchContacts(contactSearchRequest);
+            var results = _contactProvider.SearchContacts(contactSearchRequest);
 
             results.Wait();
 
-            SearchResult < ContactViewModel> result = new SearchResult<ContactViewModel>();
+            SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
             List<ContactViewModel> contacts = new List<ContactViewModel>();
 
@@ -240,6 +240,26 @@ namespace ResortTools.SelfReg.Services
             };
 
             return result;
+        }
+
+        public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember)
+        {
+            ContactViewModel cvm = new ContactViewModel();
+
+            cvm.ContactId = GroupMember.ContactId;
+            cvm.DateOfBirth = GroupMember.DateOfBirth;
+            cvm.Email = GroupMember.Email;
+            cvm.FirstName = GroupMember.FirstName;
+            cvm.LastName = GroupMember.LastName;
+            cvm.PhotoUrl = GroupMember.PhotoUrl;
+
+            UpdateResult<ContactViewModel> results = new UpdateResult<ContactViewModel>
+            {
+                Status = "OK",
+                UpdatedRecord = cvm
+            };
+
+            return results;
         }
 
         public UpdateResult<ContactViewModel> UpdateContact(Contact Contact)
