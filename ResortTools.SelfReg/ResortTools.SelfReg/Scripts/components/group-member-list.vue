@@ -1,11 +1,22 @@
 ﻿<template>
     <div>
         <h2>{{selectedContact.firstName}} {{selectedContact.lastName}} Family</h2>
-        <div v-for="member in members" class="row contact-search-result">
+        <!--<div v-for="member in members" class="row contact-search-result">
+        <div>
+            {{member.firstName}} {{member.lastName}}  <router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>
+        </div>
+    </div>-->
+        <div v-for="member in paginatedData" class="row contact-search-result">
             <div>
                 {{member.firstName}} {{member.lastName}}  <router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>
             </div>
         </div>
+        <button @click="prevPage">
+            Previous
+        </button>
+        <button @click="nextPage">
+            Next
+        </button>
         <h4>Need to add additional family members?</h4>
         <div class="tip">Note: All adults (18+) must be present to sign their waiver.</div>
         <div class="center-in-parent">
@@ -27,7 +38,8 @@
         name: 'group-member-list',
         data: function () {
             return {
-                selectedMember: null
+                selectedMember: null,
+                pageNumber: 0  // default to page 0
             }
         },
         mounted: function () {
@@ -48,6 +60,16 @@
                     contactId: this.selectedContact.contactId,
                     terminalId: this.terminalId
                 }
+            },
+            pageCount() {
+                let l = this.listData.length,
+                    s = this.size;
+                return Math.floor(l / s);
+            },
+            paginatedData() {
+                const start = this.pageNumber * this.size,
+                    end = start + this.size;
+                return this.members.slice(start, end);
             }
         },
         methods: {
@@ -58,12 +80,23 @@
             },
             loadMembers: function () {
                 this.$store.dispatch('group/searchByContactId', this.searchData)
+            },
+            nextPage() {
+                this.pageNumber++;
+            },
+            prevPage() {
+                this.pageNumber--;
             }
         },
         props: {
             reloadMembers: {
                 type: Boolean,
                 default: true
+            },
+            size: {
+                type: Number,
+                required: false,
+                default: 5
             }
         }
 

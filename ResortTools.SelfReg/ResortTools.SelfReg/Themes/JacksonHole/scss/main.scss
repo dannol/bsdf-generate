@@ -10,7 +10,7 @@ body {
 }
 
 .btn {
-    margin: 20px;
+    margin: 0 20px;
 }
 
 [disabled='disabled'] {
@@ -104,6 +104,11 @@ img.aside-logo {
             }
         }
     }
+}
+
+//Shared Elements and Components
+.date-dropdown-container {
+    margin-bottom: 20px;
 }
 
 //Shared Layout styles

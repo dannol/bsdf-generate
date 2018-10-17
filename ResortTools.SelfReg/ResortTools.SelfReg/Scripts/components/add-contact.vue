@@ -91,7 +91,6 @@
         methods: {
             addContact: function () {
                 this.$store.dispatch('contact/addContact', this.newContact).then(data => {
-                    debugger
                     if (data.status == 'OK') {
                         this.$router.push('contact-list')
                     }
