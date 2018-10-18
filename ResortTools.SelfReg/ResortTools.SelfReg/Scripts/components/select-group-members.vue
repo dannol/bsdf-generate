@@ -17,12 +17,12 @@
                 {{member.firstName}} {{member.lastName}}
             </div>
         </a>
-        <button @click="prevPage">
+        <a v-if="pageIndex > 0" class="btn btn-info" @click="prevPage">
             Previous
-        </button>
-        <button @click="nextPage">
+        </a>
+        <a v-if="pageIndex + 1 < pageCount" class="btn btn-info" @click="nextPage">
             Next
-        </button>
+        </a>
         <div>Select all family members who will be purchasing a season pass or signing season pass waivers.</div>
         <div class="tip">
             Tip: Adults (18+) must be present to sign their season-pass waiver.
@@ -45,7 +45,7 @@
         data: function () {
             return {
                 selectedMember: null,
-                pageNumber: 0  // default to page 0
+                pageIndex: 0  // default to page 0
             }
         },
         mounted: function () {
@@ -68,12 +68,12 @@
                 }
             },
             pageCount() {
-                let l = this.listData.length,
+                let l = this.members.length,
                     s = this.size;
-                return Math.floor(l / s);
+                return Math.ceil(l / s);
             },
             paginatedData() {
-                const start = this.pageNumber * this.size,
+                const start = this.pageIndex * this.size,
                     end = start + this.size;
                 return this.members.slice(start, end);
             }
@@ -91,10 +91,10 @@
                 }
             },
             nextPage() {
-                this.pageNumber++;
+                this.pageIndex++;
             },
             prevPage() {
-                this.pageNumber--;
+                this.pageIndex--;
             }
         },
         props: {
