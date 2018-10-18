@@ -7,6 +7,7 @@
 
 <script>
 
+    import Vue from 'vue/dist/vue.js';
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store';
 
@@ -67,7 +68,7 @@
         methods: {
             goToPreviousStep: function (previousStep) {
                 //If going to the previous step, set it to incomplete
-                previousStep.stepComplete = false;
+                Vue.set(previousStep, 'stepComplete', false)
                 this.$router.push(previousStep.route)
             }
         }

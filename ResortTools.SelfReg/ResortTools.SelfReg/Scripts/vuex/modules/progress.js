@@ -33,6 +33,13 @@ const mutations = {
                 if (state.processSteps[i].stepNumber == stepNumber) {
                     state.currentStep = state.processSteps[i]
                 }
+                //If this is the first step, we need to add the stepComplete property for all steps
+                //which is not in the appsettings.json
+                if (stepNumber == 1) {
+                    if (!state.processSteps[i].stepComplete) {
+                        Vue.set(state.processSteps[i], 'stepComplete', false)
+                    }
+                }
             }
         }
 
@@ -62,17 +69,17 @@ const mutations = {
             var i;
             for (i = 0; i < state.processSteps.length; i++) {
                 if (state.processSteps[i].stepNumber == stepNumber) {
-                    state.processSteps[i].stepComplete = true
+                    Vue.set(state.processSteps[i], 'stepComplete', true)
                 }
             }
         }
 
-  
+
     }
 }
 
 const actions = {
-    
+
 }
 
 export default {
