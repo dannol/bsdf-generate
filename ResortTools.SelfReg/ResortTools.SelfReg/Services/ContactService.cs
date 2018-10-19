@@ -150,6 +150,8 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
+        // * AddContact
+        // * This function adds a new contact
         public UpdateResult<ContactViewModel> AddContact(Contact Contact)
         {
             CreateContactRequest createContactRequest = new CreateContactRequest
@@ -202,6 +204,8 @@ namespace ResortTools.SelfReg.Services
             return results;
         }
 
+        // * AddGroupMember
+        // * This function adds a member to a contact's group
         public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember)
         {
             //Create an identifier object based on the Parent ID of the contact
@@ -316,11 +320,6 @@ namespace ResortTools.SelfReg.Services
 
             foreach (ContactSearchItem csi in unityContacts)
             {
-                //TODO: We should be able to get all of the contact data in one call
-                //We need to get additional information for each contact from the customer service
-                var customerSearchResult = _customerProvider.GetCustomer(csi.ContactId, "");
-
-                customerSearchResult.Wait();
 
                 string maskedCardNumber = csi.MediaIdentification.ChipId.ToString();
 
@@ -336,15 +335,15 @@ namespace ResortTools.SelfReg.Services
                     ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
                     FirstName = csi.FirstName,
                     LastName = csi.LastName,
-                    DateOfBirth = DateTime.Parse(customerSearchResult.Result.Contacts[0].DateOfBirth),
+                    DateOfBirth = csi.BirthDate,
                     OrderArrivalDate = csi.OrderArrivalDate,
-                    Email = customerSearchResult.Result.Contacts[0].Email,
-                    Phone = customerSearchResult.Result.Contacts[0].Phone,
-                    Address1 = customerSearchResult.Result.Contacts[0].StreetAddress,
-                    Address2 = customerSearchResult.Result.Contacts[0].StreetAddress2,
-                    City = customerSearchResult.Result.Contacts[0].City,
-                    State = customerSearchResult.Result.Contacts[0].StateProvince,
-                    PostalCode = customerSearchResult.Result.Contacts[0].ZipPostalCode,
+                    Email = csi.EmailAddress,
+                    Phone = csi.Phone,
+                    Address1 = csi.StreetAddress,
+                    Address2 = csi.StreetAddress2,
+                    City = csi.City,
+                    State = csi.StateProvinceId,
+                    PostalCode = csi.ZipPostalCode,
                     CardNumber = maskedCardNumber
                 };
 

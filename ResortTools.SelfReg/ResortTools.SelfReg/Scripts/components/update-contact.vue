@@ -24,7 +24,7 @@
             </div>
             <div>
                 <input v-model="thisContact.address1" name="address-street" type="text" placeholder="Street Address" class="wide" />
-                <input v-model="thisContact.apartment" name="address-apt" type="text" placeholder="Apartment" class="thin" />
+                <input v-model="thisContact.address2" name="address-apt" type="text" placeholder="Apartment" class="thin" />
             </div>
             <div>
                 <input v-model="thisContact.city" name="address-city" type="text" placeholder="City" class="wide" />

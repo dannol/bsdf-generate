@@ -7,8 +7,9 @@
                 {{waiver.waiverText}}
             </div>
             <div class="legal-text">{{waiverTextFooter(waiver)}}</div>
-            <div v-on:click="signWaiver(index)" class="btn btn-primary">Sign</div>
+            <div v-on:click="signWaiver(waiver)" class="btn btn-primary">Sign</div>
         </div>
+        <signwaiver v-show="showSignaturePanel"></signwaiver>
     </div>
 </template>
 
@@ -16,9 +17,15 @@
 
     import { mapGetters } from 'vuex'
     import store from '../vuex/self-registration-store';
+    import signwaiver from '../components/sign-waiver'
 
     export default {
         name: 'waivers',
+        data: function () {
+            return {
+                waiverActive: false
+            }
+        },
         computed: {
             ...mapGetters({
                 currentStep: 'progress/currentStep',
@@ -27,9 +34,10 @@
                 selectedContact: 'contact/selectedContact',
                 waivers: 'waiver/waivers',
                 locationWaiver: 'waiver/locationWaiver',
+                signingWaiver: 'waiver/signingWaiver',
                 stepChanged: 'progress/stepChanged',
                 terminalId: 'progress/terminalId',
-                locationAuthCode: 'progress/terminalId'
+                locationAuthCode: 'progress/terminalId',
             }),
             waiverData: function () {
                 return {
@@ -40,7 +48,6 @@
                 }
             },
             allWaiversSigned: function () {
-
                 var i
                 for (i = 0; i < this.waivers.length; i++) {
                     if (this.waivers[i].waiverSigned == false) {
@@ -58,18 +65,33 @@
                     this.$store.commit('progress/setStepChanged', false)
                 }
                 return this.waivers
+            },
+            showSignaturePanel: function () {
+                //If we are currently signing a waiver, show the signature panel
+                if (this.signingWaiver) {
+                    return true
+                }
+                else {
+                    return false
+                }
             }
         },
         methods: {
-            signWaiver: function (index) {
-                this.$store.commit('waiver/signWaiver', index)
-                if (this.allWaiversSigned) {
-                    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
-                    //If this step is configured to automatically go to the next step, go there.
-                    if (this.currentStep.nextStepOnComplete) {
-                        this.$router.push({ name: this.nextStep.routeName })
-                    }
-                }
+            signWaiver: function (waiver) {
+                //Set boolean to display signature panel
+                this.waiverActive = true
+                this.$store.commit('waiver/setSigningWaiver', waiver)
+                //this.$store.commit('waiver/signWaiver', index)
+                //if (this.allWaiversSigned) {
+                //    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                //    //If this step is configured to automatically go to the next step, go there.
+                //    if (this.currentStep.nextStepOnComplete) {
+                //        this.$router.push({ name: this.nextStep.routeName })
+                //    }
+                //}
+                //else {
+                //    //this.waiverActive = false
+                //}
             },
             waiverTextHeader: function (waiver) {
                 var text = ''
@@ -122,7 +144,7 @@
             }
         },
         components: {
-
+            signwaiver
         }
     }
 

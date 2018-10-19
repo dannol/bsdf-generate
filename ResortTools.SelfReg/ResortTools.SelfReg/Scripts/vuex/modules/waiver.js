@@ -1,12 +1,18 @@
 ﻿import Vue from 'vue/dist/vue.js';
 
 const state = {
+    //All waivers
+    waivers: [],
+    //The waiver data specific to this location
     locationWaiver: null,
-    waivers: []
+    //the waiver currently being signed
+    signingWaiver: null
 }
 
 const getters = {
-    waivers: state => state.waivers
+    waivers: state => state.waivers,
+    locationWaiver: state => state.locationWaiver,
+    signingWaiver: state => state.signingWaiver
 }
 
 const mutations = {
@@ -17,14 +23,18 @@ const mutations = {
     setLocationWaiver(state, locationWaiver) {
         state.locationWaiver = locationWaiver
     },
+    setSigningWaiver(state, waiver) {
+        state.signingWaiver = waiver
+    },
     signWaiver(state, waiverIndex) {
         state.waivers[waiverIndex].waiverSigned = true
         state.waivers[waiverIndex].isActive = false
         if (waiverIndex < state.waivers.length - 1) {
             state.waivers[waiverIndex + 1].isActive = true
         }
+        //Once a waiver is signed, set the signingWaiver to null to indicate no waiver is currently being signed
+        commit('setSigningWaiver', null)
     }
-
 
 }
 
@@ -39,9 +49,6 @@ const actions = {
         var minorNames = ''
 
         //First get the waiver for this location
-        //this.dispatch('waiver/getLocationWaiver', {
-        //    authCode: waiverData.locationAuthCode, terminalId: waiverData.terminalId
-        //})
         var waiverApiUrl = '/api/waiver/authCode/' + waiverData.authCode + '/terminalId/' + waiverData.terminalId
 
         dispatch('api/get',

@@ -12,6 +12,11 @@ namespace ResortTools.SelfReg.Controllers
             return View();
         }
 
+        public IActionResult SigTest()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
