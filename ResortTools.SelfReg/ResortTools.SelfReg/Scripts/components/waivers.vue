@@ -7,9 +7,9 @@
                 {{waiver.waiverText}}
             </div>
             <div class="legal-text">{{waiverTextFooter(waiver)}}</div>
-            <div v-on:click="signWaiver(waiver)" class="btn btn-primary">Sign</div>
+            <div v-on:click="signWaiver(waiver, index)" class="btn btn-primary">Sign</div>
         </div>
-        <signwaiver v-show="showSignaturePanel"></signwaiver>
+        <signwaiver v-show="showSignaturePanel" ref="signWaiver"></signwaiver>
     </div>
 </template>
 
@@ -20,10 +20,10 @@
     import signwaiver from '../components/sign-waiver'
 
     export default {
-        name: 'waivers',
+        name: 'waivers',        
         data: function () {
             return {
-                waiverActive: false
+                //Data Here
             }
         },
         computed: {
@@ -35,6 +35,7 @@
                 waivers: 'waiver/waivers',
                 locationWaiver: 'waiver/locationWaiver',
                 signingWaiver: 'waiver/signingWaiver',
+                activeWaiverIndex: 'waiver/activeWaiverIndex',
                 stepChanged: 'progress/stepChanged',
                 terminalId: 'progress/terminalId',
                 locationAuthCode: 'progress/terminalId',
@@ -77,21 +78,14 @@
             }
         },
         methods: {
-            signWaiver: function (waiver) {
-                //Set boolean to display signature panel
-                this.waiverActive = true
+            signWaiver: function (waiver, waiverIndex) {
+                this.$store.commit('waiver/setActiveWaiverIndex', waiverIndex)
+                //TODO: Can set signing waiver based on index above
+
+                ClearTablet()
                 this.$store.commit('waiver/setSigningWaiver', waiver)
-                //this.$store.commit('waiver/signWaiver', index)
-                //if (this.allWaiversSigned) {
-                //    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
-                //    //If this step is configured to automatically go to the next step, go there.
-                //    if (this.currentStep.nextStepOnComplete) {
-                //        this.$router.push({ name: this.nextStep.routeName })
-                //    }
-                //}
-                //else {
-                //    //this.waiverActive = false
-                //}
+
+                this.$refs.signWaiver.enableSignaturePad()
             },
             waiverTextHeader: function (waiver) {
                 var text = ''

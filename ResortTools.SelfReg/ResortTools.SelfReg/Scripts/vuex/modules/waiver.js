@@ -6,13 +6,16 @@ const state = {
     //The waiver data specific to this location
     locationWaiver: null,
     //the waiver currently being signed
-    signingWaiver: null
+    signingWaiver: null,
+    //The array index of the signing waiver
+    activeWaiverIndex: null
 }
 
 const getters = {
     waivers: state => state.waivers,
     locationWaiver: state => state.locationWaiver,
-    signingWaiver: state => state.signingWaiver
+    signingWaiver: state => state.signingWaiver,
+    activeWaiverIndex: state => state.activeWaiverIndex
 }
 
 const mutations = {
@@ -26,14 +29,17 @@ const mutations = {
     setSigningWaiver(state, waiver) {
         state.signingWaiver = waiver
     },
-    signWaiver(state, waiverIndex) {
-        state.waivers[waiverIndex].waiverSigned = true
-        state.waivers[waiverIndex].isActive = false
-        if (waiverIndex < state.waivers.length - 1) {
-            state.waivers[waiverIndex + 1].isActive = true
+    setActiveWaiverIndex(state, waiverIndex) {
+        state.activeWaiverIndex = waiverIndex
+    },
+    signWaiver(state, waiver) {
+        waiver.waiverSigned = true
+        waiver.isActive = false
+        if (state.activeWaiverIndex < state.waivers.length - 1) {
+            state.waivers[state.activeWaiverIndex + 1].isActive = true
         }
         //Once a waiver is signed, set the signingWaiver to null to indicate no waiver is currently being signed
-        commit('setSigningWaiver', null)
+        state.signingWaiver = null
     }
 
 }

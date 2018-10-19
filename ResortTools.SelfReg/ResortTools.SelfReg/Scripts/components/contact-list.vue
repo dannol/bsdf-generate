@@ -23,13 +23,13 @@
                         <div v-if="contact.orderArrivalDate != null" class="search-result-order-date">Upcoming Order<br />Arrival Date:{{contact.orderArrivalDate}}</div>
                         <div v-else class="search-result-order-date">No Upcoming Orders</div>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="col-xs-4">
                         <div v-if="contact.cardNumber != null" class="search-result-card"><img src="/images/card-small-black.png"><div>{{contact.cardNumber}}</div></div>
                         <div v-else class="search-result-order-date"><img src="/images/card-small-grey.png"><div>No Card</div></div>
                     </div>
-                    <div class="col-xs-2">
+                    <!--<div class="col-xs-2">
                         <a v-on:click="updateContact(contact)" class="btn btn-warning">Update</a>
-                    </div>
+                    </div>-->
                 </a>
                 <div>
                     <router-link :to="{ name: 'addContact' }" tag="a" class="btn btn-warning">I'm not listed</router-link>

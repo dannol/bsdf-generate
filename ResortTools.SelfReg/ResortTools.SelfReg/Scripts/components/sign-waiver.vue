@@ -13,11 +13,12 @@
 
         <form action="#" name=FORM1>
             <p>
-                <input id="SignBtn" name="SignBtn" class="btn btn-primary" type="button" value="Sign" onclick="javascript:onSign()" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id="button1" name="ClearBtn" type="button" value="Clear" onclick="javascript:onClear()" />&nbsp;&nbsp;&nbsp;&nbsp
-                <input id="button2" name="DoneBtn" type="button" value="Done" onclick="javascript:onDone()" />&nbsp;&nbsp;&nbsp;&nbsp
+                <!--<input id="SignBtn" name="SignBtn" class="btn btn-primary" type="button" value="Sign" onclick="javascript:onSign()" />&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <!--<input id="button1" name="ClearBtn" type="button" value="Clear" onclick="javascript:onClear()" />&nbsp;&nbsp;&nbsp;&nbsp-->
+                <!--<input id="button2" name="DoneBtn" type="button" value="Done" onclick="javascript:onDone()" />&nbsp;&nbsp;&nbsp;&nbsp-->
 
                 <a v-on:click="acceptSignature()" class="btn btn-primary">Accept Signature</a>
+                <a v-on:click="clearSignature()" class="btn btn-primary">Clear</a>
 
                 <INPUT TYPE=HIDDEN NAME="bioSigData" />
                 <INPUT TYPE=HIDDEN NAME="sigImgData" />
@@ -49,7 +50,8 @@
         name: 'sign-waver',
         computed: {
             ...mapGetters({
-                //Map Getters here
+                signingWaiver: 'waiver/signingWaiver',
+                waivers: 'waiver/waivers'
             }),
             showSignaturePanel: function () {
                 if (this.currentWaiver) {
@@ -62,8 +64,52 @@
         },
         methods: {
             acceptSignature: function () {
-                onDone()
-                this.$store.commit('waiver/setSigningWaiver', null)
+                //onDone()
+                if (NumberOfTabletPoints() == 0) {
+                    //TODO: Better error handling
+                    alert("Please sign before continuing");
+                }
+                else {
+                    //Topaz Code
+                    SetTabletState(0, tmr);
+                    //RETURN TOPAZ-FORMAT SIGSTRING
+                    SetSigCompressionMode(1);
+                    document.FORM1.bioSigData.value = GetSigString();
+                    document.FORM1.sigStringData.value += GetSigString();
+                    //this returns the signature in Topaz's own format, with biometric information
+
+                    //RETURN BMP BYTE ARRAY CONVERTED TO BASE64 STRING
+                    SetImageXSize(500);
+                    SetImageYSize(100);
+                    SetImagePenWidth(5);
+                    GetSigImageB64(SigImageCallback);
+
+                    //TODO: Capture data Here
+
+                    //Set the waiver as signed
+                    this.$store.commit('waiver/signWaiver', this.signingWaiver)
+
+                }
+            },
+            clearSignature: function () {
+                ClearTablet()
+            },
+            enableSignaturePad: function () {
+                //Topaz Code
+                var ctx = document.getElementById('cnv').getContext('2d');
+                SetDisplayXSize(500);
+                SetDisplayYSize(100);
+                SetTabletState(0, tmr);
+                SetJustifyMode(0);
+                ClearTablet();
+                if (tmr == null) {
+                    tmr = SetTabletState(1, ctx, 50);
+                }
+                else {
+                    SetTabletState(0, tmr);
+                    tmr = null;
+                    tmr = SetTabletState(1, ctx, 50);
+                }
             }
         }
     }

@@ -7,26 +7,26 @@
 <script type="text/javascript">
     var tmr;
 
-    function onSign() {
-        var ctx = document.getElementById('cnv').getContext('2d');
-        SetDisplayXSize(500);
-        SetDisplayYSize(100);
-        SetTabletState(0, tmr);
-        SetJustifyMode(0);
-        ClearTablet();
-        if (tmr == null) {
-            tmr = SetTabletState(1, ctx, 50);
-        }
-        else {
-            SetTabletState(0, tmr);
-            tmr = null;
-            tmr = SetTabletState(1, ctx, 50);
-        }
-    }
+    //function onSign() {
+    //    var ctx = document.getElementById('cnv').getContext('2d');
+    //    SetDisplayXSize(500);
+    //    SetDisplayYSize(100);
+    //    SetTabletState(0, tmr);
+    //    SetJustifyMode(0);
+    //    ClearTablet();
+    //    if (tmr == null) {
+    //        tmr = SetTabletState(1, ctx, 50);
+    //    }
+    //    else {
+    //        SetTabletState(0, tmr);
+    //        tmr = null;
+    //        tmr = SetTabletState(1, ctx, 50);
+    //    }
+    //}
 
-    function onClear() {
-        ClearTablet();
-    }
+    //function onClear() {
+    //    ClearTablet();
+    //}
 
     function onDone() {
         if (NumberOfTabletPoints() == 0) {
