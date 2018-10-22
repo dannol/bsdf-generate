@@ -8,14 +8,17 @@ const state = {
     //the waiver currently being signed
     signingWaiver: null,
     //The array index of the signing waiver
-    activeWaiverIndex: null
+    activeWaiverIndex: null,
+    //Boolean indicating whether all waivers are signed
+    allWaiversSigned: false
 }
 
 const getters = {
     waivers: state => state.waivers,
     locationWaiver: state => state.locationWaiver,
     signingWaiver: state => state.signingWaiver,
-    activeWaiverIndex: state => state.activeWaiverIndex
+    activeWaiverIndex: state => state.activeWaiverIndex,
+    allWaiversSigned: state => state.allWaiversSigned
 }
 
 const mutations = {
@@ -33,13 +36,28 @@ const mutations = {
         state.activeWaiverIndex = waiverIndex
     },
     signWaiver(state, waiver) {
+
+        //var signWaiverUrl = '/api/waiver/sign'
+        //var dataType = 'application/json; charset=utf-8'
+
+        //return new Promise((resolve, reject) => {
+        //    dispatch('api/post',
+        //        { url: signWaiverUrl, data: waiver, config: { headers: { 'Content-Type': 'application/json' } } },
+        //        { root: true }
+        //    ).then(data => {
+        //        resolve(data);
+        //    }).catch(err => console.log('Error storing waiver: ' + err));
+        //});
+
+
         waiver.waiverSigned = true
         waiver.isActive = false
         if (state.activeWaiverIndex < state.waivers.length - 1) {
             state.waivers[state.activeWaiverIndex + 1].isActive = true
         }
-        //Once a waiver is signed, set the signingWaiver to null to indicate no waiver is currently being signed
-        state.signingWaiver = null
+        else {
+            state.allWaiversSigned = true;
+        }
     }
 
 }
@@ -80,21 +98,28 @@ const actions = {
                 waiverSigned: false,
                 isActive: true,
                 minors: minors,
-                waiverText: state.locationWaiver.waiverText
+                waiverText: state.locationWaiver.waiverText,
+                signatureString: '',
+                signatureBase64String: ''
             })
 
-            //add all non-minors to waivers
+            //Add a waiver for all non-minors
             for (i = 0; i < waiverData.groupMembers.length; i++) {
 
-                if (waiverData.groupMembers[i].age > 17) {
+                //Only add adults who are not the signer (already added) 
+                if (waiverData.groupMembers[i].age > 17 && waiverData.groupMembers[i].contactId != waiverData.contact.contactId) {
+
                     participantWaivers.push({
                         signer: waiverData.groupMembers[i],
                         text: ' signing for themself',
                         waiverSigned: false,
                         isActive: false,
                         minors: null,
-                        waiverText: state.locationWaiver.waiverText
-                    })
+                        waiverText: state.locationWaiver.waiverText,
+                        signatureString: '',
+                        signatureBase64String: ''
+                        })
+
                 }
             }
 
@@ -111,7 +136,7 @@ const actions = {
             //Should only get one result
             commit('setLocationWaiver', data.results[0])
         })
-    },
+    }
 
 }
 

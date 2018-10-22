@@ -48,16 +48,6 @@
                     terminalId: this.terminalId
                 }
             },
-            allWaiversSigned: function () {
-                var i
-                for (i = 0; i < this.waivers.length; i++) {
-                    if (this.waivers[i].waiverSigned == false) {
-                        return false
-                    }
-                }
-
-                return true
-            },
             builtWaivers: function () {
                 //We need this extra computed value so we can run the rebuild waivers in case the
                 //participants changed
@@ -83,6 +73,8 @@
                 //TODO: Can set signing waiver based on index above
 
                 ClearTablet()
+                ClearSigWindow()
+
                 this.$store.commit('waiver/setSigningWaiver', waiver)
 
                 this.$refs.signWaiver.enableSignaturePad()

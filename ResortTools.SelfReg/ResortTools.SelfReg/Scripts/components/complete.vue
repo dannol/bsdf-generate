@@ -10,7 +10,7 @@
                     <div>
                         <h3>All set!  Please continue to cashier.</h3>
                         <div>
-                            <router-link :to="{ name: 'start' }" tag="a" class="btn btn-warning">Start Over</router-link>
+                            <a href="./" class="btn btn-primary">Start Over</a>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 ﻿<template>
     <div class="signature-panel">
+        <h3>Please Sign</h3>
         <table border="1" cellpadding="0" width="500">
             <tr>
                 <td height="100" width="500">
@@ -8,30 +9,31 @@
             </tr>
         </table>
 
-        <BR/>
-        <canvas name="SigImg" id="SigImg" width="500" height="100"></canvas>
-
+        <BR />
+        <!--<canvas name="SigImg" id="SigImg" width="500" height="100"></canvas>-->
+        <div class="missing-signature" v-if="missingSignature">
+            No Signature detected. Please use pen to sign on the signature pad.
+        </div>
+        
         <form action="#" name=FORM1>
             <p>
-                <!--<input id="SignBtn" name="SignBtn" class="btn btn-primary" type="button" value="Sign" onclick="javascript:onSign()" />&nbsp;&nbsp;&nbsp;&nbsp;-->
-                <!--<input id="button1" name="ClearBtn" type="button" value="Clear" onclick="javascript:onClear()" />&nbsp;&nbsp;&nbsp;&nbsp-->
-                <!--<input id="button2" name="DoneBtn" type="button" value="Done" onclick="javascript:onDone()" />&nbsp;&nbsp;&nbsp;&nbsp-->
+                <a v-on:click="acceptSignature()" class="btn btn-primary" v-show="!signatureAccepted" >Accept Signature</a>
+                <a v-on:click="clearSignature()" class="btn btn-primary" v-show="!signatureAccepted">Clear</a>
+                <a v-on:click="cancel()" class="btn btn-primary" v-show="!signatureAccepted">Cancel</a>
+                <a v-on:click="done()" class="btn btn-primary" v-show="signatureAccepted">Complete Signing</a>
 
-                <a v-on:click="acceptSignature()" class="btn btn-primary">Accept Signature</a>
-                <a v-on:click="clearSignature()" class="btn btn-primary">Clear</a>
-
+                <!--These hidden fields are where the actual image data is stored-->
                 <INPUT TYPE=HIDDEN NAME="bioSigData" />
                 <INPUT TYPE=HIDDEN NAME="sigImgData" />
-                <BR />
-                <BR />
-                <!--These Text Areas can be uncommented to see the actual image data-->
-                <TEXTAREA NAME="sigStringData" ROWS="10" COLS="50">SigString: </TEXTAREA>
-                <TEXTAREA NAME="sigImageData" ROWS="10" COLS="50">Base64 String: </TEXTAREA>
+
+                <!--These Text Areas can be displayed to see the actual image data-->
+                <TEXTAREA NAME="sigStringData" ROWS="5" COLS="50" style="display:none;">SigString: </TEXTAREA>
+                <TEXTAREA NAME="sigImageData" ROWS="5" COLS="50" style="display:none;">Base64 String: </TEXTAREA>
             </p>
         </form>
 
         <br /><br />
-</div>
+    </div>
 
 </template>
 
@@ -44,32 +46,28 @@
     export default {
         data() {
             return {
-                currentWaiver: false
+                signatureAccepted: false,
+                missingSignature: false
             }
         },
         name: 'sign-waver',
         computed: {
             ...mapGetters({
                 signingWaiver: 'waiver/signingWaiver',
-                waivers: 'waiver/waivers'
-            }),
-            showSignaturePanel: function () {
-                if (this.currentWaiver) {
-                    return true
-                }
-                else {
-                    return false
-                }
-            }
+                waivers: 'waiver/waivers',
+                allWaiversSigned: 'waiver/allWaiversSigned',
+                currentStep: 'progress/currentStep',
+                nextStep: 'progress/nextStep'
+            })
         },
         methods: {
             acceptSignature: function () {
-                //onDone()
                 if (NumberOfTabletPoints() == 0) {
-                    //TODO: Better error handling
-                    alert("Please sign before continuing");
+                    this.missingSignature = true
                 }
                 else {
+
+                    this.missingSignature = false
                     //Topaz Code
                     SetTabletState(0, tmr);
                     //RETURN TOPAZ-FORMAT SIGSTRING
@@ -82,17 +80,48 @@
                     SetImageXSize(500);
                     SetImageYSize(100);
                     SetImagePenWidth(5);
+                    //This call loads the image data file into the hidden form field after processing is complete
                     GetSigImageB64(SigImageCallback);
-
-                    //TODO: Capture data Here
-
-                    //Set the waiver as signed
-                    this.$store.commit('waiver/signWaiver', this.signingWaiver)
+                    this.signatureAccepted = true
 
                 }
             },
             clearSignature: function () {
                 ClearTablet()
+                this.missingSignature = false
+            },
+            cancel: function () {
+                ClearTablet()
+                //set the waiver being signed to null which will hide the signature panel
+                this.$store.commit('waiver/setSigningWaiver', null)
+                this.missingSignature = false
+            },
+            //This function is needed because the Image Data isn't loaded in the hidden TEXTAREA until
+            //processing is complete in the acceptSignature method and a callback is called.  We must
+            // have this additional step to load the object once the data is loaded
+            done: function () {
+
+                ////Set the waiver as signed
+                //this.$store.commit('waiver/signWaiver', this.signingWaiver)
+
+                this.signingWaiver.signatureString = document.FORM1.bioSigData.value;
+                this.signingWaiver.signatureBase64String = document.FORM1.sigImageData.value
+                //Set the waiver as signed
+                this.$store.commit('waiver/signWaiver', this.signingWaiver)
+
+                //set the waiver being signed to null which will hide the signature panel
+                this.$store.commit('waiver/setSigningWaiver', null)
+
+                if (this.allWaiversSigned) {
+                    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                    if (this.currentStep.nextStepOnComplete) {
+                        this.$router.push({ name: this.nextStep.routeName })
+                    }
+                }
+
+                ClearTablet()
+
+                this.signatureAccepted = false
             },
             enableSignaturePad: function () {
                 //Topaz Code

@@ -59,7 +59,8 @@
                 selectedContact: 'contact/selectedContact',
                 members: 'group/members',
                 selectedMembers: 'group/selectedMembers',
-                currentStep: 'progress/currentStep'
+                currentStep: 'progress/currentStep',
+                nextStep: 'progress/nextStep'
             }),
             participants: function () {
                 return {
