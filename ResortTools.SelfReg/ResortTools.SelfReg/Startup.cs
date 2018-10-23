@@ -46,7 +46,10 @@ namespace ResortTools.SelfReg
             services.AddSingleton(SelfRegistrationConfig);
 
             services.AddTransient<IContactService, ContactService>();
+
+            //TODO: Replace this with referenceds to real services 
             services.AddTransient<IWaiverService, WaiverServiceMock>();
+            services.AddTransient<IRegistrationService, RegistrationServiceMock>();
 
             services.Configure<UnityClientSettings>(Configuration.GetSection("UnityClient"));
             services.AddUnityClientLibrary();

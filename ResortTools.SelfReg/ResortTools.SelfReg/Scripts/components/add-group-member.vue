@@ -77,7 +77,6 @@
                         this.$router.push({ name: 'groupMemberList', params: { reloadMembers: false } })
                     }
                 }).catch(err => console.log('add-contact.vue - Error adding contact: ' + err));
-                //this.$router.push({ name: 'groupMemberList', params: { reloadMembers: false } })
             }
         },
         components: {

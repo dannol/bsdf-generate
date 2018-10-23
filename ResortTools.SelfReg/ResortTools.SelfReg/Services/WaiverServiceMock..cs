@@ -39,6 +39,28 @@ namespace ResortTools.SelfReg.Services
 
             return result;
         }
-      
+
+        // * AddWaiver
+        // * This function adds data from a waiver 
+        public UpdateResult<Waiver> AddWaiver(Waiver Waiver, int TerminalClientCode)
+        {
+            //TODO: Fake data
+            Waiver NewWaiver = new Waiver();
+            NewWaiver.Minors = Waiver.Minors;
+            NewWaiver.Signer = Waiver.Signer;
+            NewWaiver.WaiverText = Waiver.WaiverText;
+            NewWaiver.SignatureString = Waiver.SignatureString;
+            NewWaiver.SignatureBase64String = Waiver.SignatureBase64String;
+
+
+            UpdateResult<Waiver> result = new UpdateResult<Waiver>
+            {
+                Status = "OK",
+                UpdatedRecord = NewWaiver
+            };
+
+            return result;
+        }
+
     }
 }

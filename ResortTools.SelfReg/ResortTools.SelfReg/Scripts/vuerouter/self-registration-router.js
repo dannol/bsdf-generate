@@ -26,6 +26,9 @@ import selectGroupMembers from '../components/select-group-members'
 import manageWaivers from '../components/manage-waivers'
 import waivers from '../components/waivers'
 
+//Registration Management Components
+import manageRegistrations from '../components/manage-registrations'
+import registrations from '../components/registrations'
 
 import complete from '../components/complete'
 
@@ -127,6 +130,18 @@ const routes = [
             path: '',
             name: 'waivers',
             component: waivers,
+            props: true
+        }]
+    },
+    {
+        //Waiver management Routes
+        path: '/manage-registration',
+        name: 'manageRegistrations',
+        component: manageRegistrations,
+        children: [{
+            path: '',
+            name: 'registrations',
+            component: registrations,
             props: true
         }]
     },

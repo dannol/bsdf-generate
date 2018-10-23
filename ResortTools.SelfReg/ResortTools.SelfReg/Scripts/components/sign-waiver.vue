@@ -128,20 +128,6 @@
                         this.signatureAccepted = false
                     }
                 }).catch(err => console.log('add-contact.vue - Error signing waiver: ' + err));
-
-                //set the waiver being signed to null which will hide the signature panel
-                //this.$store.commit('waiver/setSigningWaiver', null)
-
-                //if (this.allWaiversSigned) {
-                //    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
-                //    if (this.currentStep.nextStepOnComplete) {
-                //        this.$router.push({ name: this.nextStep.routeName })
-                //    }
-                //}
-
-                //ClearTablet()
-
-                //this.signatureAccepted = false
             },
             enableSignaturePad: function () {
                 //Topaz Code

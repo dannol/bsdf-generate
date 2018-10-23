@@ -63,6 +63,8 @@ namespace ResortTools.SelfReg.Controllers
             {
                 id = SelfRegistrationConfig.SkiSchoolConfig.DefaultTerminalId;
             }
+
+            SelfRegistrationConfig.TerminalId = id;
             return View(SelfRegistrationConfig);
         }
 
