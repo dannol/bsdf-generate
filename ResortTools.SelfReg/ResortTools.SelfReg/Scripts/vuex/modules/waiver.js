@@ -34,30 +34,6 @@ const mutations = {
     },
     setActiveWaiverIndex(state, waiverIndex) {
         state.activeWaiverIndex = waiverIndex
-    },
-    signWaiver(state, waiver) {
-
-        //var signWaiverUrl = '/api/waiver/sign'
-        //var dataType = 'application/json; charset=utf-8'
-
-        //return new Promise((resolve, reject) => {
-        //    dispatch('api/post',
-        //        { url: signWaiverUrl, data: waiver, config: { headers: { 'Content-Type': 'application/json' } } },
-        //        { root: true }
-        //    ).then(data => {
-        //        resolve(data);
-        //    }).catch(err => console.log('Error storing waiver: ' + err));
-        //});
-
-
-        waiver.waiverSigned = true
-        waiver.isActive = false
-        if (state.activeWaiverIndex < state.waivers.length - 1) {
-            state.waivers[state.activeWaiverIndex + 1].isActive = true
-        }
-        else {
-            state.allWaiversSigned = true;
-        }
     }
 
 }
@@ -136,6 +112,39 @@ const actions = {
             //Should only get one result
             commit('setLocationWaiver', data.results[0])
         })
+    },
+    updateWaiver({ state, getters, commit, dispatch }, updateWaiver) {
+    },
+    signWaiver({ state, getters, commit, dispatch }, waiverData) {
+
+        var signWaiverUrl = '/api/waiver/sign/terminalId/' + waiverData.terminalId
+        var dataType = 'application/json; charset=utf-8'
+
+        var updateWaiverData = {
+            signer: waiverData.waiver.signer,
+            minors: waiverData.waiver.minors,
+            waiverText: waiverData.waiver.waiverText,
+            signatureString: waiverData.waiver.signatureString,
+            signatureBase64String: waiverData.waiver.signatureBase64String
+        }
+
+        return new Promise((resolve, reject) => {
+            this.dispatch('api/post',
+                { url: signWaiverUrl, data: updateWaiverData, config: { headers: { 'Content-Type': 'application/json' } } },
+                { root: true }
+            ).then(data => {
+                resolve(data)
+                waiverData.waiver.waiverSigned = true
+                waiverData.waiver.isActive = false
+                if (state.activeWaiverIndex < state.waivers.length - 1) {
+                    state.waivers[state.activeWaiverIndex + 1].isActive = true
+                }
+                else {
+                    state.allWaiversSigned = true;
+                }
+            }).catch(err => console.log('Error storing waiver: ' + err));
+        });
+
     }
 
 }

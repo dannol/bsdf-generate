@@ -24,6 +24,14 @@ namespace ResortTools.SelfReg.Controllers
             int terminalClientCode = int.Parse(terminalId);
             return new JsonResult(_waiverService.GetByAuthCode(authCode, terminalClientCode));
         }
-    
+
+        // POST: api/waiver/sign
+        [HttpPost("sign/terminalId/{terminalId}")]
+        public ActionResult Post([FromBody] Waiver updateWaiver, string terminalId)
+        {
+            int terminalClientCode = int.Parse(terminalId);
+            return new JsonResult(_waiverService.AddWaiver(updateWaiver, terminalClientCode));
+        }
+
     }
 }

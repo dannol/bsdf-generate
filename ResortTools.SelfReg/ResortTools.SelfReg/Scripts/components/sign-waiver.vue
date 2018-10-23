@@ -57,8 +57,15 @@
                 waivers: 'waiver/waivers',
                 allWaiversSigned: 'waiver/allWaiversSigned',
                 currentStep: 'progress/currentStep',
-                nextStep: 'progress/nextStep'
-            })
+                nextStep: 'progress/nextStep',
+                terminalId: 'progress/terminalId'
+            }),
+            waiverData: function () {
+                return {
+                    waiver: this.signingWaiver,
+                    terminalId: this.terminalId
+                }
+            }
         },
         methods: {
             acceptSignature: function () {
@@ -100,28 +107,41 @@
             //processing is complete in the acceptSignature method and a callback is called.  We must
             // have this additional step to load the object once the data is loaded
             done: function () {
-
-                ////Set the waiver as signed
-                //this.$store.commit('waiver/signWaiver', this.signingWaiver)
-
+                debugger
                 this.signingWaiver.signatureString = document.FORM1.bioSigData.value;
                 this.signingWaiver.signatureBase64String = document.FORM1.sigImageData.value
                 //Set the waiver as signed
-                this.$store.commit('waiver/signWaiver', this.signingWaiver)
+                this.$store.dispatch('waiver/signWaiver', this.waiverData).then(data => {
+                    if (data.status == 'OK') {
+                        //set the waiver being signed to null which will hide the signature panel
+                        this.$store.commit('waiver/setSigningWaiver', null)
+
+                        if (this.allWaiversSigned) {
+                            this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                            if (this.currentStep.nextStepOnComplete) {
+                                this.$router.push({ name: this.nextStep.routeName })
+                            }
+                        }
+
+                        ClearTablet()
+
+                        this.signatureAccepted = false
+                    }
+                }).catch(err => console.log('add-contact.vue - Error signing waiver: ' + err));
 
                 //set the waiver being signed to null which will hide the signature panel
-                this.$store.commit('waiver/setSigningWaiver', null)
+                //this.$store.commit('waiver/setSigningWaiver', null)
 
-                if (this.allWaiversSigned) {
-                    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
-                    if (this.currentStep.nextStepOnComplete) {
-                        this.$router.push({ name: this.nextStep.routeName })
-                    }
-                }
+                //if (this.allWaiversSigned) {
+                //    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                //    if (this.currentStep.nextStepOnComplete) {
+                //        this.$router.push({ name: this.nextStep.routeName })
+                //    }
+                //}
 
-                ClearTablet()
+                //ClearTablet()
 
-                this.signatureAccepted = false
+                //this.signatureAccepted = false
             },
             enableSignaturePad: function () {
                 //Topaz Code

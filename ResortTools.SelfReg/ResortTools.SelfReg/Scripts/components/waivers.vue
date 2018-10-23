@@ -72,9 +72,6 @@
                 this.$store.commit('waiver/setActiveWaiverIndex', waiverIndex)
                 //TODO: Can set signing waiver based on index above
 
-                ClearTablet()
-                ClearSigWindow()
-
                 this.$store.commit('waiver/setSigningWaiver', waiver)
 
                 this.$refs.signWaiver.enableSignaturePad()
