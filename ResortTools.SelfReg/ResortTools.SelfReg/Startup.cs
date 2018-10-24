@@ -49,7 +49,7 @@ namespace ResortTools.SelfReg
 
             //TODO: Replace this with referenceds to real services 
             services.AddTransient<IWaiverService, WaiverServiceMock>();
-            services.AddTransient<IRegistrationService, RegistrationServiceMock>();
+
 
             services.Configure<UnityClientSettings>(Configuration.GetSection("UnityClient"));
             services.AddUnityClientLibrary();

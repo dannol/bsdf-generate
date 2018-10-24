@@ -92,24 +92,25 @@ const actions = {
         }
 
     },
-    updateContact({ state, getters, commit, dispatch }, contact) {
-        if (contact) {
-            if (contact.dateOfBirth) {
-                var birthday = new Date(contact.dateOfBirth)
+    updateContact({ state, getters, commit, dispatch }, contactData) {
+
+        if (contactData.contact) {
+            if (contactData.contact.dateOfBirth) {
+                var birthday = new Date(contactData.contact.dateOfBirth)
                 var ageDifMs = Date.now() - birthday.getTime();
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch
-                contact.age = Math.abs(ageDate.getUTCFullYear() - 1970)
+                contactData.contact.age = Math.abs(ageDate.getUTCFullYear() - 1970)
             }
 
-            //console.log('Updating Contact ' + contact.contactId)
-            var updateContactUrl = '/api/contact/update'
+            //console.log('Updating Contact ' + contactData.contact.contactId)
+            var updateContactUrl = '/api/contact/update/terminalid/' + contactData.terminalId
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
-                    { url: updateContactUrl, data: contact, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { url: updateContactUrl, data: contactData.contact, config: { headers: { 'Content-Type': 'application/json' } } },
                     { root: true }
                 ).then(data => {
                     //Once contact record is updated, update the search results                 
-                    commit('updateSearchResult', contact)
+                    commit('updateSearchResult', contactData.contact)
                     //Let the calling function know proessing is complete
                     resolve(data)
                 }).catch(err => alert(err));

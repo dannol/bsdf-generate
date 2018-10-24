@@ -1,20 +1,20 @@
 ﻿<template>
     <div>
-        <div v-for="(registration, index ) in builtRegistrations">
-            <h3> Complete Registration for </h3>
+        <div v-for="(registrant, index ) in registrants" v-if="index == activeRegistrantIndex">
+            <h3> Complete Registration for {{registrant.firstName}} {{registrant.lastName}}</h3>
             <div>
-                <input v-model="registration.medications" name="medications" type="text" placeholder="Medications" class="wide" />
+                <input v-model="registrant.medication" name="medications" type="text" placeholder="Medications" class="wide" />
             </div>
             <div>
-                <input v-model="registration.foodAllergies" name="food-allergies" type="text" placeholder="Food Allergies" class="wide" />
+                <input v-model="registrant.foodAllergy" name="food-allergies" type="text" placeholder="Food Allergies" class="wide" />
             </div>
             <div>
-                <input v-model="registration.drugAllergies" name="drug-allergies" type="text" placeholder="Drug Allergies" class="wide" />
+                <input v-model="registrant.drugAllergy" name="drug-allergies" type="text" placeholder="Drug Allergies" class="wide" />
             </div>
             <div>
-                <input v-model="registration.specialConditions" name="special-conditions" type="text" placeholder="Special Conditions" class="wide" />
+                <input v-model="registrant.specialCondition" name="special-conditions" type="text" placeholder="Special Conditions" class="wide" />
             </div>
-            <div v-on:click="saveRegistration(registration, index)" class="btn btn-primary">Save</div>
+            <div v-on:click="saveRegistration(registrant, index)" class="btn btn-primary">Save</div>
         </div>
 
     </div>
@@ -26,10 +26,10 @@
     import store from '../vuex/self-registration-store';
 
     export default {
-        name: 'registrations',        
+        name: 'registrations',
         data: function () {
             return {
-                
+                activeRegistrantIndex: 0
             }
         },
         computed: {
@@ -67,14 +67,14 @@
             },
         },
         methods: {
-            saveRegistration: function (registration, registrationIndex) {
-                this.$store.commit('registration/setActiveRegistationIndex', registrationIndex)
-
-
-                //this.$store.commit('waiver/setSigningWaiver', waiver)
-            },
-            getRegistrationData: function () {
-
+            saveRegistration: function (registrant, registrationIndex) {
+                if (this.activeRegistrantIndex < this.registrants.length - 1) {
+                    this.activeRegistrantIndex++
+                }
+                else {
+                    //Go to the emergency contact page if all registrants are processed
+                    this.$router.push({ name: 'emergencyContacts'})
+                }
             }
         },
         components: {

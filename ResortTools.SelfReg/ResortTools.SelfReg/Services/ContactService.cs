@@ -141,7 +141,16 @@ namespace ResortTools.SelfReg.Services
                     Hometown = hometown,
                     PhotoUrl = String.IsNullOrEmpty(contact.PhotoUrl) ? "" : contact.PhotoUrl,
                     //Default DOB to today if not present
-                    DateOfBirth = DateTime.Parse(String.IsNullOrEmpty(contact.DateOfBirth) ? DateTime.Today.ToShortDateString() : contact.DateOfBirth)
+                    DateOfBirth = DateTime.Parse(String.IsNullOrEmpty(contact.DateOfBirth) ? DateTime.Today.ToShortDateString() : contact.DateOfBirth),
+                    FoodAllergy = contact.FoodAllergy,
+                    DrugAllergy = contact.DrugAllergy,
+                    Medication = contact.Medication,
+                    SpecialCondition = contact.SpecialCondition,
+                    PrimaryContactName = contact.PrimaryEmergencyContact,
+                    PrimaryContactPhone = contact.PrimaryEmergencyPhone,
+                    AlternateContactName = contact.AlternateEmergencyContact1,
+                    AlternateContactPhone = contact.AlternateEmergencyPhone1
+                    
                 };
 
                 result.Results.Add(cvm);
@@ -264,8 +273,6 @@ namespace ResortTools.SelfReg.Services
             //Create a Unity API Contact for updating
             UnityModels.Contact contact = new UnityModels.Contact
             {
-                Active = true,
-                IsCustomerPrimary = true,
                 ContactId = contactId,
                 FirstName = Contact.FirstName,
                 LastName = Contact.LastName,
@@ -276,7 +283,15 @@ namespace ResortTools.SelfReg.Services
                 StreetAddress2 = Contact.Address2,
                 City = Contact.City,
                 StateProvinceId = Contact.State,
-                ZipPostalCode = Contact.PostalCode
+                ZipPostalCode = Contact.PostalCode,
+                Medication = Contact.Medication,
+                DrugAllergy = Contact.DrugAllergy,
+                FoodAllergy = Contact.FoodAllergy,
+                SpecialCondition = Contact.SpecialCondition,
+                PrimaryEmergencyContact = Contact.PrimaryContactName,
+                PrimaryEmergencyPhone = Contact.PrimaryContactPhone,
+                AlternateEmergencyContact1 = Contact.AlternateContactName,
+                AlternateEmergencyPhone1 = Contact.AlternateContactPhone
             };
 
 

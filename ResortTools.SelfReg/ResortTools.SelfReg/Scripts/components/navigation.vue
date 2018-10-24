@@ -68,7 +68,7 @@
         methods: {
             goToPreviousStep: function (previousStep) {
                 //If going to the previous step, set it to incomplete
-                Vue.set(previousStep, 'stepComplete', false)
+                //Vue.set(previousStep, 'stepComplete', false)
                 this.$router.push(previousStep.route)
             }
         }

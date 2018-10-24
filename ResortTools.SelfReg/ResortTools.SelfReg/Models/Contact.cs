@@ -22,6 +22,17 @@ namespace ResortTools.SelfReg.Models
         public DateTime? OrderArrivalDate { get; set; }
         public String CardNumber { get; set; }
         public String PhotoUrl { get; set; }
+        
+        // Registration Information
+        public string AlternateContactName { get; set; }
+        public string AlternateContactPhone { get; set; }
+        public string DrugAllergy { get; set; }
+        public string FoodAllergy { get; set; }
+        public string Medication { get; set; }
+        public string PrimaryContactName { get; set; }
+        public string PrimaryContactPhone { get; set; }
+        public string SpecialCondition { get; set; }
+
 
     }
 }

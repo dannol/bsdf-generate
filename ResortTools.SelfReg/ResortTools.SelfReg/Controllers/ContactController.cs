@@ -55,7 +55,7 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Get all contacts associate to a given account ID
-        // GET: api/contactid/123
+        // GET: api/contact/contactid/123
         [HttpGet("{contactId}/group/terminalid/{terminalId}")]
         public ActionResult GetGroupByContactId(int contactId, int terminalId)
         {
@@ -71,9 +71,9 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Update a new contact
-        // POST: api/contact/update
-        [HttpPost("update")]
-        public ActionResult Update([FromBody] Contact contact)
+        // POST: api/contact/update/terminalid/12345
+        [HttpPost("update/terminalid/{terminalId}")]
+        public ActionResult Update([FromBody] Contact contact, string terminalId)
         {
             return new JsonResult(_contactService.UpdateContact(contact));
         }

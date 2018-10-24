@@ -29,6 +29,7 @@ import waivers from '../components/waivers'
 //Registration Management Components
 import manageRegistrations from '../components/manage-registrations'
 import registrations from '../components/registrations'
+import emergencyContacts from '../components/emergency-contacts'
 
 import complete from '../components/complete'
 
@@ -143,6 +144,12 @@ const routes = [
             name: 'registrations',
             component: registrations,
             props: true
+        },
+        {
+            path: 'contacts',
+            name: 'emergencyContacts',
+            component: emergencyContacts,
+            props: false
         }]
     },
     {
