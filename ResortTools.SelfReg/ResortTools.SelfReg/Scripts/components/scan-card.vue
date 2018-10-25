@@ -2,7 +2,9 @@
     <div>
         <h3>Scan your Card at any time</h3>
         <img src="/images/cardsilhouette.png" />
-        <a v-on:click="search" class="btn btn-primary">Pretend to Scan Card</a>
+        <div>
+            <input v-model="cardNumber" v-on:keyup="search" name="card-number" type="text" autofocus />
+        </div>
     </div>
 </template>
 
@@ -15,8 +17,7 @@
         name: 'scan-card',
         data: function () {
             return {
-                //TODO: This is fake data unil we get the card scan to work
-                cardNumber: '987675'
+                cardNumber: null
             }
         },
         computed: {
