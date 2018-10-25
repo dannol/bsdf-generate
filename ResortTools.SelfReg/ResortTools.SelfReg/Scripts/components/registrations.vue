@@ -44,8 +44,18 @@
                 activeRegistrantIndex: 0
             }
         },
+        mounted: function() {
+            if(!this.registrants || this.registrants.length == 0) {
+                this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                if (this.currentStep.nextStepOnComplete) {
+                    this.$router.push(this.nextStep.route)
+                }
+            }
+        },
         computed: {
             ...mapGetters({
+                currentStep: 'progress/currentStep',
+                nextStep: 'progress/nextStep',
                 selectedMembers: 'group/selectedMembers'
             }),
             registrants: function () {

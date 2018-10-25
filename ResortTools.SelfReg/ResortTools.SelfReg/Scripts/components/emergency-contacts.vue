@@ -32,6 +32,7 @@
                 primaryContactPhone: null,
                 alternateContactName: null,
                 alternateContactPhone: null,
+                numberOfRegsProcessed: 0
             }
         },
         computed: {
@@ -70,16 +71,17 @@
                         if (this.activeRegistrantIndex < this.registrants.length - 1) {
                             this.activeRegistrantIndex++
                         }
+                        //For each asynchrnous call that comes back, keep track of how many regs are processed.
+                        this.numberOfRegsProcessed++
+                        //If all the regs are processed, complete the step
+                        if (this.numberOfRegsProcessed == this.registrants.length) {
+                            this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                            if (this.currentStep.nextStepOnComplete) {
+                                this.$router.push(this.nextStep.route)
+                            }
+                        }
                     })
                 }
-
-                if (this.activeRegistrantIndex >= this.registrants.length - 1) {
-                    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
-                    if (this.currentStep.nextStepOnComplete) {
-                        this.$router.push({ name: this.nextStep.routeName })
-                    }
-                }
-
             }
         },
         components: {

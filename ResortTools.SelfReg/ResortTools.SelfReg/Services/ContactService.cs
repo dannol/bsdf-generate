@@ -144,6 +144,7 @@ namespace ResortTools.SelfReg.Services
                     LastName = contact.LastName,
                     Hometown = hometown,
                     PhotoUrl = String.IsNullOrEmpty(contact.PhotoUrl) ? "" : contact.PhotoUrl,
+                    Photo = String.IsNullOrEmpty(contact.Photo) ? "" : contact.Photo,
                     //Default DOB to today if not present
                     DateOfBirth = DateTime.Parse(String.IsNullOrEmpty(contact.DateOfBirth) ? DateTime.Today.ToShortDateString() : contact.DateOfBirth),
                     FoodAllergy = contact.FoodAllergy,

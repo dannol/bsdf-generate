@@ -3,7 +3,7 @@
         <h3>Scan your Card at any time</h3>
         <img src="/images/cardsilhouette.png" />
         <div>
-            <input v-model="cardNumber" v-on:keyup="checkForReturn" name="card-number" type="text" autofocus />
+            <input v-model="cardNumber" v-on:keyup.enter="search" name="card-number" type="text" autofocus />
         </div>
     </div>
 </template>
@@ -37,15 +37,11 @@
                 this.$store.dispatch('contact/searchByCardNumber', this.searchData)
                 this.$router.push('contact-list')
             },
-            checkForReturn: function (event) {
+            search: function (event) {
                 event.preventDefault();
-                // Number 13 is the "Enter" key on the keyboard
-                if (event.keyCode === 13) {
-                    console.log(event.keyCode + ' pressed')
-                    // If return is pressed, perform the search
-                    this.$store.dispatch('contact/searchByCardNumber', this.searchData)
-                    this.$router.push('contact-list')
-                }
+
+                this.$store.dispatch('contact/searchByCardNumber', this.searchData)
+                this.$router.push('contact-list')
             }
         },
         components: {

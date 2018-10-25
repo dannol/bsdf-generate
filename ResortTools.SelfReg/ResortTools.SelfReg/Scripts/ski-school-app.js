@@ -47,7 +47,7 @@ new Vue({
 
             //The current route represents new step in the process
             if (index > -1) {
-                console.log('Found a step ' + this.navSteps[index].stepName + 'with index ' + index)
+                console.log('Found a step ' + this.navSteps[index].name + ' with index ' + index)
                 var thisProcessStep = this.navSteps[index]
 
                 this.$store.commit('progress/setCurrentStepNumber', thisProcessStep.stepNumber)

@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div v-for="member in selectedMembers" class="group-member">
-                <img v-if="member.photoUrl != null && member.photoUrl.length" :src="member.photoUrl" class="group-member-image">
-                <div v-else class="group-member-image" >{{getInitials(member)}}</div>
+                <img v-if="member.photo != null && member.photo.length" :src="getPhotoUrl(member)" class="group-member-image">
+                <div v-else class="group-member-image">{{getInitials(member)}}</div>
                 <div class="member-name">{{member.firstName}}</div>
             </div>
             <div class="terminal-id">Terminal: {{terminalId}}</div>
@@ -38,7 +38,13 @@
         },
         methods: {
             getInitials: function (member) {
-                return member.firstName.charAt(0) + member.lastName.charAt(0) 
+                return member.firstName.charAt(0) + member.lastName.charAt(0)
+            },
+            getPhotoUrl: function (member) {
+                return 'data:image/jpeg;base64,' + this.hexToBase64(member.photo)
+            },
+            hexToBase64: function(str) {
+                return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
             }
         }
     }
