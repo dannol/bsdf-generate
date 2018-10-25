@@ -40,14 +40,14 @@ new Vue({
     watch: {
         $route(to, from) {
 
-            console.log('Route changed from ' + from.path + ' to ' + to.path)
-
             //Find the Step from the app config based on the current path
             var index = this.navSteps.findIndex(step => step.route == to.path)
 
+            console.log('Route changed from ' + from.path + ' to ' + to.path + ' with index ' + index)
+
             //The current route represents new step in the process
             if (index > -1) {
-
+                console.log('Found a step ' + this.navSteps[index].stepName + 'with index ' + index)
                 var thisProcessStep = this.navSteps[index]
 
                 this.$store.commit('progress/setCurrentStepNumber', thisProcessStep.stepNumber)

@@ -14,7 +14,19 @@
             <div>
                 <input v-model="registrant.specialCondition" name="special-conditions" type="text" placeholder="Special Conditions" class="wide" />
             </div>
-            <div v-on:click="saveRegistration(registrant, index)" class="btn btn-primary">Save</div>
+            <div>
+                <b>Primary Contact:</b> {{registrant.primaryContactName}}
+            </div>
+            <div>
+                <b>Primary Phone:</b> {{registrant.primaryContactPhone}}
+            </div>
+            <div>
+                <b>Secondary Contact:</b> {{registrant.alternateContactName}}
+            </div>
+            <div>
+                <b>Secondary Phone:</b> {{registrant.alternateContactPhone}}
+            </div>
+            <div v-on:click="saveRegistration(registrant, index)" class="btn btn-primary">Next</div>
         </div>
 
     </div>

@@ -38,8 +38,12 @@ namespace ResortTools.SelfReg.Services
 
             foreach (ContactSearchItem csi in result.Result.SearchResults)
             {
-                string cardNumberString = csi.MediaIdentification.ChipId.ToString();
-                string maskedCardNumber = "XXXX-" + cardNumberString.Substring(cardNumberString.Length - 4);
+                //Mask the card number.  If no Chip ID came back from teh search, the card is inactive
+                string maskedCardNumber = "XXXX-" + CardNumber.Substring(CardNumber.Length - 4);
+                if (string.IsNullOrEmpty(csi.MediaIdentification.ChipId))
+                {
+                    maskedCardNumber += "(Inactive)";
+                }
 
                 ContactViewModel cvm = new ContactViewModel
                 {
@@ -150,7 +154,7 @@ namespace ResortTools.SelfReg.Services
                     PrimaryContactPhone = contact.PrimaryEmergencyPhone,
                     AlternateContactName = contact.AlternateEmergencyContact1,
                     AlternateContactPhone = contact.AlternateEmergencyPhone1
-                    
+
                 };
 
                 result.Results.Add(cvm);
@@ -178,7 +182,7 @@ namespace ResortTools.SelfReg.Services
                     StreetAddress2 = Contact.Address2,
                     City = Contact.City,
                     StateProvince = Contact.State,
-                    ZipPostalCode = Contact.PostalCode                  
+                    ZipPostalCode = Contact.PostalCode
                 }
             };
 
@@ -188,7 +192,7 @@ namespace ResortTools.SelfReg.Services
 
             ContactViewModel cvm = new ContactViewModel();
             string resultStatus = "";
-          
+
             if (addResult.Status == System.Threading.Tasks.TaskStatus.RanToCompletion)
             {
                 cvm.ContactId = addResult.Result.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master);
@@ -203,7 +207,7 @@ namespace ResortTools.SelfReg.Services
             {
                 resultStatus = addResult.Status.ToString();
             }
-            
+
             UpdateResult<ContactViewModel> results = new UpdateResult<ContactViewModel>
             {
                 Status = resultStatus,
@@ -220,19 +224,20 @@ namespace ResortTools.SelfReg.Services
             //Create an identifier object based on the Parent ID of the contact
             UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, GroupMember.ParentContactId);
 
-            UnityModels.Contact newGroupMember = new UnityModels.Contact { 
-                    Active = true,
-                    IsCustomerPrimary = false,
-                    FirstName = GroupMember.FirstName,
-                    LastName = GroupMember.LastName,
-                    DateOfBirth = GroupMember.DateOfBirth.ToString(),
-                    Email = GroupMember.Email,
-                    Phone = GroupMember.Phone,
-                    StreetAddress = GroupMember.Address1,
-                    StreetAddress2 = GroupMember.Address2,
-                    City = GroupMember.City,
-                    StateProvince = GroupMember.State,
-                    ZipPostalCode = GroupMember.PostalCode
+            UnityModels.Contact newGroupMember = new UnityModels.Contact
+            {
+                Active = true,
+                IsCustomerPrimary = false,
+                FirstName = GroupMember.FirstName,
+                LastName = GroupMember.LastName,
+                DateOfBirth = GroupMember.DateOfBirth.ToString(),
+                Email = GroupMember.Email,
+                Phone = GroupMember.Phone,
+                StreetAddress = GroupMember.Address1,
+                StreetAddress2 = GroupMember.Address2,
+                City = GroupMember.City,
+                StateProvince = GroupMember.State,
+                ZipPostalCode = GroupMember.PostalCode
             };
 
             var addResult = _customerProvider.AddDependentContact(contactId, newGroupMember);
@@ -295,7 +300,7 @@ namespace ResortTools.SelfReg.Services
             };
 
 
-            var updateResult =  _customerProvider.SaveContact(contact);
+            var updateResult = _customerProvider.SaveContact(contact);
             updateResult.Wait();
 
             ContactViewModel cvm = new ContactViewModel();

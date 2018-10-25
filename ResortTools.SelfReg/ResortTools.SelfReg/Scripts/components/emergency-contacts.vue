@@ -2,7 +2,7 @@
     <div>
         <h3> Emergency Contact Info</h3>
         <div>
-            <input v-model="primaryContactName" name="primary-contact-name" type="text" placeholder="Primary Contact Name" class="wide" />
+            <forminput v-model="primaryContactName" placeholder="Primary Contact Name"></forminput>
         </div>
         <div>
             <input v-model="primaryContactPhone" name="primary-contact-phone" type="text" placeholder="Primary Contact Phone" class="wide" />
@@ -21,16 +21,17 @@
 <script>
 
     import { mapGetters } from 'vuex'
-    import store from '../vuex/self-registration-store';
+    import store from '../vuex/self-registration-store'
+    import forminput from '../components/form/form-input'
 
     export default {
-        name: 'emergency-contacts',        
+        name: 'emergency-contacts',
         data: function () {
             return {
                 primaryContactName: null,
                 primaryContactPhone: null,
-                secondaryContactName: null,
-                secondaryContactPhone: null,
+                alternateContactName: null,
+                alternateContactPhone: null,
             }
         },
         computed: {
@@ -69,17 +70,20 @@
                         if (this.activeRegistrantIndex < this.registrants.length - 1) {
                             this.activeRegistrantIndex++
                         }
-                        else {
-                            this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
-                            if (this.currentStep.nextStepOnComplete) {
-                                this.$router.push({ name: this.nextStep.routeName })
-                            }
-                        }
-
                     })
                 }
-                
+
+                if (this.activeRegistrantIndex >= this.registrants.length - 1) {
+                    this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
+                    if (this.currentStep.nextStepOnComplete) {
+                        this.$router.push({ name: this.nextStep.routeName })
+                    }
+                }
+
             }
+        },
+        components: {
+            forminput
         }
     }
 
