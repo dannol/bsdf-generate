@@ -3,7 +3,7 @@
         <div class="col-xs-9">
             <h3>Add a family member participant.</h3>
             <div class="tip">
-                Tip: Adults (18+) must be present to sign their season-pass waiver.
+                Tip: Adults ({{adultAge}}+) must be present to sign their season-pass waiver.
             </div>
             <div>
                 <input v-model="firstName" name="first-name" type="text" placeholder="First Name" />
@@ -41,7 +41,8 @@
                 firstName: null,
                 lastName: null,
                 email: null,
-                selectedDate: ''
+                selectedDate: '',
+                adultAge: selfRegistrationConfig.minAdultAge
             }
         },
         computed: {

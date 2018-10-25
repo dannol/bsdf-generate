@@ -98,7 +98,7 @@
                     }
                     text += '. '
                     text += 'If you are not ' + waiver.signer.firstName + ' ' + waiver.signer.lastName
-                    text += ' or are not allowed to sign for these ' + waiver.minors.length + ' minors (under age 18),'
+                    text += ' or are not allowed to sign for these ' + waiver.minors.length + ' minors (under age ' + selfRegistrationConfig.minAdultAge + '),'
                     text += ' please go back to Manage Family.'
                 }
                 text += '.'

@@ -46,7 +46,7 @@
             }),
             registrants: function () {
                 return this.selectedMembers.filter(thismember => {
-                    return (thismember.age < 18)
+                    return (thismember.age < selfRegistrationConfig.minAdultAge)
                 })
             }
         },

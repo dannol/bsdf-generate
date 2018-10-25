@@ -27,7 +27,7 @@ namespace ResortTools.SelfReg
         public Boolean PrintOnComplete { get; set; }
         public string DefaultTerminalId { get; set; }
         public string AuthCode { get; set; }
-        public int MaxRegistrationAge { get; set; }
+        public int MinAdultAge { get; set; }
         //Registration steps
         public Step[] Steps { get; set; }
     }

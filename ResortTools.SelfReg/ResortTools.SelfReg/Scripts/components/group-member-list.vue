@@ -13,7 +13,7 @@
             Next 
         </a>
         <h4>Need to add additional family members?</h4>
-        <div class="tip">Note: All adults (18+) must be present to sign their waiver.</div>
+        <div class="tip">Note: All adults ({{adultAge}}+) must be present to sign their waiver.</div>
         <div class="center-in-parent">
             <div>
                 <router-link :to="{ name: 'addGroupMember' }" tag="a" class="btn btn-warning">Yes</router-link>
@@ -34,7 +34,8 @@
         data: function () {
             return {
                 selectedMember: null,
-                pageIndex: 0
+                pageIndex: 0,
+                adultAge: selfRegistrationConfig.minAdultAge
             }
         },
         mounted: function () {

@@ -28,7 +28,7 @@
         </a>
         <div>Select all family members who will be purchasing a season pass or signing season pass waivers.</div>
         <div class="tip">
-            Tip: Adults (18+) must be present to sign their season-pass waiver.
+            Tip: Adults ({{adultAge}}+) must be present to sign their season-pass waiver.
         </div>
         <div class="tip">
             Tip: Only leagal guardians or parents may sign for minors.
@@ -48,7 +48,8 @@
         data: function () {
             return {
                 selectedMember: null,
-                pageIndex: 0  // default to page 0
+                pageIndex: 0,
+                adultAge: selfRegistrationConfig.minAdultAge
             }
         },
         mounted: function () {
