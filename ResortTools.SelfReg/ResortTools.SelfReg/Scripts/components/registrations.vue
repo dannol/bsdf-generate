@@ -34,37 +34,13 @@
         },
         computed: {
             ...mapGetters({
-                currentStep: 'progress/currentStep',
-                nextStep: 'progress/nextStep',
-                selectedMembers: 'group/selectedMembers',
-                selectedContact: 'contact/selectedContact',
-                registrations: 'registration/registrations',
-                activeRegistration: 'registration/activeRegistration',
-                activeRegistrationIndex: 'registration/activeRegistrationIndex',
-                stepChanged: 'progress/stepChanged',
-                terminalId: 'progress/terminalId'
+                selectedMembers: 'group/selectedMembers'
             }),
             registrants: function () {
                 return this.selectedMembers.filter(thismember => {
                     return (thismember.age < 18)
                 })
-            },
-            registrantsData: function () {
-                return {
-                    registrants: this.registrants,
-                    terminalId: this.terminalId
-                }
-            },
-            builtRegistrations: function () {
-                //We need this extra computed value so we can get the registrations in case the
-                //participants changed
-                debugger
-                if (this.stepChanged) {
-                    this.$store.dispatch('registration/getRegistrations', this.registrantsData)
-                    this.$store.commit('progress/setStepChanged', false)
-                }
-                return this.registrations
-            },
+            }           
         },
         methods: {
             saveRegistration: function (registrant, registrationIndex) {
@@ -73,7 +49,7 @@
                 }
                 else {
                     //Go to the emergency contact page if all registrants are processed
-                    this.$router.push({ name: 'emergencyContacts'})
+                    this.$router.push({ name: 'emergencyContacts' })
                 }
             }
         },
