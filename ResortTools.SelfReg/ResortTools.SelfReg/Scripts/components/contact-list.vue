@@ -9,28 +9,33 @@
                         Select name below.
                     </span>
                 </div>
-                <a v-for="(contact, index) in contacts" class="row contact-search-result" v-bind:class="{'contact-selected': contact.selected}" v-on:click="selectContact(contact)">
-                    <div class="col-xs-1">
-                        <input type="checkbox" name="search-result" v-model="contact.selected" disabled/>
-                    </div>
-                    <div class="col-xs-4">
-                        <h4 class="search-result-name">{{contact.firstName}} {{contact.lastName}}</h4>
-                        <div class="search-result-hometown">
-                            {{contact.hometown}}
+                <div v-for="(contact, index) in contacts" >
+                    <div v-if="contact.dateOfBirth !== null" class="row contact-search-result" v-bind:class="{'contact-selected': contact.selected}" v-on:click="selectContact(contact)">
+                        <div class="col-xs-1">
+                            <input type="checkbox" name="search-result" v-model="contact.selected" disabled />
+                        </div>
+                        <div class="col-xs-4">
+                            <h4 class="search-result-name">{{contact.firstName}} {{contact.lastName}}</h4>
+                            <div class="search-result-hometown">
+                                {{contact.hometown}}
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div v-if="contact.orderArrivalDate != null" class="search-result-order-date">Upcoming Order<br />Arrival Date:{{contact.orderArrivalDate}}</div>
+                            <div v-else class="search-result-order-date">No Upcoming Orders</div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div v-if="contact.cardNumber != null" class="search-result-card"><img src="/images/card-small-black.png"><div>{{contact.cardNumber}}</div></div>
+                            <div v-else class="search-result-order-date"><img src="/images/card-small-grey.png"><div>No Card</div></div>
                         </div>
                     </div>
-                    <div class="col-xs-3">
-                        <div v-if="contact.orderArrivalDate != null" class="search-result-order-date">Upcoming Order<br />Arrival Date:{{contact.orderArrivalDate}}</div>
-                        <div v-else class="search-result-order-date">No Upcoming Orders</div>
+                    <div v-else class="member-ineligible row contact-search-result">
+                        <div>
+                            {{contact.firstName}} {{contact.lastName}}
+                        </div>
+                        <div>Ineligible (Missing Date of Birth)</div>
                     </div>
-                    <div class="col-xs-4">
-                        <div v-if="contact.cardNumber != null" class="search-result-card"><img src="/images/card-small-black.png"><div>{{contact.cardNumber}}</div></div>
-                        <div v-else class="search-result-order-date"><img src="/images/card-small-grey.png"><div>No Card</div></div>
-                    </div>
-                    <!--<div class="col-xs-2">
-                        <a v-on:click="updateContact(contact)" class="btn btn-warning">Update</a>
-                    </div>-->
-                </a>
+                </div>
                 <div>
                     <router-link :to="{ name: 'addContact' }" tag="a" class="btn btn-warning">I'm not listed</router-link>
                 </div>

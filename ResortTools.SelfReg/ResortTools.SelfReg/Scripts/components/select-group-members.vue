@@ -1,22 +1,25 @@
 ﻿<template>
     <div>
         <h2>{{selectedContact.firstName}} {{selectedContact.lastName}} Family</h2>
-        <!--<a v-for="member in members" class="row contact-search-result" v-bind:class="{'contact-selected': member.selected}" v-on:click="selectMember(member)">
-        <div class="col-xs-1">
-            <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
-        </div>
-        <div>
-            {{member.firstName}} {{member.lastName}}
-        </div>
-    </a>-->
-        <a v-for="member in paginatedData" class="row contact-search-result" v-bind:class="{'contact-selected': member.selected}" v-on:click="selectMember(member)">
-            <div class="col-xs-1">
-                <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
+        <div v-for="member in paginatedData">
+            <div v-if="member.dateOfBirth !== null" v-bind:class="{'contact-selected': member.selected}" v-on:click="selectMember(member)" class="row contact-search-result">
+                <div class="col-xs-1">
+                    <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
+                </div>
+                <div>
+                    <div>
+                        {{member.firstName}} {{member.lastName}}
+                    </div>                    
+                </div>
             </div>
-            <div>
-                {{member.firstName}} {{member.lastName}}
+            <div v-else class="member-ineligible row contact-search-result">
+                <div >
+                    {{member.firstName}} {{member.lastName}}
+                </div>
+                <div>Ineligible (Missing Date of Birth)</div>
             </div>
-        </a>
+            
+        </div>
         <a v-if="pageIndex > 0" class="btn btn-info" @click="prevPage">
             Previous
         </a>
