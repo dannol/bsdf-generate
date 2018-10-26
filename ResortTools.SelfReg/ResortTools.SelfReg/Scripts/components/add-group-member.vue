@@ -41,9 +41,11 @@
                 firstName: null,
                 lastName: null,
                 email: null,
-                selectedDate: '',
-                adultAge: selfRegistrationConfig.minAdultAge
+                selectedDate: ''
             }
+        },
+        mounted: function () {
+            this.lastName = this.thisContact.lastName
         },
         computed: {
             ...mapGetters({
@@ -52,6 +54,9 @@
                 members: 'group/memberList',
                 terminalId: 'progress/terminalId'
             }),
+            adultAge: function () {
+                return selfRegistrationConfig.minAdultAge
+            },
             newMemberData: function () {
                 //create a date object from the selected date value (mm.dd.yyyy)
                 var dobArray = this.selectedDate.split('.')
