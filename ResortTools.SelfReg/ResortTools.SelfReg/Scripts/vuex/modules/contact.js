@@ -15,7 +15,7 @@ const getters = {
 
 const mutations = {
 
-    setSearchResults(state, contacts) {
+    setContacts(state, contacts) {
         state.contacts = contacts
     },
     selectContact(state, contact) {
@@ -51,7 +51,7 @@ const actions = {
             { url: contactApiUrl },
             { root: true }
         ).then(data => {
-            commit('setSearchResults', data.results)
+            commit('setContacts', data.results)
         })
     },
     searchByOrder({ state, getters, commit, dispatch }, searchData) {
@@ -62,7 +62,7 @@ const actions = {
             { url: contactApiUrl },
             { root: true }
         ).then(data => {
-            commit('setSearchResults', data.results)
+            commit('setContacts', data.results)
         })
     },
     searchByPersonalInfo({ state, getters, commit, dispatch }, searchData) {
@@ -72,7 +72,7 @@ const actions = {
             { url: contactApiUrl },
             { root: true }
         ).then(data => {
-            commit('setSearchResults', data.results)
+            commit('setContacts', data.results)
         })
     },
     addContact({ state, getters, commit, dispatch }, contact) {

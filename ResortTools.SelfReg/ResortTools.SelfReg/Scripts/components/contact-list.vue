@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="col-xs-3">
-                            <div v-if="contact.orderArrivalDate != null" class="search-result-order-date">Upcoming Order<br />Arrival Date:{{contact.orderArrivalDate}}</div>
+                            <div v-if="contact.orderArrivalDate != null" class="search-result-order-date">Upcoming Order<br />Arrival Date:{{contact.displayOrderArrivalDate}}</div>
                             <div v-else class="search-result-order-date">No Upcoming Orders</div>
                         </div>
                         <div class="col-xs-4">
