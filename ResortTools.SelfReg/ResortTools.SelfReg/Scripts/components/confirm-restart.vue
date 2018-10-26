@@ -7,7 +7,7 @@
         <div id="group-screen" class="full-screen full-height">
             <div class="outer-panel">
                 <h3 class="page-title">Confirm Restart</h3>
-                <div id="group-management-panel" class="inner-panel center-in-parent">
+                <div id="restart-panel" class="inner-panel center-in-parent">
                     <div class="tip">Are you sure you want to start over?<br />All progress will be lost</div>
                     <a href="./" class="btn btn-primary">Yes</a>
                     <a class="btn btn-warning" @click="$router.go(-1)">No</a>

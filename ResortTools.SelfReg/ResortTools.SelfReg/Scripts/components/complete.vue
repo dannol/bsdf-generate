@@ -28,7 +28,11 @@
     export default {
         name: 'complete',
         mounted: function () {
-            //We don't really need to complete the "Complete" step,but in case it's neede for consistency
+            if (this.printOnComplete) {
+                //TODO: Add Printing Logic Here
+            }
+
+            //We don't really need to complete the "Complete" step,but in case it's needed for consistency
             //this.$store.commit('progress/completeStep', this.currentStep.stepNumber)
         },
         computed: {
