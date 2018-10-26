@@ -137,19 +137,29 @@ namespace ResortTools.SelfReg.Services
 
             foreach (UnityModels.Contact contact in customerSearchResult.Result.Contacts)
             {
-                string hometown = String.IsNullOrEmpty(contact.City) ? "" : contact.City + ", ";
-                hometown += String.IsNullOrEmpty(contact.StateProvince) ? "" : contact.StateProvince;
+
+                DateTime? contactDOB = null;
+                if(!String.IsNullOrEmpty(contact.DateOfBirth))
+                {
+                    contactDOB = DateTime.Parse(contact.DateOfBirth);
+                }
+
                 ContactViewModel cvm = new ContactViewModel
                 {
                     ContactId = contact.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
                     FirstName = contact.FirstName,
                     LastName = contact.LastName,
-                    Hometown = hometown,
+                    Address1 = contact.StreetAddress,
+                    Address2 = contact.StreetAddress2,
+                    City = contact.City,
+                    State = contact.StateProvinceId,
+                    PostalCode = contact.ZipPostalCode,
+                    Email = contact.Email,
+                    Phone = contact.Phone,
                     PhotoUrl = String.IsNullOrEmpty(contact.PhotoUrl) ? "" : contact.PhotoUrl,
                     Photo = String.IsNullOrEmpty(contact.Photo) ? "" : contact.Photo,
                     //Default DOB to today if not present
-                    DateOfBirth = DateTime.Parse(String.IsNullOrEmpty(contact.DateOfBirth) ? DateTime.Today.ToShortDateString() : contact.DateOfBirth),
-                    FoodAllergy = contact.FoodAllergy,
+                    DateOfBirth = contactDOB,
                     DrugAllergy = contact.DrugAllergy,
                     Medication = contact.Medication,
                     SpecialCondition = contact.SpecialCondition,

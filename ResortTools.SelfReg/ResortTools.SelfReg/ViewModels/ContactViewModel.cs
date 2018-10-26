@@ -16,7 +16,7 @@ namespace ResortTools.SelfReg.ViewModels
             get
             {
                 //Build a friendly hometown string for display
-                if (!String.IsNullOrEmpty(City))
+                if (!String.IsNullOrEmpty(Address1))
                 {
                     return City + ",  " + State;
                 }
@@ -25,9 +25,48 @@ namespace ResortTools.SelfReg.ViewModels
                     return null;
                 }
             }
-            set
+        }
+
+        public String MaskedAddress
+        {
+            get
             {
-                _hometown = value;
+                //Build a masked address string
+                if (!String.IsNullOrEmpty(Address1))
+                {
+                    if (Address1.Length > 5)
+                    {
+                        return Address1.Substring(0, 5) + new string('*', Address1.Length - 5);
+                    }
+                    else
+                    {
+                        return Address1;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public String MaskedCityStatePostalCode
+        {
+            get
+            {
+                string maskedCity = "";
+                string maskedPostalCode = "";
+                
+                if (!String.IsNullOrEmpty(City))
+                {
+                    maskedCity = City.Substring(0, 1) + new string('*', City.Length - 1);
+                }
+
+                if (!String.IsNullOrEmpty(PostalCode))
+                {
+                    maskedPostalCode = PostalCode.Substring(0, 1) + new string('*', PostalCode.Length - 1);
+                }
+
+                return maskedCity + " " + State + " " + maskedPostalCode;
             }
         }
         public String DisplayOrderArrivalDate
@@ -53,7 +92,8 @@ namespace ResortTools.SelfReg.ViewModels
 
         public int? Age
         {
-            get {
+            get
+            {
                 //Set age based on DOB
                 if (DateOfBirth != null)
                 {

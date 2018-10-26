@@ -3,7 +3,12 @@
         <h2>{{selectedContact.firstName}} {{selectedContact.lastName}} Family</h2>
         <div v-for="member in paginatedData" class="row contact-search-result">
             <div>
-                {{member.firstName}} {{member.lastName}}  <!--<router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>-->
+                {{member.firstName}} {{member.lastName}}  
+                <!--Uncomment if you need to update a group member-->
+                <!--<router-link :to="{ name: 'updateGroupMember', params: {thisMember: member }}" tag="Span" class="btn btn-warning">Update</router-link>-->
+                <div class="group-member-info">
+                    <span>Age: {{member.age}}</span>
+                </div>
             </div>
         </div>
         <a v-if="pageIndex > 0" class="btn btn-info" @click="prevPage">

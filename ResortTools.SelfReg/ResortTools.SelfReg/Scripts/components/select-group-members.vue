@@ -6,10 +6,16 @@
                 <div class="col-xs-1">
                     <input type="checkbox" v-model="member.selected" v-on:click="selectMember(member)" />
                 </div>
-                <div>
+                <div class="col-xs-4">
+                    <div class="group-member-info">
+                        <div>Age: {{member.age}}</div>
+                        <div>{{member.maskedAddress}}<br />{{member.maskedCityStatePostalCode}}</div>
+                    </div>
+                </div>
+                <div class="col-xs-7">
                     <div>
                         {{member.firstName}} {{member.lastName}}
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <div v-else class="member-ineligible row contact-search-result">
@@ -110,7 +116,7 @@
             size: {
                 type: Number,
                 required: false,
-                default: 9
+                default: 5
             }
         }
 
