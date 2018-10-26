@@ -3,7 +3,7 @@
         <h3>Scan your Card at any time</h3>
         <img src="/images/cardsilhouette.png" />
         <div>
-            <input v-model="cardNumber" v-on:keyup.enter="search" name="card-number" type="text" autofocus />
+            <input v-model="cardNumber" v-on:keyup.enter="search" name="card-number" type="text" autofocus class="hidden-input"/>
         </div>
     </div>
 </template>
