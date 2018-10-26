@@ -49,31 +49,35 @@
             ...mapGetters({
                 thisContact: 'contact/selectedContact',
                 selectedMembers: 'group/selectedMembers',
-                members: 'group/memberList'
+                members: 'group/memberList',
+                terminalId: 'progress/terminalId'
             }),
-            newMember: function () {
+            newMemberData: function () {
                 //create a date object from the selected date value (mm.dd.yyyy)
                 var dobArray = this.selectedDate.split('.')
 
                 return {
-                    parentContactId: this.thisContact.contactId,
-                    contactId: this.contactId,
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    email: '',
-                    phone: '',
-                    hometown: '',
-                    dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0],
-                    cardNumber: '',
-                    photoUrl: '',
-                    orderArrivalDate: ''
+                    member: {
+                        parentContactId: this.thisContact.contactId,
+                        contactId: this.contactId,
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        email: '',
+                        phone: '',
+                        hometown: '',
+                        dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0],
+                        cardNumber: '',
+                        photoUrl: '',
+                        orderArrivalDate: ''
+                    },
+                    terminalId: this.terminalId
                 }
             }
         },
         methods: {
             addMember: function () {
                 var contactId = this.thisContact.contactId
-                this.$store.dispatch('group/addMember', this.newMember ).then(data => {
+                this.$store.dispatch('group/addMember', this.newMemberData).then(data => {
                     if (data.status == 'OK') {
                         this.$router.push({ name: 'groupMemberList', params: { reloadMembers: false } })
                     }

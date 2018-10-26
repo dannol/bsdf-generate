@@ -10,7 +10,7 @@
         </div>
         <div>
             <div class="center-in-parent">
-                <date-dropdown default="1995-01-10" min="1950" max="2019" v-model="selectedDate" />
+                <date-dropdown :default="defaultDate" min="1950" max="2019" v-model="selectedDate" />
             </div>
         </div>
         <div v-on:click="search" class="btn btn-primary">Search</div>
@@ -49,6 +49,16 @@
                     dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0],
                     terminalId: this.terminalId
                 }
+            },
+            defaultDate: function () {
+                var today = new Date() 
+                var mm = today.getMonth() + 1; // getMonth() is zero-based
+                var dd = today.getDate();
+
+                return [today.getFullYear(),
+                (mm > 9 ? '' : '0') + mm,
+                (dd > 9 ? '' : '0') + dd
+                ].join('-')
             }
         },
         methods: {

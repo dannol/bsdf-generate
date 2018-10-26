@@ -9,9 +9,9 @@ namespace ResortTools.SelfReg.Interfaces
         SearchResult<ContactViewModel> GetByPersonalInfo(Contact Contact, int TerminalId);
          SearchResult<ContactViewModel> GetByCardNumber(string CardNumber, int TerminalId);
         SearchResult<ContactViewModel> GetGroupByContactId(int ContactId, int TerminalId);
-        UpdateResult<ContactViewModel> AddContact(Contact Contact);
-        UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember);
-        UpdateResult<ContactViewModel> UpdateContact(Contact Contact);
+        UpdateResult<ContactViewModel> AddContact(Contact Contact, int TerminalID);
+        UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember, int TerminalId);
+        UpdateResult<ContactViewModel> UpdateContact(Contact Contact, int TerminalId);
 
     }
 }

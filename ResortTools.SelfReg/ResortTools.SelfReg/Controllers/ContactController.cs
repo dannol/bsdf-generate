@@ -17,7 +17,7 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Get contacts based on an an account number or order ID
-        // GET: api/contact/orderid/123
+        // GET: api/contact/orderid/12345/terminalid/12345
         [HttpGet("orderid/{orderId}/terminalid/{terminalId}")]
         public ActionResult SearchByOrderId(string orderId, string terminalId)
         {
@@ -27,7 +27,7 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Get a contact by their card Number
-        // GET: api/contact/cardNumber/123
+        // GET: api/contact/cardNumber/12345/terminalid/12345
         [HttpGet("cardnumber/{cardnumber}/terminalId/{terminalId}")]
         public ActionResult SearchByCardNumber(string cardNumber, string terminalId)
         {
@@ -55,19 +55,21 @@ namespace ResortTools.SelfReg.Controllers
         }
 
         // Get all contacts associate to a given account ID
-        // GET: api/contact/contactid/123
+        // GET: api/contact/12345/group/terminalid/12345
         [HttpGet("{contactId}/group/terminalid/{terminalId}")]
-        public ActionResult GetGroupByContactId(int contactId, int terminalId)
+        public ActionResult GetGroupByContactId(int contactId, string terminalId)
         {
-            return new JsonResult(_contactService.GetGroupByContactId(contactId, terminalId));
+            int terminalClientCode = int.Parse(terminalId);
+            return new JsonResult(_contactService.GetGroupByContactId(contactId, terminalClientCode));
         }
 
         // Add a new contact
         // POST: api/contact/add
-        [HttpPost("add")]
-        public ActionResult Add([FromBody] Contact contact)
+        [HttpPost("add/terminalid/{terminalId}")]
+        public ActionResult Add([FromBody] Contact contact, string terminalId)
         {
-            return new JsonResult(_contactService.AddContact(contact));
+            int terminalClientCode = int.Parse(terminalId);
+            return new JsonResult(_contactService.AddContact(contact, terminalClientCode));
         }
 
         // Update a new contact
@@ -75,28 +77,19 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("update/terminalid/{terminalId}")]
         public ActionResult Update([FromBody] Contact contact, string terminalId)
         {
-            return new JsonResult(_contactService.UpdateContact(contact));
+            int terminalClientCode = int.Parse(terminalId);
+            return new JsonResult(_contactService.UpdateContact(contact, terminalClientCode));
         }
 
         // Add a new group member to an account
         // POST: api/contact/123/addgroupmember
-        [HttpPost("{contactId}/addgroupmember")]
-        public ActionResult Post([FromBody] Contact member, string contactId)
+        [HttpPost("{contactId}/addgroupmember/terminalid/{terminalid}")]
+        public ActionResult Post([FromBody] Contact member, string contactId, string terminalId)
         {
+            int terminalClientCode = int.Parse(terminalId);
             member.ParentContactId = contactId;
-            return new JsonResult(_contactService.AddGroupMember(member));
+            return new JsonResult(_contactService.AddGroupMember(member, terminalClientCode));
         }
 
-        // PUT: api/Test/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        // DELETE: api/ApiWithActions/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

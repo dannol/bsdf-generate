@@ -63,12 +63,11 @@
         },
         computed: {
             ...mapGetters({
-                // mapGetters from store here
+                terminalId: 'progress/terminalId'
             }),
             newContact: function () {
                 //create a date object from the selected date value (mm.dd.yyyy)
                 var dobArray = this.selectedDate.split('.')
-
                 return {
                     parentContactId: 0,
                     contactId: this.contactId,
@@ -85,12 +84,19 @@
                     cardNumber: this.cardNumber,
                     photoUrl: this.photoUrl,
                     orderArrivalDate: this.orderArrivalDate
+
+                }
+            },
+            addContactData: function () {
+                return {
+                    contact: this.newContact,
+                    terminalId: this.terminalId
                 }
             }
         },
         methods: {
             addContact: function () {
-                this.$store.dispatch('contact/addContact', this.newContact).then(data => {
+                this.$store.dispatch('contact/addContact', this.addContactData).then(data => {
                     if (data.status == 'OK') {
                         this.$router.push('contact-list')
                     }

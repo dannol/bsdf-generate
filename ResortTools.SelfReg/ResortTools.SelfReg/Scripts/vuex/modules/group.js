@@ -33,15 +33,16 @@ const mutations = {
 
 const actions = {
 
-    addMember({ state, getters, commit, dispatch }, member) {
-        //console.log('Adding ' + member.firstName + ' ' + member.lastName + ' to account ID ' + contactId)
-        if (member) {
-            var addMemberUrl = '/api/contact/' + member.parentContactId + '/addgroupmember'
+    addMember({ state, getters, commit, dispatch }, memberData) {
+        debugger
+        //console.log('Adding ' + memberData.member.firstName + ' ' + memberData.member.lastName + ' to account ID ' + memberData.member.parentContactId)
+        if (memberData.member) {
+            var addMemberUrl = '/api/contact/' + memberData.member.parentContactId + '/addgroupmember/terminalid/' + memberData.terminalId
             var dataType = 'application/json; charset=utf-8'
  
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
-                    { url: addMemberUrl, data: member, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { url: addMemberUrl, data: memberData.member, config: { headers: { 'Content-Type': 'application/json' } } },
                     { root: true }
                 ).then(data => {
                     resolve(data); 
@@ -52,21 +53,21 @@ const actions = {
             
         }
     },
-    updateMember({ state, getters, commit, dispatch }, member) {
-        if (member) {
+    updateMember({ state, getters, commit, dispatch }, memberData) {
+        if (memberData.member) {
 
-            if (member.dateOfBirth) {
-                var birthday = new Date(member.dateOfBirth)
+            if (memberData.member.dateOfBirth) {
+                var birthday = new Date(memberData.member.dateOfBirth)
                 var ageDifMs = Date.now() - birthday.getTime();
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch
-                member.age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                memberData.member.age = Math.abs(ageDate.getUTCFullYear() - 1970);
             }
 
-            //console.log('Updating ' + member.firstName + ' ' + member.lastName)
-            var updateMemberUrl = '/api/contact/update'
+            //console.log('Updating ' + memberData.member.firstName + ' ' + memberData.member.lastName)
+            var updateMemberUrl = '/api/contact/update/terminalid' + memberData.terminalid
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
-                    { url: updateMemberUrl, data: member, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { url: updateMemberUrl, data: memberData.member, config: { headers: { 'Content-Type': 'application/json' } } },
                     { root: true }
                 ).then(data => {
                     resolve(data)

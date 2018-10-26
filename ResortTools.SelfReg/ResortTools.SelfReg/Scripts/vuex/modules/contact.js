@@ -75,13 +75,14 @@ const actions = {
             commit('setContacts', data.results)
         })
     },
-    addContact({ state, getters, commit, dispatch }, contact) {
-        var addContactUrl = '/api/contact/add'
+    addContact({ state, getters, commit, dispatch }, contactData) {
+        debugger
+        var addContactUrl = '/api/contact/add/terminalId/' + contactData.terminalId
         var dataType = 'application/json; charset=utf-8'
-        if (contact) {
+        if (contactData.contact) {
             return new Promise((resolve, reject) => {
                 dispatch('api/post',
-                    { url: addContactUrl, data: contact, config: { headers: { 'Content-Type': 'application/json' } } },
+                    { url: addContactUrl, data: contactData.contact, config: { headers: { 'Content-Type': 'application/json' } } },
                     { root: true }
                 ).then(data => {
                     state.contacts = []
