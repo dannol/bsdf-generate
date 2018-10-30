@@ -107,7 +107,6 @@
             //processing is complete in the acceptSignature method and a callback is called.  We must
             // have this additional step to load the object once the data is loaded
             done: function () {
-                debugger
                 this.signingWaiver.signatureString = document.FORM1.bioSigData.value;
                 this.signingWaiver.signatureBase64String = document.FORM1.sigImageData.value
                 //Set the waiver as signed

@@ -5,6 +5,7 @@ import api from './modules/api'
 import group from './modules/group'
 import contact from './modules/contact'
 import waiver from './modules/waiver'
+import rental from './modules/rental'
 import progress from './modules/progress'
 
 Vue.use(Vuex)
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         group,
         contact,
         waiver,
+        rental,
         progress
     }
 })

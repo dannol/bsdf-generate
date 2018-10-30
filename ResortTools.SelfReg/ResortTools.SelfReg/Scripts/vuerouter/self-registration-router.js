@@ -31,6 +31,11 @@ import manageRegistrations from '../components/manage-registrations'
 import registrations from '../components/registrations'
 import emergencyContacts from '../components/emergency-contacts'
 
+//Rental Profile Management Components
+import manageRentalProfiles from '../components/manage-rental-profiles'
+import rentalProfiles from '../components/rental-profiles'
+
+
 import complete from '../components/complete'
 
 var routesFromConfig = [];
@@ -135,7 +140,7 @@ const routes = [
         }]
     },
     {
-        //Waiver management Routes
+        //Registration management Routes
         path: '/manage-registration',
         name: 'manageRegistrations',
         component: manageRegistrations,
@@ -150,6 +155,18 @@ const routes = [
             name: 'emergencyContacts',
             component: emergencyContacts,
             props: false
+        }]
+    },
+    {
+        //Rental Profile management Routes
+        path: '/manage-rental-profiles',
+        name: 'manageRentalProfiles',
+        component: manageRentalProfiles,
+        children: [{
+            path: '',
+            name: 'rentalProfiles',
+            component: rentalProfiles,
+            props: true
         }]
     },
     {

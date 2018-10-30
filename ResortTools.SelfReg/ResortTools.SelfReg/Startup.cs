@@ -47,6 +47,8 @@ namespace ResortTools.SelfReg
 
             services.AddTransient<IContactService, ContactService>();
 
+            services.AddTransient<IRentalService, RentalService>();
+
             //TODO: Replace this with referenceds to real services 
             services.AddTransient<IWaiverService, WaiverServiceMock>();
 
