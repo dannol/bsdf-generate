@@ -15,9 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\SigTest.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Shared\_AdminLayout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
