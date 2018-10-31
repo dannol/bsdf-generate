@@ -22,7 +22,7 @@ namespace ResortTools.SelfReg.Services
             _customerProvider = customerProvider;
         }
 
-        public SearchResult<RentalProfileViewModel> GetByContact(Contact Renter, int TerminalId)
+        public SearchResult<RentalProfileViewModel> GetByContact(Contact Renter)
         {
 
             var profileSearchResult = _customerProvider.GetRentalProfile(Renter.ContactId);
@@ -74,9 +74,9 @@ namespace ResortTools.SelfReg.Services
 
         // * AddContact
         // * This function adds a new contact
-        public UpdateResult<RentalProfile> AddRentalProfile(RentalProfile profile, int TerminalID)
+        public UpdateResult<RentalProfile> AddRentalProfile(RentalProfile profile)
         {
-            //TODO: Request Doesn't take terminal ID
+            //TODO: Need to Actually Add a rental profile
             //CreateContactRequest createContactRequest = new CreateContactRequest
             //{
             //    Contact = new UnityModels.Contact

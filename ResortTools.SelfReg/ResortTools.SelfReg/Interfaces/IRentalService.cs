@@ -5,8 +5,8 @@ namespace ResortTools.SelfReg.Interfaces
 {
     public interface IRentalService
     {
-        SearchResult<RentalProfileViewModel> GetByContact(Contact Renter, int TerminalClientCode);
-        UpdateResult<RentalProfile> AddRentalProfile(RentalProfile profile, int TerminalClientCode);
+        SearchResult<RentalProfileViewModel> GetByContact(Contact Rentere);
+        UpdateResult<RentalProfile> AddRentalProfile(RentalProfile profile);
         UpdateResult<RentalProfile> UpdateRentalProfile(RentalProfile profile);
     }
 }

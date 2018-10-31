@@ -60,7 +60,7 @@ namespace ResortTools.SelfReg.Controllers
         public ActionResult GetGroupByContactId(int contactId, string terminalId)
         {
             int terminalClientCode = int.Parse(terminalId);
-            return new JsonResult(_contactService.GetGroupByContactId(contactId, terminalClientCode));
+            return new JsonResult(_contactService.GetGroupByContactId(contactId));
         }
 
         // Add a new contact
@@ -69,7 +69,7 @@ namespace ResortTools.SelfReg.Controllers
         public ActionResult Add([FromBody] Contact contact, string terminalId)
         {
             int terminalClientCode = int.Parse(terminalId);
-            return new JsonResult(_contactService.AddContact(contact, terminalClientCode));
+            return new JsonResult(_contactService.AddContact(contact));
         }
 
         // Update a new contact
@@ -78,7 +78,7 @@ namespace ResortTools.SelfReg.Controllers
         public ActionResult Update([FromBody] Contact contact, string terminalId)
         {
             int terminalClientCode = int.Parse(terminalId);
-            return new JsonResult(_contactService.UpdateContact(contact, terminalClientCode));
+            return new JsonResult(_contactService.UpdateContact(contact));
         }
 
         // Add a new group member to an account
@@ -88,7 +88,7 @@ namespace ResortTools.SelfReg.Controllers
         {
             int terminalClientCode = int.Parse(terminalId);
             member.ParentContactId = contactId;
-            return new JsonResult(_contactService.AddGroupMember(member, terminalClientCode));
+            return new JsonResult(_contactService.AddGroupMember(member));
         }
 
     }

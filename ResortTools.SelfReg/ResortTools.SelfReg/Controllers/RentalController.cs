@@ -22,7 +22,7 @@ namespace ResortTools.SelfReg.Controllers
         public ActionResult Post([FromBody] Contact renter, string terminalId)
         {
             int terminalClientCode = int.Parse(terminalId);
-            return new JsonResult(_rentalService.GetByContact(renter, terminalClientCode));
+            return new JsonResult(_rentalService.GetByContact(renter));
         }
 
 
@@ -39,7 +39,7 @@ namespace ResortTools.SelfReg.Controllers
                 LastName = lastName
             };
 
-            return new JsonResult(_rentalService.GetByContact(renter, terminalClientCode));
+            return new JsonResult(_rentalService.GetByContact(renter));
         }
 
         // Save a profile

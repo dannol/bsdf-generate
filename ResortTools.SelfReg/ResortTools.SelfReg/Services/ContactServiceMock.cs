@@ -169,7 +169,7 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public SearchResult<ContactViewModel> GetGroupByContactId(int ContactId, int TerminalId)
+        public SearchResult<ContactViewModel> GetGroupByContactId(int ContactId)
         {
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
@@ -211,7 +211,7 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public UpdateResult<ContactViewModel> AddContact(Contact Contact, int TerminalId)
+        public UpdateResult<ContactViewModel> AddContact(Contact Contact)
         {
             //TODO: Fake data
             ContactViewModel UpdatedContact = new ContactViewModel();
@@ -231,7 +231,7 @@ namespace ResortTools.SelfReg.Services
             return result;
         }
 
-        public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember, int TerminalID)
+        public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember)
         {
             ContactViewModel cvm = new ContactViewModel();
 
@@ -251,7 +251,7 @@ namespace ResortTools.SelfReg.Services
             return results;
         }
 
-        public UpdateResult<ContactViewModel> UpdateContact(Contact Contact, int TerminalID)
+        public UpdateResult<ContactViewModel> UpdateContact(Contact Contact)
         {
             //TODO: Fake data
             ContactViewModel UpdatedContact = new ContactViewModel();

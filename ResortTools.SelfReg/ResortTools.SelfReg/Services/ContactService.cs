@@ -121,16 +121,14 @@ namespace ResortTools.SelfReg.Services
 
         // * GetGroupByContactID
         // * This function retrieves all group members for a given contact ID
-        public SearchResult<ContactViewModel> GetGroupByContactId(int ContactId, int TerminalId)
+        public SearchResult<ContactViewModel> GetGroupByContactId(int ContactId)
         {
-
             SearchResult<ContactViewModel> result = new SearchResult<ContactViewModel>();
 
             //Create an identifier object based on the ID of the contact
             UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, ContactId.ToString());
 
 
-            //TODO: What do we do with the TerminalID
             var customerSearchResult = _customerProvider.GetCustomer(contactId, "");
 
             customerSearchResult.Wait();
@@ -178,7 +176,7 @@ namespace ResortTools.SelfReg.Services
 
         // * AddContact
         // * This function adds a new contact
-        public UpdateResult<ContactViewModel> AddContact(Contact Contact, int TerminalID)
+        public UpdateResult<ContactViewModel> AddContact(Contact Contact)
         {
             //TODO: Request Doesn't take terminal ID
             CreateContactRequest createContactRequest = new CreateContactRequest
@@ -233,7 +231,7 @@ namespace ResortTools.SelfReg.Services
 
         // * AddGroupMember
         // * This function adds a member to a contact's group
-        public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember, int TerminalID)
+        public UpdateResult<ContactViewModel> AddGroupMember(Contact GroupMember)
         {
             //Create an identifier object based on the Parent ID of the contact
             UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, GroupMember.ParentContactId);
@@ -254,7 +252,6 @@ namespace ResortTools.SelfReg.Services
                 ZipPostalCode = GroupMember.PostalCode,
             };
 
-            //TODO: Request Doesn't take terminal ID
             var addResult = _customerProvider.AddDependentContact(contactId, newGroupMember);
 
             addResult.Wait();
@@ -285,7 +282,7 @@ namespace ResortTools.SelfReg.Services
 
             return results;
         }
-        public UpdateResult<ContactViewModel> UpdateContact(Contact Contact, int TerminalID)
+        public UpdateResult<ContactViewModel> UpdateContact(Contact Contact)
         {
             //Create an identifier object based on the ID of the contact
             UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, Contact.ContactId);
@@ -314,7 +311,6 @@ namespace ResortTools.SelfReg.Services
                 AlternateEmergencyPhone1 = Contact.AlternateContactPhone
             };
 
-            //TODO: Request Doesn't take terminal ID
             var updateResult = _customerProvider.SaveContact(contact);
             updateResult.Wait();
 
