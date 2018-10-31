@@ -15,7 +15,7 @@
                 <div v-else class="group-member-image">{{getInitials(member)}}</div>
                 <div class="member-name">{{member.firstName}}</div>
             </div>
-            <div class="terminal-id">Terminal: {{terminalId}}</div>
+            <div class="terminal-id" v-if="testMode">Terminal: {{terminalId}}</div>
         </aside>
     </div>
 
@@ -33,7 +33,8 @@
                 thisContact: 'contact/selectedContact',
                 members: 'group/members',
                 selectedMembers: 'group/selectedMembers',
-                terminalId: 'progress/terminalId'
+                terminalId: 'progress/terminalId',
+                testMode: 'progress/testMode'
             })
         },
         methods: {

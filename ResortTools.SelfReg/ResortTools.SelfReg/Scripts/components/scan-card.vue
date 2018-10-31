@@ -3,7 +3,11 @@
         <h3>Scan your Card at any time</h3>
         <img src="/images/cardsilhouette.png" />
         <div>
-            <input v-model="cardNumber" v-on:keyup.enter="search" name="card-number" type="text" autofocus class="hidden-input"/>
+            <input v-model="cardNumber" v-on:keyup.enter="search" name="card-number" type="text" autofocus class="hidden-input" />
+        </div>
+        <!--Test Mode-->
+        <div style="padding: 15px;">
+            <a v-on:click="testScan()" class="btn btn-warning" v-if="testMode">TEST MODE: SCAN {{testCardNumber}}</a>
         </div>
     </div>
 </template>
@@ -22,7 +26,9 @@
         },
         computed: {
             ...mapGetters({
-                terminalId: 'progress/terminalId'
+                terminalId: 'progress/terminalId',
+                testMode: 'progress/testMode',
+                testCardNumber: 'progress/testCardNumber'
             }),
             searchData: function () {
 
@@ -41,6 +47,14 @@
                 event.preventDefault();
 
                 this.$store.dispatch('contact/searchByCardNumber', this.searchData)
+                this.$router.push('contact-list')
+            },
+            testScan: function (cardNumber) {
+                var testData = {
+                    cardNumber: this.testCardNumber,
+                    terminalId: this.terminalId
+                }
+                this.$store.dispatch('contact/searchByCardNumber', testData)
                 this.$router.push('contact-list')
             }
         },

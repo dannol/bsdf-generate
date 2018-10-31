@@ -14,6 +14,10 @@
     //create a JS var based on the Pass Office configuration passed into the View
     var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.PassOfficeConfig));
     var terminalId = @Html.Raw(Json.Serialize(Model.TerminalId));
+    var testMode = @Html.Raw(Json.Serialize(Model.TestMode));
+    var testCardNumber = @Html.Raw(Json.Serialize(Model.TestCardNumber));
     console.log('TERMINAL ID: ' + terminalId)
+    console.log('Test Mode: ' + testMode)
+    console.log('Test Card Number: ' + testCardNumber)
 </script>
 <script src="~/js/PassOfficeApp.js"></script>

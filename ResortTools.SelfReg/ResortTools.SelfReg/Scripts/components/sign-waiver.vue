@@ -17,7 +17,7 @@
         
         <form action="#" name=FORM1>
             <p>
-                <a v-on:click="acceptSignature()" class="btn btn-primary" v-show="!signatureAccepted" >Accept Signature</a>
+                <a v-on:click="acceptSignature()" class="btn btn-primary" v-show="!signatureAccepted">Accept Signature</a>
                 <a v-on:click="clearSignature()" class="btn btn-primary" v-show="!signatureAccepted">Clear</a>
                 <a v-on:click="cancel()" class="btn btn-primary" v-show="!signatureAccepted">Cancel</a>
                 <a v-on:click="done()" class="btn btn-primary" v-show="signatureAccepted">Complete Signing</a>
@@ -30,6 +30,10 @@
                 <TEXTAREA NAME="sigStringData" ROWS="5" COLS="50" style="display:none;">SigString: </TEXTAREA>
                 <TEXTAREA NAME="sigImageData" ROWS="5" COLS="50" style="display:none;">Base64 String: </TEXTAREA>
             </p>
+            <!--Test Mode-->
+            <div style="padding: 15px;">
+                <a v-on:click="done()" class="btn btn-warning" v-if="testMode">TEST MODE: SIGN</a>
+            </div>
         </form>
 
         <br /><br />
@@ -58,7 +62,8 @@
                 allWaiversSigned: 'waiver/allWaiversSigned',
                 currentStep: 'progress/currentStep',
                 nextStep: 'progress/nextStep',
-                terminalId: 'progress/terminalId'
+                terminalId: 'progress/terminalId',
+                testMode: 'progress/testMode'
             }),
             waiverData: function () {
                 return {

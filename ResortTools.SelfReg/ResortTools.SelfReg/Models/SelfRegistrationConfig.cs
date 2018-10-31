@@ -53,6 +53,8 @@ namespace ResortTools.SelfReg
     //Overall Configuration for the client
     public class SelfRegistrationConfig
     {
+        public Boolean TestMode { get; set; }
+        public string TestCardNumber { get; set; }
         public string TerminalId { get; set; }
         public PassOfficeConfig PassOfficeConfig { get; set; }
         public RentalOfficeConfig RentalOfficeConfig { get; set; }

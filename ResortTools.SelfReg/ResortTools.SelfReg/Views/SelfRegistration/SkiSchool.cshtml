@@ -14,6 +14,10 @@
     //create a JS var based on the rental Office configuration rentaled into the View
     var selfRegistrationConfig = @Html.Raw(Json.Serialize(Model.SkiSchoolConfig));
     var terminalId = @Html.Raw(Json.Serialize(Model.TerminalId));
+    var testMode = @Html.Raw(Json.Serialize(Model.TestMode));
+    var testCardNumber = @Html.Raw(Json.Serialize(Model.TestCardNumber));
     console.log('TERMINAL ID: ' + terminalId)
+    console.log('Test Mode: ' + testMode)
+    console.log('Test Card Number: ' + testCardNumber)
 </script>
 <script src="~/js/SkiSchoolApp.js"></script>
