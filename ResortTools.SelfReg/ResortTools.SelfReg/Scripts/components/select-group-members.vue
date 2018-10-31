@@ -59,8 +59,8 @@
             }
         },
         mounted: function () {
-            console.log('Checking')
             if (this.reloadMembers) {
+                //This is how you can pass a prop to the component and have it reload the members
                 //this.loadMembers()
             }
         },

@@ -74,7 +74,7 @@ namespace ResortTools.SelfReg.ViewModels
             get
             {
                 //Build a friendly Order Arrival date format for display
-                //TODO: Need to utilize a localized format string
+                //TODO: SRK-52 - Need to utilize a localized format string
                 if (OrderArrivalDate != null && OrderArrivalDate.Value != DateTime.MinValue)
                 {
                     return OrderArrivalDate.Value.ToString("MM/dd/yyyy");

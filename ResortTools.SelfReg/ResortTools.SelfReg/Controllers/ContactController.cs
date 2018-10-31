@@ -59,6 +59,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpGet("{contactId}/group/terminalid/{terminalId}")]
         public ActionResult GetGroupByContactId(int contactId, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID is not necessary
             int terminalClientCode = int.Parse(terminalId);
             return new JsonResult(_contactService.GetGroupByContactId(contactId));
         }
@@ -68,6 +69,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("add/terminalid/{terminalId}")]
         public ActionResult Add([FromBody] Contact contact, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID is not necessary
             int terminalClientCode = int.Parse(terminalId);
             return new JsonResult(_contactService.AddContact(contact));
         }
@@ -86,6 +88,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("{contactId}/addgroupmember/terminalid/{terminalid}")]
         public ActionResult Post([FromBody] Contact member, string contactId, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID is not necessary
             int terminalClientCode = int.Parse(terminalId);
             member.ParentContactId = contactId;
             return new JsonResult(_contactService.AddGroupMember(member));

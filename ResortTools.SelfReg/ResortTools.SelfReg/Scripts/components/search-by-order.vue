@@ -39,7 +39,7 @@
             }
         },
         components: {
-            //Child Components Here
+            //Components Here
         }
     }
 </script>

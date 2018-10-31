@@ -21,7 +21,7 @@ namespace ResortTools.SelfReg.Services
 
         public SearchResult<WaiverViewModel> GetByAuthCode(string AuthCode, int TerminalId)
         {
-            //TODO:  Don't know if Terminal ID is actually needed here, but passing it just in case
+            //TODO: SRK-92 - Terminal ID may not be necessary
             SearchResult<WaiverViewModel> result = new SearchResult<WaiverViewModel>();
 
             List<WaiverViewModel> waiverVms = new List<WaiverViewModel>();
@@ -44,8 +44,6 @@ namespace ResortTools.SelfReg.Services
         // * This function adds data from a waiver 
         public UpdateResult<Waiver> AddWaiver(Waiver Waiver, int TerminalClientCode)
         {
-            //TODO:  Don't know if Terminal ID is actually needed here, but passing it just in case
-            //TODO: Fake data
             Waiver NewWaiver = new Waiver();
             NewWaiver.Minors = Waiver.Minors;
             NewWaiver.Signer = Waiver.Signer;

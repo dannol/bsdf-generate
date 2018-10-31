@@ -76,49 +76,8 @@ namespace ResortTools.SelfReg.Services
         // * This function adds a new contact
         public UpdateResult<RentalProfile> AddRentalProfile(RentalProfile profile)
         {
-            //TODO: Need to Actually Add a rental profile
-            //CreateContactRequest createContactRequest = new CreateContactRequest
-            //{
-            //    Contact = new UnityModels.Contact
-            //    {
-            //        Active = true,
-            //        IsCustomerPrimary = true,
-            //        FirstName = Contact.FirstName,
-            //        LastName = Contact.LastName,
-            //        DateOfBirth = Contact.DateOfBirth.ToString(),
-            //        Email = Contact.Email,
-            //        Phone = Contact.Phone,
-            //        StreetAddress = Contact.Address1,
-            //        StreetAddress2 = Contact.Address2,
-            //        City = Contact.City,
-            //        StateProvince = Contact.State,
-            //        ZipPostalCode = Contact.PostalCode                 
-            //    }
-            //};
-
-            //var addResult = _customerProvider.CreateContact(createContactRequest);
-
-            //addResult.Wait();
-
-            //ContactViewModel cvm = new ContactViewModel();
-            //string resultStatus = "";
-
-            //if (addResult.Status == System.Threading.Tasks.TaskStatus.RanToCompletion)
-            //{
-            //    cvm.ContactId = addResult.Result.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master);
-            //    cvm.DateOfBirth = Contact.DateOfBirth;
-            //    cvm.Email = Contact.Email;
-            //    cvm.FirstName = Contact.FirstName;
-            //    cvm.LastName = Contact.LastName;
-            //    cvm.PhotoUrl = "";
-            //    resultStatus = "OK";
-            //}
-            //else
-            //{
-            //    resultStatus = addResult.Status.ToString();
-            //}
-
-
+            //TODO: SRK-90 - Need to Actually Add a rental profile
+           
             RentalProfileViewModel rpvm = new RentalProfileViewModel();
 
             UpdateResult<RentalProfile> results = new UpdateResult<RentalProfile>
@@ -136,10 +95,10 @@ namespace ResortTools.SelfReg.Services
             //Create an identifier object based on the ID of the contact
             UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, profile.ContactId.ToString());
           
-            //TODO: Unity returns a void for this methid.  How do we know that it was successful?
+            //TODO: SRK-91 - Unity returns a void for this method.  How do we know that it was successful?
             _customerProvider.SaveRentalProfile(profile.ContactId.ToString(), profile.ShoeSize, profile.Age, profile.Ability, profile.Height, profile.Weight,"") ;
-        
-            //TODO: Should return a real status
+
+            //TODO: SRK-91 - Should return a real status
             string resultStatus = "OK";
 
             UpdateResult<RentalProfile> result = new UpdateResult<RentalProfile>

@@ -21,6 +21,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpGet("authCode/{authCode}/terminalId/{terminalId}")]
         public ActionResult GetByAuthCode(string authCode, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID may not be necessary
             int terminalClientCode = int.Parse(terminalId);
             return new JsonResult(_waiverService.GetByAuthCode(authCode, terminalClientCode));
         }
@@ -29,6 +30,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("sign/terminalId/{terminalId}")]
         public ActionResult Post([FromBody] Waiver updateWaiver, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID may not be necessary
             int terminalClientCode = int.Parse(terminalId);
             return new JsonResult(_waiverService.AddWaiver(updateWaiver, terminalClientCode));
         }

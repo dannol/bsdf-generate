@@ -49,7 +49,7 @@ namespace ResortTools.SelfReg
 
             services.AddTransient<IRentalService, RentalService>();
 
-            //TODO: Replace this with referenceds to real services 
+            //TODO: SRK-74 - Replace this with referenceds to real services 
             services.AddTransient<IWaiverService, WaiverServiceMock>();
 
 

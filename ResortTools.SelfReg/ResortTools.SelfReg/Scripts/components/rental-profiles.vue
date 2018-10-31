@@ -65,7 +65,7 @@
                 terminalId: 'progress/terminalId'
             }),
             //TODO: SRK-71 - Since every record returned has lists of all the possible values
-            //for abiliteis, ages, heights and weights used in drop-downs, we will just use the first one.  
+            //for abilities, ages, heights and weights used in drop-downs, we will just use the first one.  
             //This should be replaced with a separate call to get the values.
             abilities: function () {
                 return this.rentalProfiles[0].abilities

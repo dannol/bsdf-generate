@@ -42,6 +42,7 @@
                 return member.firstName.charAt(0) + member.lastName.charAt(0)
             },
             getPhotoUrl: function (member) {
+                //TODO: SRK-70 - Photo is not displaying
                 return 'data:image/jpeg;base64,' + this.hexToBase64(member.photo)
             },
             hexToBase64: function(str) {

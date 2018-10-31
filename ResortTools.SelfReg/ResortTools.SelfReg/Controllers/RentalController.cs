@@ -21,6 +21,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpPost("getcontactprofile/terminalId/{terminalId}")]
         public ActionResult Post([FromBody] Contact renter, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID is not necessary
             int terminalClientCode = int.Parse(terminalId);
             return new JsonResult(_rentalService.GetByContact(renter));
         }
@@ -31,6 +32,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpGet("contactid/{contactId}/firstname/{firstName}/lastname/{lastName}/terminalid/{terminalId}")]
         public ActionResult GetByContactInfo(string contactId, string firstName, string lastName, string terminalId)
         {
+            //TODO: SRK-92 - Terminal ID is not necessary
             int terminalClientCode = int.Parse(terminalId);
             Contact renter = new Contact
             {
