@@ -34,7 +34,6 @@ const mutations = {
 const actions = {
 
     addMember({ state, getters, commit, dispatch }, memberData) {
-        debugger
         //console.log('Adding ' + memberData.member.firstName + ' ' + memberData.member.lastName + ' to account ID ' + memberData.member.parentContactId)
         if (memberData.member) {
             var addMemberUrl = '/api/contact/' + memberData.member.parentContactId + '/addgroupmember/terminalid/' + memberData.terminalId
@@ -57,6 +56,7 @@ const actions = {
         if (memberData.member) {
 
             if (memberData.member.dateOfBirth) {
+                //TODO: SRK-52 - Make sure this works with configurable localized date format
                 var birthday = new Date(memberData.member.dateOfBirth)
                 var ageDifMs = Date.now() - birthday.getTime();
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch

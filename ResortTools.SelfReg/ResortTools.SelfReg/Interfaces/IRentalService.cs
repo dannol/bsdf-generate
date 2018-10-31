@@ -7,6 +7,6 @@ namespace ResortTools.SelfReg.Interfaces
     {
         SearchResult<RentalProfileViewModel> GetByContact(Contact Renter, int TerminalClientCode);
         UpdateResult<RentalProfile> AddRentalProfile(RentalProfile profile, int TerminalClientCode);
-        UpdateResult<RentalProfile> UpdateRentalProfile(RentalProfile profile, int TerminalClientCode);
+        UpdateResult<RentalProfile> UpdateRentalProfile(RentalProfile profile);
     }
 }

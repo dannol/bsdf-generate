@@ -80,6 +80,7 @@
                     city: this.city,
                     state: this.state,
                     postalCode: this.postalCode,
+                    //TODO: SRK-52 - Drive this from a configurable localized date format
                     dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0],
                     cardNumber: this.cardNumber,
                     photoUrl: this.photoUrl,

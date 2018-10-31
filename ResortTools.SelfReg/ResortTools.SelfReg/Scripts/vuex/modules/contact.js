@@ -76,7 +76,6 @@ const actions = {
         })
     },
     addContact({ state, getters, commit, dispatch }, contactData) {
-        debugger
         var addContactUrl = '/api/contact/add/terminalId/' + contactData.terminalId
         var dataType = 'application/json; charset=utf-8'
         if (contactData.contact) {
@@ -97,6 +96,7 @@ const actions = {
 
         if (contactData.contact) {
             if (contactData.contact.dateOfBirth) {
+                //TODO: SRK-52 - Make sure this works with configurable localized date format
                 var birthday = new Date(contactData.contact.dateOfBirth)
                 var ageDifMs = Date.now() - birthday.getTime();
                 var ageDate = new Date(ageDifMs); // miliseconds from epoch

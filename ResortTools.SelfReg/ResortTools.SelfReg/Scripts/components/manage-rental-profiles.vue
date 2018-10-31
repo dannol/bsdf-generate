@@ -27,7 +27,7 @@
     import memberbar from '../components/member-bar'
 
     export default {
-        name: 'manage-regstrations',
+        name: 'manage-rental-profiles',
         data: function () {
             return {
                 //Data goes here

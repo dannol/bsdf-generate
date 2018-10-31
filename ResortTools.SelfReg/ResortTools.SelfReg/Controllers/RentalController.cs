@@ -42,5 +42,12 @@ namespace ResortTools.SelfReg.Controllers
             return new JsonResult(_rentalService.GetByContact(renter, terminalClientCode));
         }
 
+        // Save a profile
+        // POST: api/rental/update
+        [HttpPost("saveprofile")]
+        public ActionResult Update([FromBody] RentalProfile profile)
+        {
+            return new JsonResult(_rentalService.UpdateRentalProfile(profile));
+        }
     }
 }

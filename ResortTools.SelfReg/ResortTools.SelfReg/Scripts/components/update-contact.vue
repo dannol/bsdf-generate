@@ -63,6 +63,7 @@
         methods: {
             updateContact: function () {
                 var dobArray = this.selectedDate.split('.')
+                //TODO: SRK-52 - Drive this from a configurable localized date format
                 this.thisContact.dateOfBirth = dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0]
 
                 this.$store.dispatch('contact/updateContact', this.thisContact).then(data => {
@@ -71,6 +72,7 @@
                 })
                 
             },
+            //TODO: SRK-52 - Drive this from a configurable localized date format
             formatDate: function (date) {
                 var d = new Date(date),
                     month = '' + (d.getMonth() + 1),

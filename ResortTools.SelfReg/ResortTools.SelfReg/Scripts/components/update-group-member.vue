@@ -53,6 +53,7 @@
             updateMember: function () {
 
                 var dobArray = this.selectedDate.split('.')
+                //TODO: SRK-52 - Drive this from a configurable localized date format
                 this.thisMember.dateOfBirth =  dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0]
 
                 this.$store.dispatch('group/updateMember', this.thisMember)

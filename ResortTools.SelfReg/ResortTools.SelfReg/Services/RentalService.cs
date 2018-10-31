@@ -34,6 +34,16 @@ namespace ResortTools.SelfReg.Services
             if (profileSearchResult.Result != null)
             {
 
+                //The following loading of Dictionary items is needed because the possible values for each property
+                //are returned from Unity with each profile.
+                //TODO: SRK-71 -In the future there should be a separate call to get the possible values and this
+                //data should not be a part of each profile call             
+                Dictionary<int, string> Weights = new Dictionary<int, string>();
+                foreach (UnityModels.RentalProfileRefItem weightRef in profileSearchResult.Result.WeightRefs)
+                {
+                    Weights.Add(weightRef.ListKey, weightRef.ListDescription);
+                }
+
                 RentalProfileViewModel rpvm = new RentalProfileViewModel
                 {
                     //For some reason, the Contact ID is not included in the results
@@ -44,7 +54,15 @@ namespace ResortTools.SelfReg.Services
                     Age = profileSearchResult.Result.SelectedAge,
                     Height = profileSearchResult.Result.SelectedHeight,
                     Weight = profileSearchResult.Result.SelectedWeight,
-                    ShoeSize = profileSearchResult.Result.ShoeSize
+                    ShoeSize = profileSearchResult.Result.ShoeSize,
+                    //The following properties are needed because the possible values for each property
+                    //are returned from Unity with each profile.
+                    //TODO: SRK-71 -In the future there should be a separate call to get the possible values and this
+                    //data should not be a part of each profile call    
+                    Abilities = profileSearchResult.Result.AbilityRefs,
+                    Ages = profileSearchResult.Result.AgeRefs,
+                    Heights = profileSearchResult.Result.HeightRefs,
+                    Weights = profileSearchResult.Result.WeightRefs
                 };
 
                 searchResults.Results.Add(rpvm);
@@ -113,113 +131,25 @@ namespace ResortTools.SelfReg.Services
         }
 
  
-        public UpdateResult<RentalProfile> UpdateRentalProfile(RentalProfile profile, int TerminalID)
+        public UpdateResult<RentalProfile> UpdateRentalProfile(RentalProfile profile)
         {
             //Create an identifier object based on the ID of the contact
             UnityModels.Identifier contactId = new UnityModels.Identifier(UnityModels.InfoSourceType.Master, profile.ContactId.ToString());
-
-            //Create a Unity API Contact for updating
-            //UnityModels.Contact contact = new UnityModels.Contact
-            //{
-            //    ContactId = contactId,
-            //    FirstName = Contact.FirstName,
-            //    LastName = Contact.LastName,
-            //    Email = Contact.Email,
-            //    Phone = Contact.Phone,
-            //    DateOfBirth = Contact.DateOfBirth.ToString(),
-            //    StreetAddress = Contact.Address1,
-            //    StreetAddress2 = Contact.Address2,
-            //    City = Contact.City,
-            //    StateProvinceId = Contact.State,
-            //    ZipPostalCode = Contact.PostalCode,
-            //    Medication = Contact.Medication,
-            //    DrugAllergy = Contact.DrugAllergy,
-            //    FoodAllergy = Contact.FoodAllergy,
-            //    SpecialCondition = Contact.SpecialCondition,
-            //    PrimaryEmergencyContact = Contact.PrimaryContactName,
-            //    PrimaryEmergencyPhone = Contact.PrimaryContactPhone,
-            //    AlternateEmergencyContact1 = Contact.AlternateContactName,
-            //    AlternateEmergencyPhone1 = Contact.AlternateContactPhone
-            //};
-
-            ////TODO: Request Doesn't take terminal ID
-            //var updateResult = _customerProvider.SaveContact(contact);
-            //updateResult.Wait();
-
-            //RentalProfileViewModel rpvm = new RentalProfileViewModel();
-            //string resultStatus = "OK";
-
-            //if (updateResult.Status == System.Threading.Tasks.TaskStatus.RanToCompletion)
-            //{
-            //    cvm.ContactId = Contact.ContactId;
-            //    cvm.DateOfBirth = Contact.DateOfBirth;
-            //    cvm.Email = Contact.Email;
-            //    cvm.FirstName = Contact.FirstName;
-            //    cvm.LastName = Contact.LastName;
-            //    cvm.PhotoUrl = Contact.PhotoUrl;
-            //    resultStatus = "OK";
-
-            //}
-            //else
-            //{
-            //    resultStatus = updateResult.Status.ToString();
-            //}
-
-            RentalProfileViewModel rpvm = new RentalProfileViewModel();
+          
+            //TODO: Unity returns a void for this methid.  How do we know that it was successful?
+            _customerProvider.SaveRentalProfile(profile.ContactId.ToString(), profile.ShoeSize, profile.Age, profile.Ability, profile.Height, profile.Weight,"") ;
+        
+            //TODO: Should return a real status
             string resultStatus = "OK";
 
             UpdateResult<RentalProfile> result = new UpdateResult<RentalProfile>
             {
                 Status = resultStatus,
-                UpdatedRecord = rpvm
+                UpdatedRecord = null
             };
 
             return result;
         }
-
-        // * Load SearchResults
-        // * This function is only used by the Contact Services and loads Unity API Contact search
-        // * results into search results used by the Self Registration app.
-        //private SearchResult<ContactViewModel> LoadSearchResults(IList<ContactSearchItem> unityContacts)
-        //{
-        //    SearchResult<ContactViewModel> contactSearchResults = new SearchResult<ContactViewModel>();
-
-        //    foreach (ContactSearchItem csi in unityContacts)
-        //    {
-
-        //        string maskedCardNumber = csi.MediaIdentification.ChipId.ToString();
-
-        //        if (!String.IsNullOrEmpty(maskedCardNumber))
-        //        {
-        //            string cardNumberString = csi.MediaIdentification.ChipId.ToString();
-        //            maskedCardNumber = "XXXX-" + cardNumberString.Substring(cardNumberString.Length - 4);
-        //        }
-
-        //        ContactViewModel cvm = new ContactViewModel
-        //        {
-        //            ContactId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
-        //            ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
-        //            FirstName = csi.FirstName,
-        //            LastName = csi.LastName,
-        //            DateOfBirth = csi.BirthDate,
-        //            OrderArrivalDate = csi.OrderArrivalDate,
-        //            Email = csi.EmailAddress,
-        //            Phone = csi.Phone,
-        //            Address1 = csi.StreetAddress,
-        //            Address2 = csi.StreetAddress2,
-        //            City = csi.City,
-        //            State = csi.StateProvinceId,
-        //            PostalCode = csi.ZipPostalCode,
-        //            CardNumber = maskedCardNumber
-        //        };
-
-        //        contactSearchResults.Results.Add(cvm);
-
-        //    }
-
-        //    return contactSearchResults;
-        //}
-
 
     }
 }

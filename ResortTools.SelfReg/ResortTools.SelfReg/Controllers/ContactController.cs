@@ -41,7 +41,7 @@ namespace ResortTools.SelfReg.Controllers
         [HttpGet("firstname/{firstName}/lastname/{lastName}/dob/{dateOfBirth}/terminalid/{terminalId}")]
         public ActionResult SearchByPersonalInfo(string firstName, string lastName, string dateOfBirth, string terminalId)
         {
-            //TODO: Create a date helper
+            //TODO: SRK-52 - Drive this from a configurable localized date format
             var dobArray = dateOfBirth.Split('-');
             int terminalClientCode = int.Parse(terminalId);
 

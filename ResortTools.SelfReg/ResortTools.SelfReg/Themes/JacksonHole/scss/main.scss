@@ -36,7 +36,13 @@ input[type='text'] {
     }
 }
 
-
+select {
+    display: inline-block;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    padding: 8px;
+    margin: 0px 10px 10px 0;
+}
 
 .full-height {
     height: 100vh;
@@ -69,7 +75,6 @@ img.aside-logo {
     margin: 15px 0;
     width: 100px;
 }
-
 //Topaz Related Styles
 .signature-panel {
     background-color: white;
@@ -86,7 +91,6 @@ img.aside-logo {
     color: red;
     margin: 5px 0;
 }
-
 //Progress Map Styles
 #progress-map-container {
 
@@ -134,12 +138,10 @@ img.aside-logo {
         }
     }
 }
-
 //Shared Elements and Components
 .date-dropdown-container {
     margin-bottom: 20px;
 }
-
 //Shared Layout styles
 .full-screen {
     float: left;
@@ -155,7 +157,7 @@ img.aside-logo {
             width: 100px;
             padding: 5px;
             border: 1px solid lightgrey;
-            background-color:dimgrey;
+            background-color: dimgrey;
             color: white;
             position: absolute;
             top: 50px;
@@ -236,7 +238,6 @@ img.aside-logo {
         }
     }
 }
-
 //Start Screen Layout
 #start-page-screen.full-screen {
 
@@ -284,10 +285,7 @@ img.aside-logo {
         }
     }
 }
-
 //Contact Management Styles
-
-
 //Waiver Specific Styles
 .legal-text {
     margin: 20px;
@@ -297,13 +295,18 @@ img.aside-logo {
 .waiver-container {
     border: 1px solid black;
     margin: 15px 50px;
-    overflow-y:auto;
+    overflow-y: auto;
     max-height: 300px;
 }
 
 input.wide {
     width: 400px;
 }
+
+select.wide {
+    width: 400px;
+}
+
 input.medium {
     width: 200px;
 }

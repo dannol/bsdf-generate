@@ -46,6 +46,7 @@
                 return {
                     firstName: this.firstName,
                     lastName: this.lastName,
+                    //TODO: SRK-52 - Drive this from a configurable localized date format
                     dateOfBirth: dobArray[2] + '-' + dobArray[1] + '-' + dobArray[0],
                     terminalId: this.terminalId
                 }
