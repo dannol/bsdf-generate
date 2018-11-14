@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>4e330ec0-00e4-489a-8cfc-13e590a09bf9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ResortIntegration-Ikon_repository\UnityAPI\UnityAPI.ClientLibrary\UnityAPI.ClientLibrary.csproj" />
-    <ProjectReference Include="..\..\..\ResortIntegration-Ikon_repository\UnityAPI\UnityAPI.Models\UnityAPI.Models.csproj" />
+    <ProjectReference Include="..\..\..\Unity\UnityAPI\UnityAPI.ClientLibrary\UnityAPI.ClientLibrary.csproj" />
+    <ProjectReference Include="..\..\..\Unity\UnityAPI\UnityAPI.Models\UnityAPI.Models.csproj" />
   </ItemGroup>
 
 </Project>
