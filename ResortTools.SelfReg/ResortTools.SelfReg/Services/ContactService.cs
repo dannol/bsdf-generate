@@ -31,36 +31,9 @@ namespace ResortTools.SelfReg.Services
             };
 
             var result = _contactProvider.SearchContacts(contactSearchRequest);
-
             result.Wait();
 
-            SearchResult<ContactViewModel> searchResults = new SearchResult<ContactViewModel>();
-
-            foreach (ContactSearchItem csi in result.Result.SearchResults)
-            {
-                //Mask the card number.  If no Chip ID came back from teh search, the card is inactive
-                string maskedCardNumber = "XXXX-" + CardNumber.Substring(CardNumber.Length - 4);
-                if (string.IsNullOrEmpty(csi.MediaIdentification.ChipId))
-                {
-                    maskedCardNumber += "(Inactive)";
-                }
-
-                ContactViewModel cvm = new ContactViewModel
-                {
-                    ContactId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
-                    ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
-                    FirstName = csi.FirstName,
-                    LastName = csi.LastName,
-                    DateOfBirth = csi.BirthDate,
-                    OrderArrivalDate = csi.OrderArrivalDate,
-                    Email = csi.EmailAddress,
-                    CardNumber = maskedCardNumber
-                };
-
-                searchResults.Results.Add(cvm);
-
-            }
-
+            var searchResults = LoadSearchResults(result.Result.SearchResults);
             return searchResults;
         }
 
@@ -74,29 +47,9 @@ namespace ResortTools.SelfReg.Services
             };
 
             var result = _contactProvider.SearchContacts(contactSearchRequest);
-
             result.Wait();
 
-            SearchResult<ContactViewModel> searchResults = new SearchResult<ContactViewModel>();
-
-            foreach (ContactSearchItem csi in result.Result.SearchResults)
-            {
-                ContactViewModel cvm = new ContactViewModel
-                {
-                    ContactId = csi.ContactId.GetRecId(String.Empty, UnityModels.InfoSourceType.Master),
-                    ParentContactId = csi.PrimaryContactId.Ids[0].InfoRecId,
-                    FirstName = csi.FirstName,
-                    LastName = csi.LastName,
-                    DateOfBirth = csi.BirthDate,
-                    OrderArrivalDate = csi.OrderArrivalDate,
-                    Email = csi.EmailAddress,
-                    CardNumber = csi.MediaIdentification.ChipId
-                };
-
-                searchResults.Results.Add(cvm);
-
-            }
-
+            var searchResults = LoadSearchResults(result.Result.SearchResults);
             return searchResults;
         }
 
@@ -113,7 +66,6 @@ namespace ResortTools.SelfReg.Services
             };
 
             var result = _contactProvider.SearchContacts(contactSearchRequest);
-
             result.Wait();
 
             return LoadSearchResults(result.Result.SearchResults);
@@ -137,7 +89,7 @@ namespace ResortTools.SelfReg.Services
             {
 
                 DateTime? contactDOB = null;
-                if(!String.IsNullOrEmpty(contact.DateOfBirth))
+                if (!String.IsNullOrEmpty(contact.DateOfBirth))
                 {
                     contactDOB = DateTime.Parse(contact.DateOfBirth);
                 }
@@ -194,7 +146,7 @@ namespace ResortTools.SelfReg.Services
                     StreetAddress2 = Contact.Address2,
                     City = Contact.City,
                     StateProvince = Contact.State,
-                    ZipPostalCode = Contact.PostalCode                 
+                    ZipPostalCode = Contact.PostalCode
                 }
             };
 
@@ -351,14 +303,9 @@ namespace ResortTools.SelfReg.Services
 
             foreach (ContactSearchItem csi in unityContacts)
             {
-
-                string maskedCardNumber = csi.MediaIdentification.ChipId.ToString();
-
-                if (!String.IsNullOrEmpty(maskedCardNumber))
-                {
-                    string cardNumberString = csi.MediaIdentification.ChipId.ToString();
-                    maskedCardNumber = "XXXX-" + cardNumberString.Substring(cardNumberString.Length - 4);
-                }
+                var chipId = csi.MediaIdentification?.ChipId;
+                //string maskedCardNumber = "XXXX-" + CardNumber.Substring(CardNumber.Length - 4);
+                var maskedCardNumber = string.IsNullOrWhiteSpace(chipId) ? "(Inactive)" : "XXXX-" + chipId.Substring(chipId.Length - 4);
 
                 ContactViewModel cvm = new ContactViewModel
                 {
