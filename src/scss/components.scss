@@ -1,0 +1,52 @@
+.bx--container {
+    background: #f2f2f2;
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+.bx--button {
+    background: rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    transition: all 150ms;
+    &.active {
+        background: rgba(0,0,0,0.35);
+        color: white;
+        cursor: default;
+    }
+    &:hover {
+        cursor: pointer;
+        background: rgba(0,0,0,0.10);
+        box-shadow: $box-shadow-hover;
+    }
+}
+
+.bx--button-wrapper {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 1.5rem 0 .5rem 0;
+    padding: 0;
+    > * {
+        margin: 0 .75rem;
+    }
+}
+
+.max-width {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.center-content {
+    text-align: center;
+}
+
+.add-padding {
+    padding: 1rem 2rem;
+}
